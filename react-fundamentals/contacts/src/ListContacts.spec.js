@@ -52,4 +52,3 @@ describe('<ListContacts/> component tests', () => {
         expect(testee.contains(contacts[0].name)).toBeTruthy();
     });
 });
-
