@@ -2,6 +2,7 @@ import React from 'react'
 
 function ListContacts(props) {
     const contacts = props.contacts || [];
+    const deleteContact = props.onDeleteContact;
     return (
         <ol className='contact-list'>
             {contacts.map((contact) => (
@@ -13,7 +14,7 @@ function ListContacts(props) {
                         <p>{contact.name}</p>
                         <p>{contact.email}</p>
                     </div>
-                    <button className='contact-remove'>Remove</button>
+                    <button onClick={() => deleteContact(contact)} className='contact-remove'>Remove</button>
                 </li>
             ))}
         </ol>
