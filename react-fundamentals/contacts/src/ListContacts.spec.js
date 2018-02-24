@@ -47,7 +47,6 @@ describe('<ListContacts/> component tests', () => {
         }];
 
         const testee = shallow(<ListContacts contacts={contacts}  onDeleteContact={()=> ''} />);
-        expect(testee.props('contacts').children).toHaveLength(1);
         expect(testee.contains(contacts[0].email)).toBeTruthy();
         expect(testee.contains(contacts[0].name)).toBeTruthy();
     });
