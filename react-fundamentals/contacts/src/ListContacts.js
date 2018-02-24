@@ -15,16 +15,16 @@ class ListContacts extends Component {
     }
 
     updateQuery = (query) => {
-        this.setState({query: query.trim()})
+        this.setState({ query: query.trim() })
     }
 
     render() {
-        const contacts = this.props.contacts || [];
-        const deleteContact = this.props.onDeleteContact;
-
+        const { contacts, onDeleteContact } = this.props;
+        const { query } = this.state;
         let showingContacts;
-        if(this.state.query) {
-            const match = new RegExp(escapeRegExp(this.state.query), 'i')
+
+        if (query) {
+            const match = new RegExp(escapeRegExp(query), 'i')
             showingContacts = contacts.filter(contact => match.test(contact.name))
         } else {
             showingContacts = contacts;
@@ -54,7 +54,7 @@ class ListContacts extends Component {
                                 <p>{contact.name}</p>
                                 <p>{contact.email}</p>
                             </div>
-                            <button onClick={() => deleteContact(contact)} className='contact-remove'>Remove</button>
+                            <button onClick={() => onDeleteContact(contact)} className='contact-remove'>Remove</button>
                         </li>
                     ))}
                 </ol>
