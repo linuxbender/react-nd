@@ -27,7 +27,6 @@ class CreateContact extends Component {
             </div>
         )
     }
-
 }
 
 export default CreateContact;
