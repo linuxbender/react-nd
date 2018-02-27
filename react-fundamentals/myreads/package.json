@@ -2,9 +2,6 @@
   "name": "myreads",
   "version": "0.1.0",
   "private": true,
-  "jest": {
-    "setupTestFrameworkScriptFile": "<rootDir>/src/setupTests.js"
-   },
   "scripts": {
     "build-css": "node-sass-chokidar src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
@@ -13,6 +10,7 @@
     "build-js": "react-scripts build",
     "build": "npm-run-all build-css build-js",
     "test": "react-scripts test --env=jsdom",
+    "test:debug": "react-scripts test --runInBand --env=jsdom",
     "eject": "react-scripts eject"
   },
   "dependencies": {

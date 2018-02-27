@@ -10,4 +10,4 @@ const localStorageMock = {
   token: ''
 };
 
-global.localStorage = localStorageMock
+global.localStorage = localStorageMock;
