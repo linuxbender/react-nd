@@ -1,7 +1,7 @@
 import React from 'react';
-import Label from "./Label";
+import SubTitle from "./SubTitle";
 import { shallow } from 'enzyme';
 
 it('Component is loaded without crashing', () => {
-    shallow(<Label htmlFor='htmlFor' text='Label..' />);
+    shallow(<SubTitle text='Sub Title' />);
 });
