@@ -8,7 +8,7 @@ const Image = ({width, height, imageUrl}) => {
              style={{
                  width: width,
                  height: height,
-                 backgroundImage: url(imageUrl)}} >
+                 backgroundImage: `url("${imageUrl}")`}} >
         </div>
     )
 };
@@ -21,7 +21,7 @@ Image.propTypes = {
     height: PropTypes.number.isRequired,
 
     /** Image Url */
-    imageName: PropTypes.string.isRequired
+    imageUrl: PropTypes.string.isRequired
 };
 
 export default Image;
