@@ -4,8 +4,11 @@ import './Image.css';
 
 const Image = ({width, height, imageUrl}) => {
     return (
-        <div class="book-cover"
-             style="width: {width}px; height: {height}px; background-image: url('{imageUrl}');">
+        <div className="book-cover"
+             style={{
+                 width: width,
+                 height: height,
+                 backgroundImage: url(imageUrl)}} >
         </div>
     )
 };
