@@ -1,7 +1,7 @@
 import React from 'react';
-import Image from "./Image";
+import BookGrid from "./BookGrid";
 import { shallow } from 'enzyme';
 
 it('Component is loaded without crashing', () => {
-    shallow(<Image width={24} height={200} imageUrl='FooBaa' />);
+    shallow(<BookGrid books={[]} />);
 });

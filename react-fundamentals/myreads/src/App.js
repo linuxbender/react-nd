@@ -1,6 +1,8 @@
 import React from 'react'
 // import * as BooksAPI from './BooksAPI'
 import './App.css'
+import BookShelf from "./components/BookShelf";
+import BookGrid from "./components/BookGrid";
 
 class BooksApp extends React.Component {
     state = {
@@ -16,6 +18,15 @@ class BooksApp extends React.Component {
     render() {
         return (
             <div className="app">
+                <BookShelf title='Currently Reading' >
+                    <BookGrid books={[{id: 1, title:'Baa'},{id:2, title:'Foo'}]} />
+                </BookShelf>
+                <BookShelf title='Want to Read' >
+                    <BookGrid books={[{id: 1, title:'Baa'},{id:2, title:'Foo'}]} />
+                </BookShelf>
+                <BookShelf title='Read' >
+                    <BookGrid books={[{id: 1, title:'Baa'},{id:2, title:'Foo'}]} />
+                </BookShelf>
                 {this.state.showSearchPage ? (
                     <div className="search-books">
                         <div className="search-books-bar">
