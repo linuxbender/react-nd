@@ -15,7 +15,10 @@ Select.propTypes = {
     options: PropTypes.array.isRequired,
 
     /** onChangeHandler function */
-    onChangeHandler: PropTypes.func.isRequired
+    onChangeHandler: PropTypes.func.isRequired,
+
+    /** current selected value */
+    currentSelected: PropTypes.string
 };
 
 export default Select;
