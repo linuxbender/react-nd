@@ -2,23 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import './Book.css';
 
-const Book = ({width, height, imageUrl}) => {
+const Book = ({book}) => {
     return (
         <div>
-            Book
+            id: {book.id} title: {book.title}
         </div>
     )
 };
 
 Book.propTypes = {
-    /** Width from the image */
-    width: PropTypes.number.isRequired,
-
-    /**  Height from the image*/
-    height: PropTypes.number.isRequired,
-
-    /** Image Url */
-    imageUrl: PropTypes.string.isRequired
+    /** Book object */
+    book: PropTypes.object.isRequired,
 };
 
 export default Book;
