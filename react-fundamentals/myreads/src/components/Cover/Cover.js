@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import './Image.css';
+import './Cover.css';
 
-const Image = ({width, height, imageUrl}) => {
+const Cover = ({width, height, imageUrl}) => {
     return (
         <div className="book-cover"
              style={{
@@ -13,7 +13,7 @@ const Image = ({width, height, imageUrl}) => {
     )
 };
 
-Image.propTypes = {
+Cover.propTypes = {
     /** Width from the image */
     width: PropTypes.number.isRequired,
 
@@ -24,4 +24,4 @@ Image.propTypes = {
     imageUrl: PropTypes.string.isRequired
 };
 
-export default Image;
+export default Cover;
