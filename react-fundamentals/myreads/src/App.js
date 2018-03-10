@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
-// import * as BooksAPI from './BooksAPI'
+import * as BooksAPI from './BooksApi'
 import './App.css'
 import BookShelf from "./components/BookShelf";
 import BookGrid from "./components/BookGrid";
@@ -15,6 +15,32 @@ import SearchBar from "./components/SearchBar";
 import SearchList from "./components/SearchList";
 
 class BooksApp extends React.Component {
+
+    state = {
+        books: [],
+        newBooks: [],
+        query:''
+    };
+
+    componentDidMount(){
+        this.fetchMyBooks();
+    };
+
+    fetchMyBooks = () => {
+        BooksAPI.getAll().then((books) => this.setState({ books }));
+    };
+
+    searchNewBooks = (query) => {
+        this.setState({newBooks: []});
+        if (query.length !== 0) {
+            BooksAPI.search(query, 10).then((books) => {
+                if(books.length > 0 ){
+                    this.setState({newBooks: books, query: ''})
+                }
+            });
+        }
+    };
+
     render() {
         return (
             <div className="app">
@@ -22,25 +48,25 @@ class BooksApp extends React.Component {
                     <SearchContent>
                         <SearchBar>
                             <SearchButtonClose/>
-                            <SearchBooks/>
+                            <SearchBooks changeHandler={this.searchNewBooks}/>
                         </SearchBar>
                         <SearchList>
-                            <BookGrid books={[{id: 1, title:'The Adventures of Tom Sawyer', author:'Mark Twain'},{id:2, title:'Foo', author:'J.K.Rowling'}, {id:3, title:'Foo', author:'J.K.Rowling'}]} />
+                            <BookGrid books={this.state.newBooks} />
                         </SearchList>
                     </SearchContent>
                 )}/>
                 <Route exact path="/" render={() => (
                     <BookContent>
-                        <BookTitle text='my Reads' />
+                        <BookTitle text='my Reads'/>
                         <BookList>
                             <BookShelf title='Currently Reading' >
-                                <BookGrid books={[{id: 1, title:'The Adventures of Tom Sawyer', author:'Mark Twain'},{id:2, title:'Foo', author:'J.K.Rowling'}, {id:3, title:'Foo', author:'J.K.Rowling'}]} />
+                                <BookGrid books={this.state.books.filter(book => book.shelf === 'currentlyReading')} />
                             </BookShelf>
                             <BookShelf title='Want to Read' >
-                                <BookGrid books={[{id: 1, title:'The Hobbit', author:'J.R.R. Tolkien'},{id:2, title:'Foo Figther', author:'David McCullough'}]} />
+                                <BookGrid books={this.state.books.filter(book => book.shelf === 'wantToRead')} />
                             </BookShelf>
                             <BookShelf title='Read' >
-                                <BookGrid books={[{id: 1, title:'To Kill a Mockingbird', author:'Harper Lee'},{id:2, title:'Foo', author:'Orson Scott Card'}]} />
+                                <BookGrid books={this.state.books.filter(book => book.shelf === 'read')} />
                             </BookShelf>
                         </BookList>
                         <SearchButtonOpen/>

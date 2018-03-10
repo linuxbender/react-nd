@@ -1,5 +1,5 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const BookSelect = ({options, changeHandler, currentSelected}) => {
     const optionList = options.map(option => <option key={option.id} value={option.value} disabled={option.disabled}>{option.text}</option>);
@@ -22,5 +22,3 @@ BookSelect.propTypes = {
 };
 
 export default BookSelect;
-
-

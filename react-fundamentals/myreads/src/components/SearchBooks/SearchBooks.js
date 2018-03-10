@@ -1,20 +1,29 @@
 import React from 'react'
 import './SearchBooks.css';
+import PropTypes from "prop-types";
 
-const SearchBooks = () => {
+const SearchBooks = ({changeHandler}) => {
+    let query = '';
+    const enterKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            changeHandler(query);
+            query ='';
+        }
+    };
+    const changeInputValue = (e) => {
+        query = e.target.value;
+    };
     return (
         <div className="search-books-input-wrapper">
-            {/*
-                                    NOTES: The search from BooksAPI is limited to a particular set of search terms.
-                                    You can find these search terms here:
-                                    https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-                                    However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-                                    you don't find a specific author or title. Every search is limited by search terms.
-                                */}
-            <input type="text" placeholder="Search by title or author"/>
+            <input type="text" placeholder="Search by title or author" onKeyPress={enterKeyPress}
+                   onChange={changeInputValue}/>
         </div>
     )
+};
+
+SearchBooks.propTypes = {
+    /** changeHandler function */
+    changeHandler: PropTypes.func.isRequired,
 };
 
 export default SearchBooks;
