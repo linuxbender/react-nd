@@ -3,5 +3,6 @@ import Book from "./Book";
 import { shallow } from 'enzyme';
 
 it('Component is loaded without crashing', () => {
-    shallow(<Book book={{id: 1, name: "John"}} />);
+    const func = _ => undefined;
+    shallow(<Book book={{id: 1, name: "John"}} changeHandler={func} />);
 });

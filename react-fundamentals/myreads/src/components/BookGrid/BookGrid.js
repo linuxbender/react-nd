@@ -4,7 +4,8 @@ import './BookGrid.css';
 import Book from "../Book";
 
 const BookGrid = ({books}) => {
-    const itemList = books.map(book => <li key={book.id}><Book book={book}/></li>);
+    const func = (event) => alert(event.target.value);
+    const itemList = books.map(book => <li key={book.id}><Book book={book} changeHandler={func} /></li>);
     return (
         <ol className="books-grid">
             {itemList}
