@@ -3,20 +3,12 @@ import './SearchBooks.css';
 import PropTypes from "prop-types";
 
 const SearchBooks = ({changeHandler}) => {
-    let query = '';
-    const enterKeyPress = (e) => {
-        if (e.key === 'Enter') {
-            changeHandler(query);
-            query = '';
-        }
-    };
     const changeInputValue = (e) => {
-        query = e.target.value;
+        changeHandler(e.target.value);
     };
     return (
         <div className="search-books-input-wrapper">
-            <input type="text" placeholder="Search by title or author" onKeyPress={enterKeyPress}
-                   onChange={changeInputValue}/>
+            <input type="text" placeholder="Search by title or author" onChange={changeInputValue}/>
         </div>
     )
 };

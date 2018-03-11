@@ -31,13 +31,16 @@ class BooksApp extends React.Component {
     };
 
     searchNewBooks = (query) => {
-        this.setState({newBooks: []});
         if (query.length !== 0) {
             BooksAPI.search(query, 10).then((books) => {
                 if (books.length > 0) {
                     this.setState({newBooks: books, query: ''})
+                } else {
+                    this.setState({newBooks: []});
                 }
             });
+        } else {
+            this.setState({newBooks: []});
         }
     };
 
