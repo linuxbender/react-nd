@@ -5,7 +5,7 @@ import './BookShelfChanger.css';
 
 const BookShelfChanger = ({changeHandler, bookId}) => {
     const options = [
-        {id: 0, value: 'none', text: 'Move to...', disabled:true},
+        {id: 0, value: 'none', text: 'Move to...', disabled: true},
         {id: 1, value: 'currentlyReading', text: 'Currently Reading'},
         {id: 2, value: 'wantToRead', text: 'Want to Read'},
         {id: 3, value: 'read', text: 'Read'},
@@ -13,7 +13,7 @@ const BookShelfChanger = ({changeHandler, bookId}) => {
     ];
     return (
         <div className="book-shelf-changer">
-            <BookSelect options={options} changeHandler={changeHandler} bookId={bookId} />
+            <BookSelect options={options} changeHandler={changeHandler} bookId={bookId}/>
         </div>
     )
 };

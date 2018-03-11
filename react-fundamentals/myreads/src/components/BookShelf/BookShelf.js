@@ -19,5 +19,3 @@ BookShelf.propTypes = {
 };
 
 export default BookShelf;
-
-

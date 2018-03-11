@@ -5,5 +5,3 @@ const SearchBar = (props) => {
     return (<div className="search-books-bar">{props.children}</div>)
 };
 export default SearchBar;
-
-

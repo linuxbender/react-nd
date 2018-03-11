@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
+import {Route} from 'react-router-dom'
 import * as BooksAPI from './BooksApi'
 import './App.css'
 import BookShelf from "./components/BookShelf";
@@ -21,26 +21,26 @@ class BooksApp extends React.Component {
         newBooks: []
     };
 
-    componentDidMount(){
+    componentDidMount() {
         this.fetchMyBooks();
     };
 
     fetchMyBooks = () => {
-        BooksAPI.getAll().then((books) => this.setState({ books }));
+        BooksAPI.getAll().then((books) => this.setState({books}));
     };
 
     searchNewBooks = (query) => {
         this.setState({newBooks: []});
         if (query.length !== 0) {
             BooksAPI.search(query, 10).then((books) => {
-                if(books.length > 0 ){
+                if (books.length > 0) {
                     this.setState({newBooks: books, query: ''})
                 }
             });
         }
     };
 
-    updateMyBooks = (bookId, shelf) =>  {
+    updateMyBooks = (bookId, shelf) => {
         BooksAPI.update(bookId, shelf).then(() => this.fetchMyBooks());
     };
 
@@ -55,7 +55,7 @@ class BooksApp extends React.Component {
                         </SearchBar>
                         <SearchList>
                             <BookGrid books={this.state.newBooks}
-                                      changeHandler={this.updateMyBooks} />
+                                      changeHandler={this.updateMyBooks}/>
                         </SearchList>
                     </SearchContent>
                 )}/>
@@ -63,17 +63,17 @@ class BooksApp extends React.Component {
                     <BookContent>
                         <BookTitle text='my Reads'/>
                         <BookList>
-                            <BookShelf title='Currently Reading' >
+                            <BookShelf title='Currently Reading'>
                                 <BookGrid books={this.state.books.filter(book => book.shelf === 'currentlyReading')}
-                                          changeHandler={this.updateMyBooks} />
+                                          changeHandler={this.updateMyBooks}/>
                             </BookShelf>
-                            <BookShelf title='Want to Read' >
+                            <BookShelf title='Want to Read'>
                                 <BookGrid books={this.state.books.filter(book => book.shelf === 'wantToRead')}
-                                          changeHandler={this.updateMyBooks} />
+                                          changeHandler={this.updateMyBooks}/>
                             </BookShelf>
-                            <BookShelf title='Read' >
+                            <BookShelf title='Read'>
                                 <BookGrid books={this.state.books.filter(book => book.shelf === 'read')}
-                                          changeHandler={this.updateMyBooks} />
+                                          changeHandler={this.updateMyBooks}/>
                             </BookShelf>
                         </BookList>
                         <SearchButtonOpen/>

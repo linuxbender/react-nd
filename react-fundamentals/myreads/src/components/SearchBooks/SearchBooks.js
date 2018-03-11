@@ -7,7 +7,7 @@ const SearchBooks = ({changeHandler}) => {
     const enterKeyPress = (e) => {
         if (e.key === 'Enter') {
             changeHandler(query);
-            query ='';
+            query = '';
         }
     };
     const changeInputValue = (e) => {

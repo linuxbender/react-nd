@@ -17,5 +17,3 @@ BookTitle.propTypes = {
 };
 
 export default BookTitle;
-
-

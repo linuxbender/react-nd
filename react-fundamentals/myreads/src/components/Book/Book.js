@@ -5,7 +5,7 @@ import BookShelfChanger from "../BookShelfChanger/BookShelfChanger";
 
 const Book = ({book, changeHandler}) => {
     let imgUrl = '';
-    if(book && book.imageLinks){
+    if (book && book.imageLinks) {
         imgUrl = book.imageLinks.smallThumbnail || book.imageLinks.thumbnail;
     }
     return (
@@ -14,7 +14,7 @@ const Book = ({book, changeHandler}) => {
                 <div className="book-cover" style={{
                     backgroundImage: `url("${imgUrl}")`
                 }}></div>
-                <BookShelfChanger changeHandler={changeHandler} bookId={`${book.id}`} />
+                <BookShelfChanger changeHandler={changeHandler} bookId={`${book.id}`}/>
             </div>
             <div className="book-title">{book.title}</div>
             <div className="book-authors">{book.authors}</div>
@@ -31,5 +31,3 @@ Book.propTypes = {
 };
 
 export default Book;
-
-
