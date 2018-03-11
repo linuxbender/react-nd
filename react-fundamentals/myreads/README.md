@@ -22,7 +22,8 @@ The following file [`BooksAPI.js`](https://github.com/linuxbender/react-nd/blob/
 * Returns a Promise which resolves to a JSON object containing a collection of book objects.
 
 ## Prerequisites
-* `git: use your favorite client for your system` 
+* `git: use your favorite client for your system`
+* [`Nodejs`](https://nodejs.org/en/)
 * [`yarn`](https://yarnpkg.com/lang/en/)
 * [`npm`](https://www.npmjs.com/) 
 
