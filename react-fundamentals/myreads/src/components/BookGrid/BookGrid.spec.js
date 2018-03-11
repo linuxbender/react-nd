@@ -9,7 +9,7 @@ it('Component is loaded without crashing', () => {
     shallow(<BookGrid books={books} changeHandler={func}/>);
 });
 
-it('When BoogGrid component receve 1 book then shoud display one li entry  ', () => {
+it('When BookGrid component receve 1 book then shoud display one li entry  ', () => {
     const func = _ => undefined;
     const testee = mount(<BookGrid books={books} changeHandler={func}/>);
 

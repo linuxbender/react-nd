@@ -41,7 +41,9 @@ class BooksApp extends React.Component {
     };
 
     updateMyBooks = (bookId, shelf) => {
-        BooksAPI.update(bookId, shelf).then(() => this.fetchMyBooks());
+        if (shelf.trim() !== '' && bookId !== undefined) {
+            BooksAPI.update(bookId, shelf).then(() => this.fetchMyBooks());
+        }
     };
 
     render() {
