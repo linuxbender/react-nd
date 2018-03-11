@@ -26,15 +26,13 @@ class BooksApp extends React.Component {
         this.fetchMyBooks();
     };
 
-    fetchMyBooks = () => {
-        BooksAPI.getAll().then((books) => this.setState({books}));
-    };
-
     isBookIdAndShelfNameNotEmpty = (bookId, shelfName) => shelfName.trim() !== EMPTY_STRING && bookId !== undefined;
 
     isSelectedBookIdNotInMyBookList = (bookId) => !this.state.books.find(book => book.id === bookId);
 
     filterOutBooksFromCurrentSearchResult = (bookId) => this.setState({newBooks: this.state.newBooks.filter(book => book.id !== bookId)});
+
+    fetchMyBooks = () => BooksAPI.getAll().then((books) => this.setState({books}));
 
     searchNewBooks = (query) => {
         if (query.length !== 0) {
