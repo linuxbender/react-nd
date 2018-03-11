@@ -13,7 +13,7 @@ import SearchButtonClose from "./components/SearchButtonClose";
 import SearchBooks from "./components/SearchBooks";
 import SearchBar from "./components/SearchBar";
 import SearchList from "./components/SearchList";
-import {SHELF_CURRENT_READ, SHELF_READ, SHELF_WANT_TO_READ} from "./utils/AppUtil";
+import {EMPTY_STRING, SHELF_CURRENT_READ, SHELF_NONE, SHELF_READ, SHELF_WANT_TO_READ} from "./utils/AppUtil";
 
 class BooksApp extends React.Component {
 
@@ -44,9 +44,19 @@ class BooksApp extends React.Component {
         }
     };
 
-    updateMyBooks = (bookId, shelf) => {
-        if (shelf.trim() !== '' && bookId !== undefined) {
-            BooksAPI.update(bookId, shelf).then(() => this.fetchMyBooks());
+    isBookIdAndShelfNameNotEmpty = (bookId, shelfName) => shelfName.trim() !== EMPTY_STRING && bookId !== undefined;
+
+    updateMyBooks = (bookId, shelfName) => {
+        if (this.isBookIdAndShelfNameNotEmpty(bookId, shelfName)) {
+            BooksAPI.update(bookId, shelfName).then(() => this.fetchMyBooks());
+        }
+    };
+
+    addNewBookToShelf  = (bookId, shelfName) => {
+        if (this.isBookIdAndShelfNameNotEmpty(bookId, shelfName)) {
+            if(shelfName.trim() !== SHELF_NONE && !this.state.books.find(book => book.id === bookId)) {
+                BooksAPI.update(bookId, shelfName).then(() => this.fetchMyBooks());
+            }
         }
     };
 
@@ -61,7 +71,7 @@ class BooksApp extends React.Component {
                         </SearchBar>
                         <SearchList>
                             <BookGrid books={this.state.newBooks}
-                                      changeHandler={this.updateMyBooks}/>
+                                      changeHandler={this.addNewBookToShelf}/>
                         </SearchList>
                     </SearchContent>
                 )}/>
