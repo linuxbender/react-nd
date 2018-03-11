@@ -30,6 +30,12 @@ class BooksApp extends React.Component {
         BooksAPI.getAll().then((books) => this.setState({books}));
     };
 
+    isBookIdAndShelfNameNotEmpty = (bookId, shelfName) => shelfName.trim() !== EMPTY_STRING && bookId !== undefined;
+
+    isSelectedBookIdNotInMyBookList = (bookId) => !this.state.books.find(book => book.id === bookId);
+
+    filterOutBooksFromCurrentSearchResult = (bookId) => this.setState({newBooks: this.state.newBooks.filter(book => book.id !== bookId)});
+
     searchNewBooks = (query) => {
         if (query.length !== 0) {
             BooksAPI.search(query, 10).then((books) => {
@@ -44,10 +50,6 @@ class BooksApp extends React.Component {
             this.setState({newBooks: []});
         }
     };
-
-    isBookIdAndShelfNameNotEmpty = (bookId, shelfName) => shelfName.trim() !== EMPTY_STRING && bookId !== undefined;
-
-    filterOutBooksFromCurrentSearchResult = (bookId) => this.setState({newBooks: this.state.newBooks.filter(book => book.id !== bookId)});
 
     searchResultFilterOut = (resultBooks) => {
         return resultBooks.filter((newBook) =>  !this.state.books.find(book => book.id === newBook.id));
@@ -64,9 +66,9 @@ class BooksApp extends React.Component {
             if(shelfName.trim() === SHELF_NONE) {
                 this.filterOutBooksFromCurrentSearchResult(bookId);
             }
-            if(shelfName.trim() !== SHELF_NONE && !this.state.books.find(book => book.id === bookId)) {
+            if(this.isSelectedBookIdNotInMyBookList(bookId)) {
                 BooksAPI.update(bookId, shelfName).then(() => {
-                    this.setState({newBooks: this.state.newBooks.filter(book => book.id !== bookId)});
+                    this.filterOutBooksFromCurrentSearchResult(bookId);
                     this.fetchMyBooks();
                 });
             }
