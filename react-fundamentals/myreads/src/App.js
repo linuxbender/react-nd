@@ -13,6 +13,7 @@ import SearchButtonClose from "./components/SearchButtonClose";
 import SearchBooks from "./components/SearchBooks";
 import SearchBar from "./components/SearchBar";
 import SearchList from "./components/SearchList";
+import {SHELF_CURRENT_READ, SHELF_READ, SHELF_WANT_TO_READ} from "./utils/AppUtil";
 
 class BooksApp extends React.Component {
 
@@ -63,18 +64,18 @@ class BooksApp extends React.Component {
                 )}/>
                 <Route exact path="/" render={() => (
                     <BookContent>
-                        <BookTitle text='my Reads'/>
+                        <BookTitle text='MyReads'/>
                         <BookList>
                             <BookShelf title='Currently Reading'>
-                                <BookGrid books={this.state.books.filter(book => book.shelf === 'currentlyReading')}
+                                <BookGrid books={this.state.books.filter(book => book.shelf === SHELF_CURRENT_READ)}
                                           changeHandler={this.updateMyBooks}/>
                             </BookShelf>
                             <BookShelf title='Want to Read'>
-                                <BookGrid books={this.state.books.filter(book => book.shelf === 'wantToRead')}
+                                <BookGrid books={this.state.books.filter(book => book.shelf === SHELF_WANT_TO_READ)}
                                           changeHandler={this.updateMyBooks}/>
                             </BookShelf>
                             <BookShelf title='Read'>
-                                <BookGrid books={this.state.books.filter(book => book.shelf === 'read')}
+                                <BookGrid books={this.state.books.filter(book => book.shelf === SHELF_READ)}
                                           changeHandler={this.updateMyBooks}/>
                             </BookShelf>
                         </BookList>
