@@ -5,7 +5,7 @@ The web project was implemented with ReactJs and React-Route. It uses a public R
 
 ## BookAPI documentation 
 
-The following file [`BooksAPI.js`](src/BooksAPI.js) contains the methods that are required to perform necessary operations on the backend:
+The following file [`BooksAPI.js`](https://github.com/linuxbender/react-nd/blob/master/react-fundamentals/myreads/src/BooksApi.js) contains the methods that are required to perform necessary operations on the backend:
 
 ### `getAll()`
 * Returns a Promise which resolves to a JSON object containing a collection of book objects.
