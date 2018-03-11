@@ -18,8 +18,7 @@ class BooksApp extends React.Component {
 
     state = {
         books: [],
-        newBooks: [],
-        query:''
+        newBooks: []
     };
 
     componentDidMount(){
@@ -41,6 +40,10 @@ class BooksApp extends React.Component {
         }
     };
 
+    updateMyBooks = (bookId, shelf) =>  {
+        BooksAPI.update(bookId, shelf).then(() => this.fetchMyBooks());
+    };
+
     render() {
         return (
             <div className="app">
@@ -51,7 +54,8 @@ class BooksApp extends React.Component {
                             <SearchBooks changeHandler={this.searchNewBooks}/>
                         </SearchBar>
                         <SearchList>
-                            <BookGrid books={this.state.newBooks} />
+                            <BookGrid books={this.state.newBooks}
+                                      changeHandler={this.updateMyBooks} />
                         </SearchList>
                     </SearchContent>
                 )}/>
@@ -60,13 +64,16 @@ class BooksApp extends React.Component {
                         <BookTitle text='my Reads'/>
                         <BookList>
                             <BookShelf title='Currently Reading' >
-                                <BookGrid books={this.state.books.filter(book => book.shelf === 'currentlyReading')} />
+                                <BookGrid books={this.state.books.filter(book => book.shelf === 'currentlyReading')}
+                                          changeHandler={this.updateMyBooks} />
                             </BookShelf>
                             <BookShelf title='Want to Read' >
-                                <BookGrid books={this.state.books.filter(book => book.shelf === 'wantToRead')} />
+                                <BookGrid books={this.state.books.filter(book => book.shelf === 'wantToRead')}
+                                          changeHandler={this.updateMyBooks} />
                             </BookShelf>
                             <BookShelf title='Read' >
-                                <BookGrid books={this.state.books.filter(book => book.shelf === 'read')} />
+                                <BookGrid books={this.state.books.filter(book => book.shelf === 'read')}
+                                          changeHandler={this.updateMyBooks} />
                             </BookShelf>
                         </BookList>
                         <SearchButtonOpen/>
