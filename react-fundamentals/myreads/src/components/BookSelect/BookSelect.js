@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const BookSelect = ({options, changeHandler, bookId}) => {
-    const optionList = options.map(option => <option key={option.id} value={option.value} selected={option.selected}>{option.text}</option>);
+const BookSelect = ({options, changeHandler, book}) => {
+    const optionList = options.map(option => <option key={option.id} value={option.value}>{option.text}</option>);
     let selectShelf = (e) => {
-        changeHandler(bookId, e.target.value)
+        changeHandler(book.id, e.target.value)
     };
     return (
-        <select onChange={selectShelf}>
+        <select onChange={selectShelf} value={book.shelf}>
             {optionList}
         </select>
     )
@@ -21,7 +21,7 @@ BookSelect.propTypes = {
     changeHandler: PropTypes.func.isRequired,
 
     /** current selected value */
-    bookId: PropTypes.string.isRequired
+    book: PropTypes.object.isRequired
 };
 
 export default BookSelect;
