@@ -4,5 +4,6 @@ import {shallow} from 'enzyme';
 
 it('Component is loaded without crashing', () => {
     const func = _ => undefined;
-    shallow(<BookShelfChanger changeHandler={func} bookId='42'/>);
+    const book = {id: '42'};
+    shallow(<BookShelfChanger changeHandler={func} book={book}/>);
 });

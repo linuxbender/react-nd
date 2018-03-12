@@ -15,7 +15,7 @@ const Book = ({book, changeHandler}) => {
                 <div className="book-cover" style={{
                     backgroundImage: `url("${imgUrl}")`
                 }}></div>
-                <BookShelfChanger changeHandler={changeHandler} bookId={`${book.id}`}/>
+                <BookShelfChanger changeHandler={changeHandler} book={book}/>
             </div>
             <div className="book-title">{book.title}</div>
             <div className="book-authors">{book.authors}</div>

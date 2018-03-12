@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const BookSelect = ({options, changeHandler, bookId}) => {
-    const optionList = options.map(option => <option key={option.id} value={option.value}>{option.text}</option>);
+    const optionList = options.map(option => <option key={option.id} value={option.value} selected={option.selected}>{option.text}</option>);
     let selectShelf = (e) => {
         changeHandler(bookId, e.target.value)
     };
