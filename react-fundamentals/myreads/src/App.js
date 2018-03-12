@@ -28,17 +28,13 @@ class BooksApp extends React.Component {
 
     isBookIdAndShelfNameNotEmpty = (bookId, shelfName) => shelfName.trim() !== EMPTY_STRING && bookId !== undefined;
 
-    isSelectedBookIdNotInMyBookList = (bookId) => !this.state.books.find(book => book.id === bookId);
-
-    filterOutBooksFromCurrentSearchResult = (bookId) => this.setState({newBooks: this.state.newBooks.filter(book => book.id !== bookId)});
-
     fetchMyBooks = () => BooksAPI.getAll().then((books) => this.setState({books}));
 
     searchNewBooks = (query) => {
         if (query.length !== 0) {
             BooksAPI.search(query, 10).then((books) => {
                 if (books.length > 0) {
-                    books = this.searchResultFilterOut(books);
+                    books = this.mapSearchResultToBooks(books);
                     this.setState({newBooks: books})
                 } else {
                     this.setState({newBooks: []});
@@ -49,27 +45,22 @@ class BooksApp extends React.Component {
         }
     };
 
-    searchResultFilterOut = (resultBooks) => {
-        return resultBooks.filter((newBook) =>  !this.state.books.find(book => book.id === newBook.id));
+    mapSearchResultToBooks = (resultBooks) => {
+        return resultBooks.map((resultBook) => {
+            const myBook = this.state.books.find(book => book.id === resultBook.id);
+            return {
+                id: resultBook.id,
+                title: resultBook.title,
+                authors: resultBook.authors,
+                shelf: myBook ? myBook.shelf : SHELF_NONE,
+                imageLinks: resultBook.imageLinks ? resultBook.imageLinks : undefined
+            };
+        });
     };
 
     updateMyBooks = (bookId, shelfName) => {
         if (this.isBookIdAndShelfNameNotEmpty(bookId, shelfName)) {
             BooksAPI.update(bookId, shelfName).then(() => this.fetchMyBooks());
-        }
-    };
-
-    addNewBookToShelf  = (bookId, shelfName) => {
-        if (this.isBookIdAndShelfNameNotEmpty(bookId, shelfName)) {
-            if(shelfName.trim() === SHELF_NONE) {
-                this.filterOutBooksFromCurrentSearchResult(bookId);
-            }
-            if(this.isSelectedBookIdNotInMyBookList(bookId)) {
-                BooksAPI.update(bookId, shelfName).then(() => {
-                    this.filterOutBooksFromCurrentSearchResult(bookId);
-                    this.fetchMyBooks();
-                });
-            }
         }
     };
 
@@ -84,7 +75,7 @@ class BooksApp extends React.Component {
                         </SearchBar>
                         <SearchList>
                             <BookGrid books={this.state.newBooks}
-                                      changeHandler={this.addNewBookToShelf}/>
+                                      changeHandler={this.updateMyBooks}/>
                         </SearchList>
                     </SearchContent>
                 )}/>
