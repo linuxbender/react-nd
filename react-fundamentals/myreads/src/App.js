@@ -34,7 +34,7 @@ class BooksApp extends React.Component {
         if (query.length !== 0) {
             BooksAPI.search(query, 10).then((books) => {
                 if (books.length > 0) {
-                    books = this.mapSearchResultToBooks(books);
+                    books = this.mapSearchResult(books);
                     this.setState({newBooks: books})
                 } else {
                     this.setState({newBooks: []});
@@ -45,7 +45,7 @@ class BooksApp extends React.Component {
         }
     };
 
-    mapSearchResultToBooks = (resultBooks) => {
+    mapSearchResult = (resultBooks) => {
         return resultBooks.map((resultBook) => {
             const myBook = this.state.books.find(book => book.id === resultBook.id);
             return {
@@ -60,7 +60,16 @@ class BooksApp extends React.Component {
 
     updateMyBooks = (bookId, shelfName) => {
         if (this.isBookIdAndShelfNameNotEmpty(bookId, shelfName)) {
-            BooksAPI.update(bookId, shelfName).then(() => this.fetchMyBooks());
+            BooksAPI.update(bookId, shelfName).then(() => {
+                const updateState = this.state.newBooks.map(book => {
+                    if (book.id === bookId) {
+                        book.shelf = shelfName;
+                    }
+                    return book;
+                });
+                this.setState({newBooks: updateState});
+                this.fetchMyBooks();
+            });
         }
     };
 
