@@ -5585,11 +5585,11 @@ react-icons@2.2.7:
   dependencies:
     react-icon-base "2.1.0"
 
-react-loading@^1.0.3:
+react-loading@1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/react-loading/-/react-loading-1.0.3.tgz#48c2cc9a83916853e4c166dd2e4ee07884823b68"
 
-react-modal@^3.3.2:
+react-modal@3.3.2:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/react-modal/-/react-modal-3.3.2.tgz#b13da9490653a7c76bc0e9600323eb1079c620e7"
   dependencies:
@@ -5747,6 +5747,10 @@ reduce-function-call@^1.0.1:
   resolved "https://registry.yarnpkg.com/reduce-function-call/-/reduce-function-call-1.0.2.tgz#5a200bf92e0e37751752fe45b0ab330fd4b6be99"
   dependencies:
     balanced-match "^0.4.2"
+
+redux-thunk@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.2.0.tgz#e615a16e16b47a19a515766133d1e3e99b7852e5"
 
 redux@3.7.2:
   version "3.7.2"
