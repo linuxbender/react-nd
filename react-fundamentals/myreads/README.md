@@ -1,7 +1,8 @@
 # MyReads
 
 A bookshelf app that allows user to select and categorize books as you have read, are currently reading, or want to read. You can persist your selected book as you interact with the application.
-The web project was implemented with ReactJs and React-Route. It uses a public REST interface: [`REST BookAPI`](https://reactnd-books-api.udacity.com) `(use your favorite REST-Client)`
+The web project was implemented with ReactJs and React-Route. It uses a public REST interface: [`REST BookAPI`](https://reactnd-books-api.udacity.com) `(use your favorite REST-Client)`.
+Online version is running on firebase: [`Online myRead`](https://myread-web.firebaseapp.com/)
 
 ## BookAPI documentation 
 
