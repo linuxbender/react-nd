@@ -10,13 +10,13 @@ class App extends Component {
     }
 }
 
-const mapStateToProps = (calendar) => {
+const mapStateToProps = ({food, calendar}) => {
     const dayOrder = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
     return {
         calendar: dayOrder.map(day => {
             return {
                 day,
-                meals: Object.assign({}, calendar[day])
+                meals: Object.assign({}, food[calendar[day]])
             };
         })
     }
