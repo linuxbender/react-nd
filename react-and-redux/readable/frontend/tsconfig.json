@@ -61,5 +61,5 @@
     "src/setupTests.js",
     "src/registerServiceWorker.js"
   ],
-  "include": ["custom.d.ts", "src/**/*"]
+  "include": ["custom.d.ts", "src/**/*", "node_modules/@types/**/*"]
 }
