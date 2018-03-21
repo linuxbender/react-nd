@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Title from './components/Base/Title';
+import Button from './components/Base/Button';
 
 const App = () => {
         return (
@@ -12,6 +13,7 @@ const App = () => {
                 </header>
                 <Title text="Mein neuer Title.." />
                 <p className="App-intro">To get started, edit <code> src / App.tsx</code> and save to reload.</p>
+                <Button label="Hello Wolrd" disabled={true} />
             </div>
         );
 };
