@@ -9,7 +9,6 @@ export interface IFormInput {
 
 const FormInput = (props: IFormInput) => {
     const foo: string = '2';
-
     return (
         <div>
             <label>{props.label}</label>
