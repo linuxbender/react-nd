@@ -13,7 +13,7 @@ h1, p {
 .container {
   max-width: 1600px;
   margin: 0 20px;
-  /* display                                                                                                                                   : grid;*/
+  /* display : grid;*/
   grid-gap: 8px;
 }
 
@@ -53,6 +53,10 @@ h1, p {
   color: #fff;
   border-radius: 5px;
   padding: 10px;
+}
+
+.footer {
+  max-height: 60px;
 }
 
 /* We need to set the margin used on flex items to 0 as we have gaps in grid.  */
