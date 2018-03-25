@@ -1,9 +1,23 @@
+$color-white-100: #ffffff;
+$color-white-80: #ECEFF1;
+
+$color-black-80: #444444;
+
+$box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+
+$base-0: 0;
+$base-2px: 2px;
+$base-4px: 4px;
+$base-6px: 6px;
+$base-8px: 8px;
+$base-10px: 10px;
+
 body {
-  margin: 2px;
+  margin: $base-4px;
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 300;
-  background-color: #fff;
-  color: #444;
+  background: $color-white-80;
+  color: $color-black-80;
 }
 
 h1, p {
@@ -11,10 +25,10 @@ h1, p {
 }
 
 .container {
-  max-width: 1600px;
+  max-width: 100vw;
   margin: 0 20px;
   /* display : grid;*/
-  grid-gap: 8px;
+  grid-gap: $base-8px;
 }
 
 /* no grid support? */
@@ -30,29 +44,59 @@ h1, p {
   grid-auto-rows: minmax(120px, auto);
 }
 
-.panel {
+.card {
   /* needed for the flex layout*/
-  margin-left: 4px;
-  margin-right: 4px;
+  background-color: $color-white-100;
+  color: $color-black-80;
+  margin-left: $base-4px;
+  margin-right: $base-4px;
+  box-shadow: $box-shadow;
   flex: 1 1 200px;
 }
 
 .tall-panel {
+  box-shadow: $box-shadow;
   grid-row-end: span 2;
 }
 
+/* display: grid;
+grid-template-columns: [logo-start] fit-content(20%) [nav-start] auto [nav-end];
+
+display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+
+*/
+
 .header, .footer {
-  margin-left: 5px;
-  margin-right: 5px;
+  box-shadow: $box-shadow;
+  margin-left: $base-6px;
+  margin-right: $base-6px;
   flex: 0 1 100%;
   grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: [h2-start] fit-content(20%) [nav-start] auto [nav-end];
+  nav {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+    .nav-item {
+      text-decoration: none;
+    }
+    .nav-item-aktiv {
+      text-decoration: none;
+      font-weight: bold;
+      font-style: italic;
+    }
+    .nav-item-left {
+      color: brown;
+    }
+  }
 }
 
 .container > * {
-  background-color: #444;
-  color: #fff;
-  border-radius: 5px;
-  padding: 10px;
+  border-radius: $base-6px;
+  padding: $base-10px;
 }
 
 .footer {
@@ -63,6 +107,19 @@ h1, p {
 
 @supports (display: grid) {
   .container > * {
-    margin: 0;
+    margin: $base-0;
   }
+}
+
+/* normal web */
+@media screen and (max-width: 80em){
+
+}
+/* tabled */
+@media screen and (max-width: 60em){
+
+}
+/* mobile */
+@media screen and (max-width: 40em){
+
 }
