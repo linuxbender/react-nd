@@ -2,8 +2,8 @@ import React from 'react';
 
 export interface IFormInput {
     label: string;
-    enabled: boolean;
-    isRequired: boolean;
+    enabled?: boolean;
+    isRequired?: boolean;
     eventHandler: () => void;
 }
 
