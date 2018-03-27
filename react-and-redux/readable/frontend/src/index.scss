@@ -2,6 +2,7 @@ $color-white-100: #ffffff;
 $color-white-80: #ECEFF1;
 
 $color-black-80: #444444;
+$color-black-100: #000000;
 
 $box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
 
@@ -12,36 +13,20 @@ $base-6px: 6px;
 $base-8px: 8px;
 $base-10px: 10px;
 
-body {
+body, html { 
+  height: 100%;
   margin: $base-0;
   padding: $base-0;
+}
+body {
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 300;
   background: $color-white-80;
-  color: $color-black-80;
+  color: $color-black-100;  
 }
 
 h1, p {
   margin: 0 0 1em 0;
-}
-
-.container {
-  max-width: 100vw;
-  display : grid;
-  grid-gap: $base-8px;
-}
-
-/* no grid support? */
-.container {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.container {
-  display: grid;
-  margin: 0 auto;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-  grid-auto-rows: minmax(60px, auto);
 }
 
 .card {
@@ -54,61 +39,40 @@ h1, p {
   flex: 1 1 200px;
 }
 
-//.tall-panel {
-//  box-shadow: $box-shadow;
-//  grid-row-end: span 2;
-// }
-
-/* display: grid;
-grid-template-columns: [logo-start] fit-content(20%) [nav-start] auto [nav-end];
-
-display: flex;
-    flex-flow: row wrap;
-    justify-content: flex-end;
-
-*/
-
-.header, .footer {
-  box-shadow: $box-shadow;
-  background-color:  $color-white-100;
-  flex: 0 1 100%;
-  grid-column: 1 / -1;
-  display: grid;
-  grid-template-columns: [logo-start] fit-content(20%) [nav-start] auto [nav-end];
-  h2 {
-    align-self: center;
-    background-color: yellowgreen;
-  }
-  nav {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: flex-end;
-    align-self: center;
-    .nav-item {
-      text-decoration: none;
-    }
-    .nav-item-aktiv {
-      text-decoration: none;
-      font-weight: bold;
-      font-style: italic;
-    }
-  }
-}
-
-.container > * {
-  border-radius: $base-6px;
-}
-
 .container {
-  .header{
-    border-radius: $base-0;
-  }
-  .footer {
-    border-radius: $base-0;
+  display: grid;
+  margin: 0 auto;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-auto-rows: minmax(60px, auto);
+  grid-template-rows: auto [last-line];
+  .header, .footer {
+    box-shadow: $box-shadow;
+    background-color:  $color-black-80;
+    color: $color-white-100;
+    flex: 0 1 100%;
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: [h2-start] fit-content(20%) [nav-start] auto [nav-end];
+    h2 {
+      align-self: center;
+      background-color: yellowgreen;
+    }
+    nav {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: flex-end;
+      align-self: center;
+      .nav-item {
+        text-decoration: none;
+      }
+      .nav-item-aktiv {
+        text-decoration: none;
+        font-weight: bold;
+        font-style: italic;
+      }
+    }
   }
 }
-
-/* We need to set the margin used on flex items to 0 as we have gaps in grid.  */
 
 @supports (display: grid) {
   .container > * {
