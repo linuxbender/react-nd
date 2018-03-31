@@ -3,9 +3,9 @@ import './Button.css';
 
 export interface IButton {
     label: string;
-    disabled: boolean;
+    disabled?: boolean;
 }
 
-const Button = (props: IButton) => <button disabled={props.disabled}>{props.label}</button>;
+const Button = ({disabled = false , label }: IButton) => <button disabled={disabled}>{label}</button>;
 
 export default Button;
