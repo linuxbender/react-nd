@@ -1,8 +1,41 @@
-$color-white-100: #ffffff;
-$color-white-80: #ECEFF1;
+$color-red-90: #B71C1C;
+$color-red-80: #C62828;
+$color-red-70: #D32F2F;
+$color-red-60: #E53935;
 
-$color-black-80: #444444;
+$color-blue-90: #0D47A1;
+$color-blue-80: #1565C0;
+$color-blue-70: #1976D2;
+$color-blue-60: #1E88E5;
+
+$color-green-90: #1B5E20;
+$color-green-80: #2E7D32;
+$color-green-70: #388E3C;
+$color-green-60: #43A047;
+
+// black font color
+$color-yellow-90: #F57F17;
+$color-yellow-80: #F9A825;
+$color-yellow-70: #FBC02D;
+$color-yellow-60: #FDD835;
+
+$color-orange-90: #BF360C;
+$color-orange-80: #D84315;
+$color-orange-70: #E64A19;
+$color-orange-60: #F4511E;
+
+$color-white-90: #FAFAFA;
+$color-white-80: #F5F5F5;
+$color-white-70: #EEEEEE;
+$color-white-60: #E0E0E0;
+
+$color-black-90: #212121;
+$color-black-80: #424242;
+$color-black-70: #616161;
+$color-black-60: #757575;
+
 $color-black-100: #000000;
+$color-white-100: #ffffff;
 
 $box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
 
@@ -14,42 +47,123 @@ $base-6px: 6px;
 $base-8px: 8px;
 $base-10px: 10px;
 
+@mixin visit-hover-active($fontColor) {
+  &:visited {
+    color: $fontColor;
+  }
+  &:hover {
+    color: $fontColor;
+  }
+  &:active {
+    color: $fontColor;
+  }
+}
+
+@mixin font-background($fontColor, $backgroundColor) {
+  &:visited {
+    background-color: $backgroundColor;
+    color: $fontColor;
+  }
+  &:hover {
+    background-color: $backgroundColor;
+    color: $fontColor;
+  }
+  &:active {
+    background-color: $backgroundColor;
+    color: $fontColor;
+  }
+}
+
+*:focus {
+  outline: none;
+}
+
+.primary {
+  background-color: $color-blue-90;
+  color: $color-white-100;
+}
+
+.succes {
+  background-color: $color-green-90;
+  color: $color-white-100;
+}
+
+.warning {
+  background-color: $color-yellow-90;
+  color: $color-black-100;
+}
+
+.error {
+  background-color: $color-red-90;
+  color: $color-white-100;
+}
+
 body, html {
   margin: $base-0;
   padding: $base-0;
   height: 100vh;
-  width: 100vw;
 }
-
 body {
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 300;
   background: $color-white-100;
   color: $color-black-100;
   display: grid;
-  grid-gap: $base-2px;
-  grid-template-rows: 80px 30px auto 60px;
-  grid-template-areas: "header" "breadcrum" "articles" "footer";
+  grid-gap: $base-1px;
+  grid-template-rows: fit-content(80px) 30px auto 40px 60px;
+  grid-template-areas: "header" "breadcrum" "articles" "articles-actions" "footer";
 }
-
 body > * {
   padding: $base-8px;
 }
 
-.card {
-  /* needed for the flex layout*/
-  background-color: $color-white-100;
-  color: $color-black-80;
-  margin-left: $base-4px;
-  margin-right: $base-4px;
-  box-shadow: $box-shadow;
-  flex: 1 1 200px;
+button {
+  color: $color-black-100;
+  background-color: $color-white-70;
+  border: 0;
+  border-radius: $base-4px;
+  @include font-background($color-black-100, $color-white-60);
+  cursor: pointer;
+}
+
+select {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.button-primary {
+  background-color: $color-blue-90;
+  color: $color-white-100;
+  border-radius: $base-4px;
+  @include font-background($color-white-100, $color-blue-80);
+}
+
+.button-succes {
+  background-color: $color-green-90;
+  color: $color-white-100;
+  border-radius: $base-4px;
+  @include font-background($color-white-100, $color-green-80);
+}
+
+.button-warning {
+  background-color: $color-yellow-90;
+  color: $color-white-100;
+  border-radius: $base-4px;
+  @include font-background($color-white-100, $color-yellow-80);
+}
+
+.button-error {
+  background-color: $color-red-90;
+  color: $color-white-100;
+  border-radius: $base-4px;
+  @include font-background($color-white-100, $color-red-80);
 }
 
 .breadcrum {
   grid-area: breadcrum;
   display: flex;
-  background-color: aquamarine;
+  background-color: $color-black-60;
+  color: $color-white-100;
   div {
     align-self: center;
     padding-right: $base-4px;
@@ -59,48 +173,89 @@ body > * {
 
 .articles {
   grid-area: articles;
-  background-color: antiquewhite;
+  background-color: $color-white-60;
+  article {
+    background-color: $color-white-100;
+    color: $color-black-90;
+    box-shadow: $box-shadow;
+    padding: $base-8px $base-8px;
+    margin: $base-8px $base-0;
+    border-radius: $base-4px;
+    display: grid;
+    grid-template-areas: "article-img article-header" "article-img article-content" "article-footer article-footer";
+    img {
+      grid-area: article-img;
+      padding: $base-8px 0;
+      padding-right: $base-8px;
+    }
+    header {
+      grid-area: article-header;
+      padding: $base-8px 0;
+    }
+    .article-content {
+      grid-area: article-content;
+    }
+    footer {
+      grid-area: article-footer;
+      padding: $base-8px 0;
+    }
+  }
+}
+
+.articles-actions {
+  grid-area: articles-actions;
+  background-color: $color-white-70;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-end;
+}
+
+.articles-actions > * {
+  padding-left: $base-4px;
+  margin-left: $base-4px;
 }
 
 .footer {
   grid-area: footer;
   display: flex;
-  background-color: cornflowerblue;
-  div {
+  background-color: $color-black-70;
+  a {
+    color: $color-white-100;
+    text-decoration: none;
     align-self: center;
+    &:visited {
+      color: $color-white-100;
+    }
+    &:hover {
+      color: $color-white-100;
+    }
+    &:active {
+      color: $color-white-100;;
+    }
   }
 }
 
 .header {
   grid-area: header;
   display: grid;
-  grid-template-columns: fit-content(20%) auto;
+  grid-template-columns: [h2-start] fit-content(20%) [nav-start] auto [nav-end];
   background-color: $color-black-80;
   color: $color-white-100;
   h2 {
     align-self: center;
-    background-color: yellowgreen;
   }
   nav {
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-end;
-    .nav-item-aktiv {
+    .nav-item-activ {
       font-weight: bold;
       font-style: italic;
     }
     a {
       color: $color-white-100;
       text-decoration: none;
-      &:visited {
-        color: $color-white-100;
-      }
-      &:hover {
-        color: $color-white-100;
-      }
-      &:active {
-        color: $color-white-100;
-      }
+      @include visit-hover-active($color-white-100);
     }
   }
   nav > * {
@@ -126,5 +281,23 @@ body > * {
 
 /* mobile */
 @media screen and (max-width: 40em) {
-
+  .header {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(auto-fit, auto);
+    justify-content: center;
+    h2 {
+      justify-self: center;
+    }
+    nav {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-evenly;
+    }
+  }
+  .footer {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+  }
 }
