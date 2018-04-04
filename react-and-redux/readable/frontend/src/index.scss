@@ -49,6 +49,8 @@ $base-6px: 6px;
 $base-8px: 8px;
 $base-10px: 10px;
 
+$font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+
 @mixin visit-hover-active($fontColor) {
   &:visited {
     color: $fontColor;
@@ -106,8 +108,9 @@ body, html {
   height: 100vh;
 }
 body {
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: $font-family;
   font-weight: 300;
+  font-size: 16px;
   background: $color-white-100;
   color: $color-black-100;
   display: grid;
@@ -131,6 +134,11 @@ button {
 select {
   cursor: pointer;
   text-decoration: none;
+}
+
+textarea {
+  font-family: $font-family;
+  font-size: 12px;
 }
 
 .button-primary {
@@ -176,6 +184,11 @@ select {
 .articles {
   grid-area: articles;
   background-color: $color-white-60;
+  display: grid;
+  grid-gap: $base-8px;
+  grid-template-columns: fit-content(max(600px));
+  justify-content: center;
+  align-items: center;
   article {
     background-color: $color-white-100;
     color: $color-black-90;
@@ -183,7 +196,7 @@ select {
     padding: $base-8px $base-8px;
     margin: $base-8px $base-0;
     border-radius: $base-4px;
-    display: grid;
+    display: inline-grid;
     grid-template-areas: "article-img article-header" "article-img article-content" "article-footer article-footer";
     img {
       grid-area: article-img;
@@ -193,6 +206,8 @@ select {
     header {
       grid-area: article-header;
       padding: $base-8px 0;
+      font-style: italic;
+      font-size: large;
     }
     .article-content {
       grid-area: article-content;
@@ -200,6 +215,45 @@ select {
     footer {
       grid-area: article-footer;
       padding: $base-8px 0;
+    }
+  }
+  .article-edit {
+    display: grid;
+    grid-template-areas: "article-header article-header" "article-content article-content" "article-footer article-footer";
+    header {
+      font-style: italic;
+      font-size: large;
+    }
+    label {
+      font-size: 16px;
+      padding: $base-4px 0;
+      margin: $base-4px;
+    }
+    footer {
+      display: flex;
+      flex-wrap: wrap;
+      align-content: space-evenly;
+      justify-content: flex-end;
+      align-items: center;
+    }
+    footer > * {
+      padding: $base-4px;
+      margin-right: $base-4px;
+      align-self: stretch;
+      width: 100px;
+    }
+    textarea {
+      height: 80px;
+    }
+    select {
+      height: 26px;
+    }
+    input {
+      height: 20px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
     }
   }
 }
@@ -220,19 +274,19 @@ select {
 .footer {
   grid-area: footer;
   display: flex;
-  background-color: $color-black-70;
+  background-color: $color-white-80;
   a {
-    color: $color-white-100;
+    color: $color-black-100;
     text-decoration: none;
     align-self: center;
     &:visited {
-      color: $color-white-100;
+      color: $color-black-100;
     }
     &:hover {
-      color: $color-white-100;
+      color: $color-black-100;
     }
     &:active {
-      color: $color-white-100;;
+      color: $color-black-100;
     }
   }
 }
