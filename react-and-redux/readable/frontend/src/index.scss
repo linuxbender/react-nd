@@ -78,6 +78,21 @@ $font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", H
   }
 }
 
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 1;
+  }
+  20% {
+    transform: scale(25, 25);
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(40, 40);
+  }
+}
+
 *:focus {
   outline: none;
 }
@@ -132,6 +147,24 @@ button {
   box-shadow: $box-shadow;
   @include font-background($color-black-100, $color-white-60);
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  &:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, .2);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%);
+    transform-origin: 50% 50%;
+  }
+  &:focus:not(:active)::after {
+    animation: ripple 2s ease-out;
+  }
 }
 
 select {
@@ -217,11 +250,28 @@ textarea {
         display: inline-block;
         font-style: normal;
         &:nth-child(n+2) {
-          @include font-background($color-black-100, $color-white-70);
+          @include font-background($color-black-100, $color-white-100);
           border-radius: $base-4px;
           border: 1px solid $color-white-70;
           font-size: 11px;
           font-style: normal;
+          /*[data-tool-tip] {
+            position: relative;
+          }
+          [data-tool-tip]:hover::after {
+            content: attr(data-tool-tip);
+            position: absolute;
+            left: 50px;
+            top: 8px;
+            min-width: 160px;
+            box-shadow: $box-shadow;
+            border-radius: $base-4px;
+            background-color: #ffffcc;
+            padding: 12px;
+            color: #000000;
+            font-size: 14px;
+            z-index: 1000;
+          }*/
         }
         a {
           padding-bottom: $base-0;
