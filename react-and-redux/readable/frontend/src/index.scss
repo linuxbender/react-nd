@@ -214,11 +214,12 @@ textarea {
       i {
         padding-bottom: $base-0;
         font-size: 14px;
+        display: inline-block;
         font-style: normal;
         &:nth-child(n+2) {
-          @include font-background($color-black-90, $color-white-60);
+          @include font-background($color-black-100, $color-white-70);
           border-radius: $base-4px;
-          box-shadow: $box-shadow;
+          border: 1px solid $color-white-70;
           font-size: 11px;
           font-style: normal;
         }
@@ -240,8 +241,6 @@ textarea {
     }
     footer > * {
       padding: $base-4px;
-      margin-left: $base-8px;
-      align-self: stretch;
     }
   }
   .article-edit, .article-alert {
