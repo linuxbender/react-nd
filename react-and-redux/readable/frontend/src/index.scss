@@ -243,8 +243,43 @@ textarea {
       padding: $base-4px;
     }
   }
+  .article-edit {
+    transition: height 600ms 100ms;
+    transition-timing-function: cubic-bezier(.89, .13, .1, .93);
+    &:hover {
+      display: grid;
+      height: 391px;
+      cursor: pointer;
+    }
+  }
+  .article-alert {
+    background-color: $color-red-60;
+    color: $color-white-100;
+    transition: height 400ms 100ms;
+    transition-timing-function: cubic-bezier(.89, .13, .1, .93);
+    &:hover {
+      display: grid;
+      height: 142px;
+      cursor: pointer;
+    }
+    .article-content {
+      .form-group {
+        i {
+          display: flex;
+          flex-wrap: wrap;
+          label {
+            font-size: large;
+            align-self: center;
+            margin-left: $base-8px;
+          }
+        }
+      }
+    }
+  }
   .article-edit, .article-alert {
-    display: grid;
+    display: block;
+    height: 20px;
+    overflow: hidden;
     grid-template-areas: "article-header article-header" "article-content article-content" "article-footer article-footer";
     label {
       font-size: 16px;
@@ -340,6 +375,18 @@ $icon-plus: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/sv
     fill: $color-black-100;
     path {
       fill: $color-black-100;
+    }
+  }
+}
+
+.icon-48-white-100 {
+  display: inline-block;
+  svg {
+    width: 64px;
+    height: 64px;
+    fill: $color-white-100;
+    path {
+      fill: $color-white-100;
     }
   }
 }
