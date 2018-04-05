@@ -107,6 +107,7 @@ body, html {
   padding: $base-0;
   height: 100vh;
 }
+
 body {
   font-family: $font-family;
   font-weight: 300;
@@ -115,9 +116,10 @@ body {
   color: $color-black-100;
   display: grid;
   grid-gap: $base-1px;
-  grid-template-rows: fit-content(80px) 30px auto 40px 60px;
-  grid-template-areas: "header" "breadcrum" "articles" "articles-actions" "footer";
+  grid-template-rows: fit-content(80px) 30px auto;
+  grid-template-areas: "header" "breadcrum" "articles";
 }
+
 body > * {
   padding: $base-8px;
 }
@@ -127,6 +129,7 @@ button {
   background-color: $color-white-70;
   border: 0;
   border-radius: $base-4px;
+  box-shadow: $box-shadow;
   @include font-background($color-black-100, $color-white-60);
   cursor: pointer;
 }
@@ -146,20 +149,6 @@ textarea {
   color: $color-white-100;
   border-radius: $base-4px;
   @include font-background($color-white-100, $color-blue-80);
-}
-
-.button-succes {
-  background-color: $color-green-90;
-  color: $color-white-100;
-  border-radius: $base-4px;
-  @include font-background($color-white-100, $color-green-80);
-}
-
-.button-warning {
-  background-color: $color-yellow-90;
-  color: $color-white-100;
-  border-radius: $base-4px;
-  @include font-background($color-white-100, $color-yellow-80);
 }
 
 .button-error {
@@ -205,29 +194,63 @@ textarea {
     }
     header {
       grid-area: article-header;
-      padding: $base-8px 0;
+      padding-bottom: $base-4px;
       font-style: italic;
       font-size: large;
     }
     .article-content {
       grid-area: article-content;
+      margin-bottom: $base-8px;
+      padding-bottom: $base-4px;
+      padding-top: $base-8px;
     }
     footer {
       grid-area: article-footer;
-      padding: $base-8px 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      padding-top: $base-8px;
+      border-top: 1px solid $color-white-70;
+      i {
+        padding-bottom: $base-0;
+        font-size: 14px;
+        font-style: normal;
+        &:nth-child(n+2) {
+          @include font-background($color-black-90, $color-white-60);
+          border-radius: $base-4px;
+          box-shadow: $box-shadow;
+          font-size: 11px;
+          font-style: normal;
+        }
+        a {
+          padding-bottom: $base-0;
+          display: inline-block;
+          text-decoration: none;
+          &:visited {
+            color: $color-black-100;
+          }
+          &:hover {
+            color: $color-black-100;
+          }
+          &:active {
+            color: $color-black-100;
+          }
+        }
+      }
+    }
+    footer > * {
+      padding: $base-4px;
+      margin-left: $base-8px;
+      align-self: stretch;
     }
   }
-  .article-edit {
+  .article-edit, .article-alert {
     display: grid;
     grid-template-areas: "article-header article-header" "article-content article-content" "article-footer article-footer";
-    header {
-      font-style: italic;
-      font-size: large;
-    }
     label {
       font-size: 16px;
       padding: $base-4px 0;
-      margin: $base-4px;
+      margin: $base-4px 0;
     }
     footer {
       display: flex;
@@ -235,14 +258,16 @@ textarea {
       align-content: space-evenly;
       justify-content: flex-end;
       align-items: center;
+      border-top: 1px solid $color-white-70;
     }
     footer > * {
       padding: $base-4px;
-      margin-right: $base-4px;
+      margin-left: $base-8px;
       align-self: stretch;
       width: 100px;
     }
     textarea {
+      font-size: 13px;
       height: 80px;
     }
     select {
@@ -258,36 +283,106 @@ textarea {
   }
 }
 
-.articles-actions {
-  grid-area: articles-actions;
-  background-color: $color-white-70;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: flex-end;
+$icon-plus: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='16' viewBox='0 0 12 16'%3E %3Cpath fill='%23fff' d='M12 9H7v5H5V9H0V7h5V2h2v5h5v2z'/%3E %3C/svg%3E");
+
+.icon-16-green-90 {
+  display: inline-block;
+  svg {
+    width: 16px;
+    height: 16px;
+    fill: $color-green-90;
+    path {
+      fill: $color-green-90;
+    }
+  }
 }
 
-.articles-actions > * {
-  padding-left: $base-4px;
-  margin-left: $base-4px;
+.icon-12-blue-90 {
+  display: inline-block;
+  svg {
+    width: 12px;
+    height: 12px;
+    fill: $color-blue-90;
+    path {
+      fill: $color-blue-90;
+    }
+  }
 }
 
-.footer {
-  grid-area: footer;
-  display: flex;
-  background-color: $color-white-80;
+.icon-16-orange-60 {
+  display: inline-block;
+  svg {
+    width: 16px;
+    height: 16px;
+    fill: $color-orange-60;
+    path {
+      fill: $color-orange-60;
+    }
+  }
+}
+
+.icon-24-red-90 {
+  display: inline-block;
+  svg {
+    width: 24px;
+    height: 24px;
+    fill: $color-red-90;
+    path {
+      fill: $color-red-90;
+    }
+  }
+}
+
+.icon-24-black-100 {
+  display: inline-block;
+  svg {
+    width: 24px;
+    height: 24px;
+    fill: $color-black-100;
+    path {
+      fill: $color-black-100;
+    }
+  }
+}
+
+.icon-24-blue-90 {
+  display: inline-block;
+  svg {
+    width: 24px;
+    height: 24px;
+    fill: $color-blue-90;
+    path {
+      fill: $color-blue-90;
+    }
+  }
+}
+
+.icon-24-green-90 {
+  display: inline-block;
+  svg {
+    width: 24px;
+    height: 24px;
+    fill: $color-green-90;
+    path {
+      fill: $color-green-90;
+    }
+  }
+}
+
+.add-post {
+  position: fixed;
+  right: 25px;
+  bottom: 25px;
   a {
-    color: $color-black-100;
-    text-decoration: none;
-    align-self: center;
-    &:visited {
-      color: $color-black-100;
-    }
-    &:hover {
-      color: $color-black-100;
-    }
-    &:active {
-      color: $color-black-100;
-    }
+    display: inline-block;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: $color-blue-90 $icon-plus no-repeat center;
+    background-size: 28px;
+    box-shadow: $box-shadow;
+    font-size: 0;
+    cursor: pointer;
   }
 }
 
@@ -350,10 +445,5 @@ textarea {
       flex-flow: row wrap;
       justify-content: space-evenly;
     }
-  }
-  .footer {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-evenly;
   }
 }
