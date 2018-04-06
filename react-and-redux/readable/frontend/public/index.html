@@ -36,7 +36,14 @@
 </header>
 <section class="articles">
     <article class="article-edit">
-        <header>Create a new post</header>
+        <header>
+            <i class="icon-24-white-100 button-pulse">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16">
+                    <path fill-rule="evenodd" d="M12 9H7v5H5V9H0V7h5V2h2v5h5v2z"/>
+                </svg>
+            </i>
+            Create a new post
+        </header>
         <div class="article-content">
             <div class="form-group">
                 <label>Title: <span>*</span></label>
@@ -81,7 +88,6 @@
             <button>Cancel</button>
         </footer>
     </article>
-
     <article class="article-alert">
         <header>Delete Post!</header>
         <div class="article-content">
@@ -100,7 +106,6 @@
             <button>Cancel</button>
         </footer>
     </article>
-
     <article>
         <img src="img/react-logo.svg"/>
         <header>Title..</header>
@@ -116,8 +121,7 @@
                 </svg>
                 12.02.2018, I'm Groot
             </i>
-            <button class="button-primary"
-                    style="font-size: 11px; padding: 2px; margin: 0px; background-color: #fff; color: #000; box-shadow: none; border: 1px solid rgb(238, 238, 238);">
+            <button class="button-action">
                 <i class="icon-24-red-90">
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16">
                         <path fill-rule="evenodd"
@@ -125,36 +129,32 @@
                     </svg>
                 </i>12
             </button>
-            <button class="button-primary"
-                    style="font-size: 11px; padding: 2px; margin: 0px; background-color: #fff; color: #000; box-shadow: none; border: 1px solid rgb(238, 238, 238);">
-                <i class="icon-24-black-100" style="font-size: 11px">
+            <button class="button-action">
+                <i class="icon-24-black-100">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
                         <path fill-rule="evenodd"
                               d="M15 1H6c-.55 0-1 .45-1 1v2H1c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h1v3l3-3h4c.55 0 1-.45 1-1V9h1l3 3V9h1c.55 0 1-.45 1-1V2c0-.55-.45-1-1-1zM9 11H4.5L3 12.5V11H1V5h4v3c0 .55.45 1 1 1h3v2zm6-3h-2v1.5L11.5 8H6V2h9v6z"/>
                     </svg>
                 </i>2
             </button>
-            <button class="button-primary"
-                    style="font-size: 11px; padding: 2px; margin: 0px; background-color: #fff; color: #000; box-shadow: none; border: 1px solid rgb(238, 238, 238);">
-                <i class="icon-24-black-100" style="font-size: 11px">
+            <button class="button-action">
+                <i class="icon-24-black-100">
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16">
                         <path fill-rule="evenodd"
                               d="M0 11.592v3h3l8-8-3-3-8 8zm3 2H1v-2h1v1h1v1zm10.3-9.3l-1.3 1.3-3-3 1.3-1.3a.996.996 0 0 1 1.41 0l1.59 1.59c.39.39.39 1.02 0 1.41z"/>
                     </svg>
                 </i>edit
             </button>
-            <button class="button-primary"
-                    style="font-size: 11px; padding: 2px; margin: 0px; background-color: #fff; color: #000; box-shadow: none; border: 1px solid rgb(238, 238, 238);">
-                <i class="icon-24-black-100" style="font-size: 11px">
+            <button class="button-action">
+                <i class="icon-24-black-100">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
                         <path fill-rule="evenodd"
                               d="M14 1H2c-.55 0-1 .45-1 1v8c0 .55.45 1 1 1h2v3.5L7.5 11H14c.55 0 1-.45 1-1V2c0-.55-.45-1-1-1zm0 9H7l-2 2v-2H2V2h12v8z"/>
                     </svg>
                 </i>add
             </button>
-            <button class="button-primary"
-                    style="font-size: 11px; padding: 2px; margin: 0px; background-color: #fff; color: #000; box-shadow: none; border: 1px solid rgb(238, 238, 238);">
-                <i class="icon-24-red-90" style="font-size: 11px">
+            <button class="button-action">
+                <i class="icon-24-red-90">
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16">
                         <path fill-rule="evenodd"
                               d="M7.71 8.23l3.75 3.75-1.48 1.48-3.75-3.75-3.75 3.75L1 11.98l3.75-3.75L1 4.48 2.48 3l3.75 3.75L9.98 3l1.48 1.48-3.75 3.75z"/>
@@ -163,7 +163,7 @@
             </button>
         </footer>
     </article>
-    <article>
+    <article class="article-detail">
         <img src="img/redux-logo.svg"/>
         <header>Title..</header>
         <div class="article-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam, beatae
@@ -193,8 +193,5 @@
         <footer>Footer | Footer</footer>
     </article>
 </section>
-<div class="add-post">
-    <a href="#"></a>
-</div>
 </body>
 </html>

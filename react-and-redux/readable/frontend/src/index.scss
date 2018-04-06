@@ -1,5 +1,3 @@
-@import 'open-color';
-
 $color-red-90: #B71C1C;
 $color-red-80: #C62828;
 $color-red-70: #D32F2F;
@@ -90,6 +88,12 @@ $font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", H
   100% {
     opacity: 0;
     transform: scale(40, 40);
+  }
+}
+
+@keyframes pulse {
+  to {
+    box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);
   }
 }
 
@@ -191,6 +195,16 @@ textarea {
   @include font-background($color-white-100, $color-red-80);
 }
 
+.button-action {
+  font-size: 11px;
+  padding: $base-2px;
+  margin: $base-0;
+  background-color: #fff;
+  color: #000;
+  box-shadow: none;
+  border: $base-1px solid rgb(238, 238, 238);
+}
+
 .articles {
   background: linear-gradient(324deg, $color-blue-90 4%,   transparent 4%) -70px 43px,
   linear-gradient(36deg, $color-blue-90 4%, transparent 4%) 30px 43px,
@@ -245,12 +259,8 @@ textarea {
       justify-content: space-between;
       padding-top: $base-8px;
       border-top: 1px solid $color-white-70;
-      i {
-        padding-bottom: $base-0;
-        font-size: 14px;
-        display: inline-block;
-        font-style: normal;
-      }
+      font-size: 14px;
+      font-style: normal;
     }
     footer > * {
       padding: $base-4px;
@@ -263,6 +273,24 @@ textarea {
       display: grid;
       height: 391px;
       cursor: pointer;
+    }
+    header {
+      display: inline-flex;
+      .button-pulse {
+        width: 24px;
+        height: 24px;
+        border: none;
+        border-radius: 50%;
+        margin-right: $base-4px;
+        box-shadow: 0 0 0 0 $color-blue-90;
+        background-color: $color-blue-90;
+        background-size: cover;
+        background-repeat: no-repeat;
+        animation: pulse 1250ms infinite cubic-bezier(0.66, 0, 0, 1) 3000ms;
+        &:hover {
+          animation: none;
+        }
+      }
     }
   }
   .article-alert {
@@ -289,6 +317,8 @@ textarea {
       }
     }
   }
+  .article-detail {
+  }
   .article-edit, .article-alert {
     display: block;
     height: 20px;
@@ -310,7 +340,6 @@ textarea {
     footer > * {
       padding: $base-4px;
       margin-left: $base-8px;
-      align-self: stretch;
       width: 100px;
     }
     textarea {
@@ -393,6 +422,18 @@ $noise-background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAM
   }
 }
 
+.icon-24-white-100 {
+  display: inline-block;
+  svg {
+    width: 24px;
+    height: 24px;
+    fill: $color-white-100;
+    path {
+      fill: $color-white-100;
+    }
+  }
+}
+
 .icon-48-white-100 {
   display: inline-block;
   svg {
@@ -438,7 +479,7 @@ $noise-background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAM
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    background: $color-blue-90 $icon-plus no-repeat center;
+    background: $color-orange-90 $icon-plus no-repeat center;
     background-size: 28px;
     box-shadow: $box-shadow;
     font-size: 0;
