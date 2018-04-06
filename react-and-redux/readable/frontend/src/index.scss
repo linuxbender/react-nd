@@ -93,7 +93,7 @@ $font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", H
 
 @keyframes pulse {
   to {
-    box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);
+    box-shadow: 0 0 0 4px rgba(232, 76, 61, 0);
   }
 }
 
@@ -286,7 +286,7 @@ textarea {
         background-color: $color-blue-90;
         background-size: cover;
         background-repeat: no-repeat;
-        animation: pulse 1250ms infinite cubic-bezier(0.66, 0, 0, 1) 3000ms;
+        animation: pulse 1250ms infinite cubic-bezier(0.66, 0, 0, 1);
         &:hover {
           animation: none;
         }
