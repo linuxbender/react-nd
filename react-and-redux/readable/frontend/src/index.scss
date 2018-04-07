@@ -97,7 +97,7 @@ $font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", H
   }
 }
 
-*:focus {
+*:focus, *:active, *:after {
   outline: none;
 }
 
