@@ -132,6 +132,20 @@ body {
   font-weight: 300;
   font-size: 16px;
   background: $color-white-100;
+  background: linear-gradient(324deg, $color-blue-90 4%,   transparent 4%) -70px 43px,
+  linear-gradient(36deg, $color-blue-90 4%, transparent 4%) 30px 43px,
+  linear-gradient(72deg, #e3d7bf 8.5%, transparent 8.5%) 30px 43px,
+  linear-gradient(288deg, #e3d7bf 8.5%, transparent 8.5%) -70px 43px,
+  linear-gradient(216deg, #e3d7bf 7.5%, transparent 7.5%) -70px 23px,
+  linear-gradient(144deg, #e3d7bf 7.5%, transparent 7.5%) 30px 23px,
+  linear-gradient(324deg, $color-blue-90 4%,   transparent 4%) -20px 93px,
+  linear-gradient(36deg, $color-blue-90 4%, transparent 4%) 80px 93px,
+  linear-gradient(72deg, #e3d7bf 8.5%, transparent 8.5%) 80px 93px,
+  linear-gradient(288deg, #e3d7bf 8.5%, transparent 8.5%) -20px 93px,
+  linear-gradient(216deg, #e3d7bf 7.5%, transparent 7.5%) -20px 73px,
+  linear-gradient(144deg, #e3d7bf 7.5%, transparent 7.5%) 80px 73px;
+  background-color: $color-blue-90;
+  background-size: 100px 100px;
   color: $color-black-100;
   display: grid;
   grid-gap: $base-1px;
@@ -206,20 +220,6 @@ textarea {
 }
 
 .articles {
-  background: linear-gradient(324deg, $color-blue-90 4%,   transparent 4%) -70px 43px,
-  linear-gradient(36deg, $color-blue-90 4%, transparent 4%) 30px 43px,
-  linear-gradient(72deg, #e3d7bf 8.5%, transparent 8.5%) 30px 43px,
-  linear-gradient(288deg, #e3d7bf 8.5%, transparent 8.5%) -70px 43px,
-  linear-gradient(216deg, #e3d7bf 7.5%, transparent 7.5%) -70px 23px,
-  linear-gradient(144deg, #e3d7bf 7.5%, transparent 7.5%) 30px 23px,
-  linear-gradient(324deg, $color-blue-90 4%,   transparent 4%) -20px 93px,
-  linear-gradient(36deg, $color-blue-90 4%, transparent 4%) 80px 93px,
-  linear-gradient(72deg, #e3d7bf 8.5%, transparent 8.5%) 80px 93px,
-  linear-gradient(288deg, #e3d7bf 8.5%, transparent 8.5%) -20px 93px,
-  linear-gradient(216deg, #e3d7bf 7.5%, transparent 7.5%) -20px 73px,
-  linear-gradient(144deg, #e3d7bf 7.5%, transparent 7.5%) 80px 73px;
-  background-color: $color-blue-90;
-  background-size: 100px 100px;
   grid-area: articles;
   display: grid;
   grid-gap: $base-8px;
@@ -332,9 +332,7 @@ textarea {
     footer {
       display: flex;
       flex-wrap: wrap;
-      align-content: space-evenly;
       justify-content: flex-end;
-      align-items: center;
       border-top: 1px solid $color-white-70;
     }
     footer > * {
@@ -489,17 +487,20 @@ $noise-background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAM
 
 .header {
   grid-area: header;
-  display: grid;
-  grid-template-columns: [h2-start] fit-content(20%) [nav-start] auto [nav-end];
-  background-color: $color-black-80;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: $color-black-90;
   color: $color-white-100;
-  h2 {
-    align-self: center;
+  opacity: 0.96;
+  box-shadow: $base-0 6px 24px 0 rgba(0, 0, 0, 0.90);
+  header {
+    font-size: 24px;
+    font-style: italic;
   }
   nav {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: flex-end;
+    display: inline-flex;
+    flex-flow: wrap;
     .nav-item-activ {
       font-weight: bold;
       font-style: italic;
@@ -510,16 +511,11 @@ $noise-background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAM
       @include visit-hover-active($color-white-100);
     }
   }
-  nav > * {
-    padding-left: $base-4px;
-    margin-left: $base-4px;
-    align-self: center;
-  }
 }
 
 @supports (display: grid) {
   .container > * {
-    margin: $base-0;
+    margin: $base-2px;
   }
 }
 
@@ -533,18 +529,4 @@ $noise-background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAM
 
 /* mobile */
 @media screen and (max-width: 40em) {
-  .header {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(auto-fit, auto);
-    justify-content: center;
-    h2 {
-      justify-self: center;
-    }
-    nav {
-      display: flex;
-      flex-flow: row wrap;
-      justify-content: space-evenly;
-    }
-  }
 }
