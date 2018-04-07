@@ -219,6 +219,19 @@ textarea {
   border: $base-1px solid rgb(238, 238, 238);
 }
 
+.button-action-error {
+  font-size: 12px;
+  padding: $base-0;
+  margin: $base-0;
+  background-color: $color-red-90;
+  color: $color-white-100;
+  box-shadow: none;
+  &:hover {
+    background-color: $color-red-80;
+    color: $color-white-100;
+  }
+}
+
 .articles {
   grid-area: articles;
   display: grid;
@@ -318,6 +331,103 @@ textarea {
     }
   }
   .article-detail {
+    display: grid;
+    grid-template-areas: "article-img article-header" "article-img article-content" "article-footer article-footer" "article-comments article-comments" "comment-delete comment-delete" "comment-add comment-add";
+    .section-comments {
+      margin-top: 8px;
+      padding-top: 32px;
+      border-top: 1px solid $color-white-70;
+      grid-area: article-comments;
+      header {
+        padding-top: $base-4px;
+      }
+      article {
+        box-shadow: none;
+        footer {
+          display: inline-grid;
+          grid-template-columns: minmax(140px, auto) auto;
+        }
+      }
+      .comment-delete {
+        display: grid;
+        grid-area: comment-delete;
+        grid-template-areas: "comment-header comment-header" "comment-content comment-content" "comment-footer comment-footer";
+        overflow: hidden;
+        background-color: $color-red-60;
+        color: $color-white-100;
+        transition: height 400ms 100ms;
+        transition-timing-function: cubic-bezier(.89, .13, .1, .93);
+        header {
+          grid-area: comment-header;
+        }
+        .comment-content {
+          grid-area: comment-content;
+          .form-group {
+            i {
+              display: flex;
+              flex-wrap: wrap;
+              label {
+                font-size: 16px;
+                align-self: center;
+                margin-left: $base-8px;
+              }
+            }
+          }
+        }
+        footer {
+          grid-area: comment-footer;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: flex-end;
+          border-top: 1px solid $color-white-70;
+          border-bottom: none;
+          nav > * {
+            padding: $base-4px;
+            margin-left: $base-8px;
+            min-width: 100px;
+          }
+        }
+      }
+      .comment-add {
+        display: grid;
+        grid-area: comment-add;
+        grid-template-areas: "comment-header comment-header" "comment-content comment-content" "comment-footer comment-footer";
+        header {
+          grid-area: comment-header;
+        }
+        .comment-content {
+          grid-area: comment-content;
+          display: grid;
+          grid-template-columns: auto auto;
+          .form-group {
+            display: grid;
+            label {
+              font-size: 16px;
+              font-style: normal;
+              display: flex;
+              flex-wrap: wrap;
+              i {
+                align-self: center;
+                margin-left: $base-8px;
+              }
+            }
+          }
+          .form-group:first-child {
+            grid-column-start: span 2;
+          }
+          .form-group:last-child {
+            padding-left: $base-8px;
+            align-self: end;
+            justify-self: end;
+            nav > * {
+              padding: $base-4px;
+              margin-left: $base-8px;
+              min-width: 100px;
+            }
+          }
+        }
+      }
+    }
   }
   .article-edit, .article-alert {
     display: block;
@@ -413,6 +523,18 @@ $noise-background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAM
   svg {
     width: 24px;
     height: 24px;
+    fill: $color-black-100;
+    path {
+      fill: $color-black-100;
+    }
+  }
+}
+
+.icon-32-black-100 {
+  display: inline-block;
+  svg {
+    width: 32px;
+    height: 32px;
     fill: $color-black-100;
     path {
       fill: $color-black-100;
