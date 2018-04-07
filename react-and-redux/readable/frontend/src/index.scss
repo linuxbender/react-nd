@@ -338,7 +338,7 @@ textarea {
     footer > * {
       padding: $base-4px;
       margin-left: $base-8px;
-      width: 100px;
+      min-width: 100px;
     }
     textarea {
       font-size: 13px;
