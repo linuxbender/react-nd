@@ -3,7 +3,7 @@ $color-red-80: #C62828;
 $color-red-70: #D32F2F;
 $color-red-60: #E53935;
 
-$color-blue-90: #0D47A1;
+$color-blue-90: #1d4992;
 $color-blue-80: #1565C0;
 $color-blue-70: #1976D2;
 $color-blue-60: #1E88E5;
@@ -210,8 +210,8 @@ textarea {
 }
 
 .button-action {
-  font-size: 11px;
-  padding: $base-2px;
+  font-size: 12px;
+  padding: $base-0;
   margin: $base-0;
   background-color: #fff;
   color: #000;
@@ -263,7 +263,7 @@ textarea {
       font-style: normal;
     }
     footer > * {
-      padding: $base-4px;
+      padding: $base-0;
     }
   }
   .article-edit {
