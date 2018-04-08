@@ -279,7 +279,7 @@ textarea {
       padding: $base-0;
     }
   }
-  .article-edit {
+  .article-add {
     transition: height 600ms 100ms;
     transition-timing-function: cubic-bezier(.89, .13, .1, .93);
     &:hover {
@@ -306,7 +306,9 @@ textarea {
       }
     }
   }
-  .article-alert {
+  .article-edit {
+  }
+  .article-delete {
     background-color: $color-red-60;
     color: $color-white-100;
     transition: height 400ms 100ms;
@@ -429,7 +431,7 @@ textarea {
       }
     }
   }
-  .article-edit, .article-alert {
+  .article-add, .article-delete {
     display: block;
     height: 20px;
     overflow: hidden;
