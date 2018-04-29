@@ -22,5 +22,7 @@ yarn-error.log*
 
 # css
 .css
+*.lock
+*lock.json
 /**/*.css
 /src/**/*.css
