@@ -619,11 +619,19 @@ $icon-plus: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/sv
     .nav-item-activ {
       font-weight: bold;
       font-style: italic;
+      border-bottom: 2px solid $color-yellow-60;
     }
-    a {
-      color: $color-white-100;
-      text-decoration: none;
-      @include visit-hover-active($color-white-100);
+    div {
+      cursor: pointer;
+      &:hover {
+        border-bottom: 2px solid #fff;
+      }
+      padding: $base-0 $base-10px;
+      a {
+        color: $color-white-100;
+        text-decoration: none;
+        @include visit-hover-active($color-white-100);
+      }
     }
   }
 }
