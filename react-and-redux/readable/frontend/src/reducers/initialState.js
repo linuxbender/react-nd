@@ -3,5 +3,5 @@ export default {
     comment: [],
     currentActiveCategory: 0,
     post: [],
-    ajaxCallsInProgress: 0
+    apiCallsInProgress: 0
 };

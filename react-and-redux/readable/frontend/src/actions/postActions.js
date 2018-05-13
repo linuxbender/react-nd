@@ -1,17 +1,18 @@
 import * as types from './';
 import {getAllPosts} from '../api';
+import {beginApiCall} from "./apiStatusActions";
 
-export function loadPostsSuccess(data) {
+const loadPostsSuccess = (data) => {
     return {type: types.LOAD_POSTS_SUCCESS, data};
-}
+};
 
-export function loadPosts() {
+export const loadPosts = () => {
     return function (dispatch) {
-        // dispatch(beginAjaxCall());
+        dispatch(beginApiCall());
         return getAllPosts().then(data => {
             dispatch(loadPostsSuccess(data));
         }).catch(error => {
             throw(error);
         });
     };
-}
+};

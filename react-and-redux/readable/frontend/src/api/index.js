@@ -66,7 +66,8 @@ export const deletePost = (id) =>
 
 export const getAllCategories = () =>
     fetch(`${api}/categories`, {headers})
-        .then(res => res.json());
+        .then(res => res.json())
+        .then(data => data.categories);
 
 export const initAppData = {"posts": {}, "categories": {}};
 
