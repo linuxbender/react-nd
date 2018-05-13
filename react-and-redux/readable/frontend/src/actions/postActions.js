@@ -1,9 +1,13 @@
 import * as types from './';
-import {getAllPosts} from '../api';
+import {getAllPosts, getPostsByCategorie} from '../api';
 import {beginApiCall} from "./apiStatusActions";
 
 const loadPostsSuccess = (data) => {
     return {type: types.LOAD_POSTS_SUCCESS, data};
+};
+
+const loadPostsByCategorySuccess = (data) => {
+    return {type: types.LOAD_POSTS_BY_CATEGORY_SUCCESS, data};
 };
 
 export const loadPosts = () => {
@@ -16,3 +20,15 @@ export const loadPosts = () => {
         });
     };
 };
+
+export const loadPostsByCategory = (category) => {
+    return function (dispatch) {
+        dispatch(beginApiCall());
+        return getPostsByCategorie(category).then(data => {
+            dispatch(loadPostsByCategorySuccess(data));
+        }).catch(error => {
+            throw(error);
+        });
+    };
+};
+
