@@ -12,7 +12,9 @@ const App = () => {
 const mapStateToProps = (state, ownProps) => {
     return {
         loading: state.apiCallsInProgress > 0,
-        category: state.category
+        category: state.category,
+        post: state.post,
+        navActiveCategory: state.navActiveCategory
     };
 };
 
