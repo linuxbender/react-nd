@@ -1,7 +1,7 @@
 export default {
     category: [],
     comment: [],
-    currentActiveCategory: 0,
+    navActiveCategory: '',
     post: [],
     apiCallsInProgress: 0
 };
