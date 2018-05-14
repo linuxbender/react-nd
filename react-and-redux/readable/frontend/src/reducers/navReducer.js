@@ -3,7 +3,7 @@ import initialState from './initialState';
 
 const navReducer = (state = initialState.navActiveCategory, action) => {
     switch (action.type) {
-        case types.NAV_ACTIVE_CATEGORY_SUCCESS:
+        case types.NAV_ACTIVE_CATEGORY:
             return action.data;
         default:
             return state;
