@@ -1,21 +1,17 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import './styles/App.css';
 import Header from "./components/common/Header";
+import NewPost from "./components/home/NewPost";
 
 const App = () => {
     return (
-        <Header></Header>
+        <div>
+            <Header></Header>
+            <section className="articles">
+                <NewPost> </NewPost>
+            </section>
+        </div>
     );
 };
 
-const mapStateToProps = (state, ownProps) => {
-    return {
-        loading: state.apiCallsInProgress > 0,
-        category: state.category,
-        post: state.post,
-        navActiveCategory: state.navActiveCategory
-    };
-};
-
-export default connect(mapStateToProps)(App);
+export default App;

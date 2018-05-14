@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {loadPostsByCategory, loadPosts} from '../../actions/postActions';
 import {navActiveCategory} from '../../actions/navActions';
+import {mapNavCategory} from "../../utils/mapHelper";
 
 const Header = ({category, activeCategory, dispatch}) => {
     const onFilterCategoryHandler = (category) => {
@@ -33,9 +34,9 @@ const Header = ({category, activeCategory, dispatch}) => {
     );
 };
 
-const mapStateToProps = (state, props) => ({
+const mapStateToProps = (state) => ({
     loading: state.apiCallsInProgress > 0,
-    category: state.category,
+    category: mapNavCategory(state.category),
     activeCategory: state.navActiveCategory
 });
 
