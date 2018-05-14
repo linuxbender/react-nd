@@ -1,5 +1,5 @@
 import * as types from '../actions';
-import initialState from './initialState';
+import initialState from '../utils/initialState';
 
 const navReducer = (state = initialState.navActiveCategory, action) => {
     switch (action.type) {

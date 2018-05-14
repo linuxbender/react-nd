@@ -1,5 +1,5 @@
 import * as types from '../actions';
-import initialState from './initialState';
+import initialState from '../utils/initialState';
 
 const categoryReducer = (state = initialState.category, action) => {
     switch (action.type) {

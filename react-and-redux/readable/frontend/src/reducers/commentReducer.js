@@ -1,5 +1,5 @@
 import * as types from '../actions';
-import initialState from './initialState';
+import initialState from '../utils/initialState';
 
 const commentReducer = (state = initialState.comment, action) => {
     switch (action.type) {
