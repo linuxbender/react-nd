@@ -1,15 +1,16 @@
 import React from 'react';
 
-const SelectInput = ({onChange, defaultOption, value, options}) => {
-    console.log(defaultOption);
+const SelectInput = ({onChange, value, options}) => {
+
+    const changeHandler = e => onChange(e);
+
     return (
         <select name="formCategory"
                 value={value}
-                onChange={onChange}>
-            <option value="">{defaultOption}</option>
+                onChange={changeHandler}>
             {
-                options.map((option) => {
-                return <option key={option.name} value={option.name}>{option.name}</option>;
+                options.map((option, index) => {
+                    return <option key={index} value={option.path}>{option.name}</option>;
                 })
             }
         </select>

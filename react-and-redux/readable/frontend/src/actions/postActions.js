@@ -1,13 +1,17 @@
 import * as types from './';
-import {getAllPosts, getPostsByCategorie} from '../api';
-import {beginApiCall} from "./apiStatusActions";
+import {createPost, getAllPosts, getPostsByCategorie} from '../api';
+import {beginApiCall} from './apiStatusActions';
 
-const loadPostsSuccess = (data = {}) => {
+const loadPostsSuccess = data => {
     return {type: types.LOAD_POSTS_SUCCESS, data};
 };
 
-const loadPostsByCategorySuccess = (data = {}) => {
+const loadPostsByCategorySuccess = data => {
     return {type: types.LOAD_POSTS_BY_CATEGORY_SUCCESS, data};
+};
+
+const createPostSuccess = data => {
+    return {type: types.CREATE_POST_SUCCESS, data};
 };
 
 export const loadPosts = () => {
@@ -21,11 +25,22 @@ export const loadPosts = () => {
     };
 };
 
-export const loadPostsByCategory = (category) => {
+export const loadPostsByCategory = category => {
     return (dispatch) => {
         dispatch(beginApiCall());
         return getPostsByCategorie(category).then(data => {
             dispatch(loadPostsByCategorySuccess(data));
+        }).catch(error => {
+            throw(error);
+        });
+    };
+};
+
+export const createNewPost = post => {
+    return (dispatch) => {
+        dispatch(beginApiCall());
+        return createPost(post).then(data => {
+            dispatch(createPostSuccess(data));
         }).catch(error => {
             throw(error);
         });

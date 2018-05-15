@@ -1,10 +1,12 @@
+import {uuidv4} from '../utils/numberHelper';
+
 const api = "  http://localhost:3001";
 
 // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
 
 let token = localStorage.token;
 if (!token)
-    token = localStorage.token = Math.random().toString(36).substr(-8);
+    token = localStorage.token = uuidv4();
 
 const headers = {
     'Accept': 'application/json',
@@ -16,7 +18,7 @@ export const getAllPosts = () =>
     fetch(`${api}/posts`, {headers})
         .then(res => res.json());
 
-export const getAllPostComments = (id) =>
+export const getAllPostComments = id =>
     fetch(`${api}/posts/${id}/comments`, {headers})
         .then(res => res.json());
 
@@ -24,7 +26,7 @@ export const getPostsByCategorie = (categorie) =>
     fetch(`${api}/${categorie}/posts`, {headers})
         .then(res => res.json());
 
-export const upVotePost = (id) =>
+export const upVotePost = id =>
     fetch(`${api}/posts/${id}`, {
         method: 'POST',
         body: '{"option": "upVote"}',
@@ -34,17 +36,18 @@ export const upVotePost = (id) =>
         }
     }).then(res => res.json());
 
-export const createPost = (post) =>
-    fetch(`${api}/posts`, {
+export const createPost = post => {
+    return fetch(`${api}/posts`, {
         method: 'POST',
-        body: JSON.stringify({post}),
+        body: JSON.stringify(post),
         headers: {
             ...headers,
             'Content-Type': 'application/json'
         }
     }).then(res => res.json());
+};
 
-export const readPostById = (id) =>
+export const readPostById = id =>
     fetch(`${api}/posts/${id}`, {headers})
         .then(res => res.json());
 
@@ -58,7 +61,7 @@ export const updatePost = (id, post) =>
         }
     }).then(res => res.json());
 
-export const deletePost = (id) =>
+export const deletePost = id =>
     fetch(`${api}/posts/${id}`, {
         method: 'DELETE',
         headers: {...headers}

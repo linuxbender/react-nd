@@ -7,6 +7,8 @@ const postReducer = (state = initialState.post, action) => {
             return action.data;
         case types.LOAD_POSTS_BY_CATEGORY_SUCCESS:
             return action.data;
+        case types.CREATE_POST_SUCCESS:
+            return [...state, action.data];
         default:
             return state;
     }

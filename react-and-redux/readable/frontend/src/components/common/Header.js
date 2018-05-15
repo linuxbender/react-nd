@@ -1,11 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {loadPostsByCategory, loadPosts} from '../../actions/postActions';
 import {navActiveCategory} from '../../actions/navActions';
-import {mapNavCategory} from "../../utils/mapHelper";
+import {loadPosts, loadPostsByCategory} from '../../actions/postActions';
+import {mapNavCategory} from '../../utils/mapHelper';
 
 const Header = ({category, activeCategory, dispatch}) => {
-    const onFilterCategoryHandler = (category) => {
+    const onFilterCategoryHandler = category => {
         if (category !== '') {
             dispatch(loadPostsByCategory(category));
         } else {
@@ -13,11 +13,6 @@ const Header = ({category, activeCategory, dispatch}) => {
         }
         dispatch(navActiveCategory(category));
     };
-    /*const navCategory = category.map((category, index) =>
-        <div key={index} className={ category.path === navActiveCategory ? 'nav-item-activ' : ''}>
-            <a>{category.name}</a>
-        </div>
-    );*/
     return (
         <header className="header">
             <header>Readable</header>
