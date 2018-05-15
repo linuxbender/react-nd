@@ -1,5 +1,6 @@
 import React from 'react';
 import './styles/App.css';
+import BrandLogo from './components/common/BrandLogo';
 import Header from './components/common/Header';
 import NewPost from './components/home/NewPost';
 
@@ -10,7 +11,7 @@ const App = () => {
             <section className="articles">
                 <NewPost></NewPost>
                 <article>
-                    <img alt="udacity" src="img/udacity-logo.svg"/>
+                    <BrandLogo name="udacity" />
                     <header>Title..</header>
                     <div className="article-content">
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam, beatae dignissimos eveniet
