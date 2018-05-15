@@ -1,10 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {createNewPost} from '../../actions/postActions';
-import {Post} from '../../utils/typeHelper';
-import SelectInput from '../common/SelectInput';
 import {mapDropDownCategory} from '../../utils/mapHelper';
 import {uuidv4} from '../../utils/numberHelper';
+import {Post} from '../../utils/typeHelper';
+import SelectInput from '../common/SelectInput';
 
 class NewPost extends React.Component {
     constructor(props) {
@@ -12,24 +12,26 @@ class NewPost extends React.Component {
         this.state = Post;
     }
 
-    handleChangeTitle = event => {
-        this.setState({title: event.target.value});
+    handleChange = event => {
+        this.setState({[event.target.name]: event.target.value});
     };
-    handleChangeAuthor = event => {
-        this.setState({author: event.target.value});
-    };
+
     handleChangeCategory = event => {
         this.setState({category: event.target.value});
     };
-    handleChangeContent = event => {
-        this.setState({body: event.target.value});
-    };
+
     handleSubmit = event => {
-        this.state.id = uuidv4();
-        this.state.timestamp = Date.now();
-        this.props.dispatch(createNewPost(this.state));
+        this.setState({id: uuidv4(), timestamp: Date.now()}, () => this.props.dispatch(createNewPost(this.state)));
         event.preventDefault();
     };
+
+    handleReset = event => {
+        this.setState(Object.assign({}, Post));
+    };
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({category: nextProps.activeCategory});
+    }
 
     render() {
         return (
@@ -46,7 +48,7 @@ class NewPost extends React.Component {
                     <div className="article-content">
                         <div className="form-group">
                             <label>Title: <span>*</span></label>
-                            <input name="title" type="text" value={this.state.title} onChange={this.handleChangeTitle}/>
+                            <input name="title" type="text" value={this.state.title} onChange={this.handleChange}/>
                             <label>
                                 Author:
                                 <i className="icon-16-green-90">
@@ -56,7 +58,7 @@ class NewPost extends React.Component {
                                 </i>
                             </label>
                             <input name="author" type="text" value={this.state.author}
-                                   onChange={this.handleChangeAuthor}/>
+                                   onChange={this.handleChange}/>
                             <label>
                                 Category:
                                 <i className="icon-12-blue-90">
@@ -76,12 +78,12 @@ class NewPost extends React.Component {
                                           d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"/>
                                 </svg>
                             </i></label>
-                            <textarea name="body" value={this.state.body} onChange={this.handleChangeContent}/>
+                            <textarea name="body" value={this.state.body} onChange={this.handleChange}/>
                         </div>
                     </div>
                     <footer>
                         <button type="submit" className="button-primary">Save</button>
-                        <button type="reset">Cancel</button>
+                        <button onClick={this.handleReset}>Reset</button>
                     </footer>
                 </form>
             </article>
