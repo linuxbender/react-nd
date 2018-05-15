@@ -1,6 +1,6 @@
 import * as types from './';
-import {getAllPostComments} from "../api";
-import {beginApiCall} from "./apiStatusActions";
+import {getAllPostComments} from '../api';
+import {beginApiCall} from './apiStatusActions';
 
 export const loadCommentsSuccess = (data = {}) => {
     return {type: types.LOAD_COMMENTS_SUCCESS, data};

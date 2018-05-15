@@ -1,6 +1,6 @@
 import {uuidv4} from '../utils/numberHelper';
 
-const api = "  http://localhost:3001";
+const api = 'http://localhost:3001';
 
 // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
 
@@ -22,7 +22,7 @@ export const getAllPostComments = id =>
     fetch(`${api}/posts/${id}/comments`, {headers})
         .then(res => res.json());
 
-export const getPostsByCategorie = (categorie) =>
+export const getPostsByCategorie = categorie =>
     fetch(`${api}/${categorie}/posts`, {headers})
         .then(res => res.json());
 

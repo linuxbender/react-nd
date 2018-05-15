@@ -7,7 +7,7 @@ import App from './App';
 import configureStore from './store';
 import {loadPosts} from './actions/postActions';
 import {loadCategories} from './actions/categoryActions';
-import {navActiveCategory} from "./actions/navActions";
+import {navActiveCategory} from './actions/navActions';
 
 const store = configureStore();
 store.dispatch(navActiveCategory());
