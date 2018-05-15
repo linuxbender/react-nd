@@ -3,12 +3,11 @@ import {connect} from 'react-redux';
 import {createNewPost} from '../../actions/postActions';
 import {mapDropDownCategory} from '../../utils/mapHelper';
 import {uuidv4} from '../../utils/numberHelper';
-import {Post} from '../../utils/typeHelper';
+import BrandLogo from './BrandLogo';
 
 class ArticlePost extends React.Component {
     constructor(props) {
         super(props);
-        this.state = Post;
     }
 
     handleChange = event => {
@@ -25,7 +24,7 @@ class ArticlePost extends React.Component {
     };
 
     handleReset = event => {
-        this.setState(Object.assign({}, Post));
+       // this.setState(Object.assign({}, Post));
     };
 
     componentWillReceiveProps(nextProps) {
@@ -35,13 +34,16 @@ class ArticlePost extends React.Component {
     render() {
         return (
             <article>
-                <img alt="react" src="img/react-logo.svg"/>
-                <header>Title..</header>
-                <div className="article-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam,
-                    beatae
-                    dignissimos eveniet excepturi exercitationem fugiat nemo perspiciatis quibusdam quisquam
-                    recusandae
-                    reiciendis, sit ullam! Ad earum eum laborum nulla quas reiciendis?
+                <BrandLogo name={this.props.post.category}/>
+                <header>{this.props.post.title}</header>
+                <div className="article-content">
+                    {this.props.post.body} <br/>
+                    {this.props.post.id} <br/>
+                    {new Date(this.props.post.timestamp).toLocaleDateString()} <br/>
+                    commentCount
+                    voteCore
+                    timestamp
+                    author
                 </div>
                 <footer>
                     <i className="icon-24-blue-90">
@@ -99,7 +101,6 @@ class ArticlePost extends React.Component {
 
 const mapStateToProps = (state) => ({
     loading: state.apiCallsInProgress > 0,
-    category: mapDropDownCategory(state.category),
     activeCategory: state.navActiveCategory
 });
 
