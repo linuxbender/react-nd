@@ -3,12 +3,12 @@ import {connect} from 'react-redux';
 import {createNewPost} from '../../actions/postActions';
 import {mapDropDownCategory} from '../../utils/mapHelper';
 import {uuidv4} from '../../utils/numberHelper';
-import {Post} from '../../utils/typeHelper';
+import SelectInput from './SelectInput';
 
 class EditPost extends React.Component {
     constructor(props) {
         super(props);
-        this.state = Post;
+        this.state = props.post;
     }
 
     handleChange = event => {
@@ -24,8 +24,8 @@ class EditPost extends React.Component {
         event.preventDefault();
     };
 
-    handleReset = event => {
-        this.setState(Object.assign({}, Post));
+    handleChancel = event => {
+        this.props.handleNotification(event);
     };
 
     componentWillReceiveProps(nextProps) {
@@ -47,8 +47,7 @@ class EditPost extends React.Component {
                 <div className="article-content">
                     <div className="form-group">
                         <label>Title: <span>*</span></label>
-                        <input name="formTitle" value=""/>
-
+                        <input name="title" type="text" value={this.state.title} onChange={this.handleChange}/>
                         <label>
                             Author:
                             <i className="icon-16-green-90">
@@ -57,7 +56,7 @@ class EditPost extends React.Component {
                                 </svg>
                             </i>
                         </label>
-                        <input name="formAuthor" value=""/>
+                        <input name="author" type="text" value={this.state.author} onChange={this.handleChange}/>
 
                         <label>
                             Category:
@@ -67,11 +66,9 @@ class EditPost extends React.Component {
                                 </svg>
                             </i>
                         </label>
-                        <select name="formCategory">
-                            <option>1 Edit Post....</option>
-                            <option>2 Edit Post....</option>
-                            <option>3 Edit Post....</option>
-                        </select>
+                        <SelectInput onChange={this.handleChangeCategory}
+                                     value={this.state.category}
+                                     options={this.props.category}/>
                     </div>
                     <div className="form-group">
                         <label>Content: <i className="icon-16-orange-60">
@@ -80,11 +77,11 @@ class EditPost extends React.Component {
                                       d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"/>
                             </svg>
                         </i></label>
-                        <textarea name="formContent"></textarea>
+                        <textarea name="body" value={this.state.body} onChange={this.handleChange}/>
                     </div>
                     <footer>
                         <button className="button-primary">Save</button>
-                        <button>Cancel</button>
+                        <button onClick={this.handleChancel}>Cancel</button>
                     </footer>
                 </div>
             </article>
@@ -94,8 +91,7 @@ class EditPost extends React.Component {
 
 const mapStateToProps = (state) => ({
     loading: state.apiCallsInProgress > 0,
-    category: mapDropDownCategory(state.category),
-    activeCategory: state.navActiveCategory
+    category: mapDropDownCategory(state.category)
 });
 
 export default connect(mapStateToProps)(EditPost);

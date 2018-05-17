@@ -6,6 +6,11 @@ class DeletePost extends React.Component {
 
     handleDeletePost = event => {
         this.props.dispatch(deletePost(this.props.post.id));
+        this.props.handleNotification(event);
+    };
+
+    handleChancel = event => {
+        this.props.handleNotification(event);
     };
 
     render() {
@@ -25,7 +30,7 @@ class DeletePost extends React.Component {
                 </div>
                 <footer>
                     <button onClick={this.handleDeletePost} className="button-error">Delete</button>
-                    <button>Cancel</button>
+                    <button onClick={this.handleChancel}>Cancel</button>
                 </footer>
             </article>
         );

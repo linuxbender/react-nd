@@ -6,6 +6,7 @@ import EditPost from './EditPost';
 class ArticlePost extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {showEdit: false, showDelete: false}
     }
 
     handlePostUpVote = event => {
@@ -13,23 +14,30 @@ class ArticlePost extends React.Component {
     };
 
     handleGoToDetail = event => {
-        console.log('on click delete ' + this.props.post.id);
+        console.log('on click detail ' + this.props.post.id);
     };
 
     handlePostEdit = event => {
+        this.setState({showEdit: true, showDelete: false});
         console.log('on click edit ' + this.props.post.id);
+    };
+
+    handlePostDelete = event => {
+        this.setState({showEdit: false, showDelete: true});
+    };
+
+    handleViewNotification = event => {
+        this.setState({showEdit: false, showDelete: false});
     };
 
     render() {
         return (
             <div>
                 <article>
-                <BrandLogo name={this.props.post.category}/>
-                <header>{this.props.post.title}</header>
-                <div className="article-content">
-                    {this.props.post.body}
-                </div>
-                <footer>
+                    <BrandLogo name={this.props.post.category}/>
+                    <header>{this.props.post.title}</header>
+                    <div className="article-content">{this.props.post.body}</div>
+                    <footer>
                     <i className="icon-24-blue-90">
                         <svg xmlns="http://www.w3.org/2000/svg" width="10" height="16" viewBox="0 0 10 16">
                             <path fillRule="evenodd"
@@ -45,7 +53,7 @@ class ArticlePost extends React.Component {
                             </svg>
                         </i>{this.props.post.voteCore || 0}
                     </button>
-                    <button className="button-action">
+                        <button onClick={this.handleGoToDetail} className="button-action">
                         <i className="icon-24-black-100">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
                                 <path fillRule="evenodd"
@@ -70,13 +78,11 @@ class ArticlePost extends React.Component {
                         </i>delete
                     </button>
                 </footer>
-            </article>
-                <div>
-                    <DeletePost post={this.props.post} />
-                </div>
-                <div>
-                    <EditPost post={this.props.post}/>
-                </div>
+                </article>
+                {this.state.showDelete &&
+                <DeletePost post={this.props.post} handleNotification={this.handleViewNotification}/>}
+                {this.state.showEdit &&
+                <EditPost post={this.props.post} handleNotification={this.handleViewNotification}/>}
             </div>
         );
     }
