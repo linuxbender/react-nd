@@ -1,41 +1,17 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {createNewPost} from '../../actions/postActions';
-import {mapDropDownCategory} from '../../utils/mapHelper';
-import {uuidv4} from '../../utils/numberHelper';
-import {Post} from '../../utils/typeHelper';
+import {deletePost} from '../../actions/postActions';
 
 class DeletePost extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = Post;
-    }
 
-    handleChange = event => {
-        this.setState({[event.target.name]: event.target.value});
+    handleDeletePost = event => {
+        this.props.dispatch(deletePost(this.props.post.id));
     };
-
-    handleChangeCategory = event => {
-        this.setState({category: event.target.value});
-    };
-
-    handleSubmit = event => {
-        this.setState({id: uuidv4(), timestamp: Date.now()}, () => this.props.dispatch(createNewPost(this.state)));
-        event.preventDefault();
-    };
-
-    handleReset = event => {
-        this.setState(Object.assign({}, Post));
-    };
-
-    componentWillReceiveProps(nextProps) {
-        this.setState({category: nextProps.activeCategory});
-    }
 
     render() {
         return (
             <article className="article-delete">
-                <header>Delete Post!</header>
+                <header>Delete Post !</header>
                 <div className="article-content">
                     <div className="form-group">
                         <i className="icon-48-white-100">
@@ -48,7 +24,7 @@ class DeletePost extends React.Component {
                     </div>
                 </div>
                 <footer>
-                    <button className="button-error">Delete</button>
+                    <button onClick={this.handleDeletePost} className="button-error">Delete</button>
                     <button>Cancel</button>
                 </footer>
             </article>
@@ -57,9 +33,7 @@ class DeletePost extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    loading: state.apiCallsInProgress > 0,
-    category: mapDropDownCategory(state.category),
-    activeCategory: state.navActiveCategory
+    loading: state.apiCallsInProgress > 0
 });
 
 export default connect(mapStateToProps)(DeletePost);

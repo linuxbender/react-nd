@@ -1,5 +1,7 @@
 import React from 'react';
 import BrandLogo from './BrandLogo';
+import DeletePost from './DeletePost';
+import EditPost from './EditPost';
 
 class ArticlePost extends React.Component {
     constructor(props) {
@@ -20,7 +22,8 @@ class ArticlePost extends React.Component {
 
     render() {
         return (
-            <article>
+            <div>
+                <article>
                 <BrandLogo name={this.props.post.category}/>
                 <header>{this.props.post.title}</header>
                 <div className="article-content">
@@ -68,6 +71,13 @@ class ArticlePost extends React.Component {
                     </button>
                 </footer>
             </article>
+                <div>
+                    <DeletePost post={this.props.post} />
+                </div>
+                <div>
+                    <EditPost post={this.props.post}/>
+                </div>
+            </div>
         );
     }
 }

@@ -1,5 +1,5 @@
 import * as types from './';
-import {createPost, getAllPosts, getPostsByCategorie} from '../api';
+import {createPost, deletePostById, getAllPosts, getPostsByCategorie} from '../api';
 import {beginApiCall} from './apiStatusActions';
 
 const loadPostsSuccess = data => {
@@ -12,6 +12,10 @@ const loadPostsByCategorySuccess = data => {
 
 const createPostSuccess = data => {
     return {type: types.CREATE_POST_SUCCESS, data};
+};
+
+const deletePostSuccess = data => {
+  return {type: types.DELETE_POST_SUCCESS, data};
 };
 
 export const loadPosts = () => {
@@ -41,6 +45,17 @@ export const createNewPost = post => {
         dispatch(beginApiCall());
         return createPost(post).then(data => {
             dispatch(createPostSuccess(data));
+        }).catch(error => {
+            throw(error);
+        });
+    };
+};
+
+export const deletePost = id => {
+    return (dispatch) => {
+        dispatch(beginApiCall());
+        return deletePostById(id).then(data => {
+            dispatch(deletePostSuccess(data));
         }).catch(error => {
             throw(error);
         });
