@@ -11,6 +11,9 @@ const postReducer = (state = initialState.post, action) => {
             return [...state, action.data];
         case types.DELETE_POST_SUCCESS:
             return state.filter( i => i.id !== action.data.id);
+        case types.UPDATE_POST_SUCCESS:
+            console.log(action);
+            return [...state.filter(i => i.id !== action.data.id), action.data];
         default:
             return state;
     }

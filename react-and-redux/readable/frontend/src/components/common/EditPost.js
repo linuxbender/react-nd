@@ -1,8 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {createNewPost} from '../../actions/postActions';
+import {editPost} from '../../actions/postActions';
 import {mapDropDownCategory} from '../../utils/mapHelper';
-import {uuidv4} from '../../utils/numberHelper';
 import SelectInput from './SelectInput';
 
 class EditPost extends React.Component {
@@ -20,7 +19,7 @@ class EditPost extends React.Component {
     };
 
     handleSubmit = event => {
-        this.setState({id: uuidv4(), timestamp: Date.now()}, () => this.props.dispatch(createNewPost(this.state)));
+        this.setState({timestamp: Date.now()}, () => this.props.dispatch(editPost(this.state)));
         event.preventDefault();
     };
 
@@ -80,7 +79,7 @@ class EditPost extends React.Component {
                         <textarea name="body" value={this.state.body} onChange={this.handleChange}/>
                     </div>
                     <footer>
-                        <button className="button-primary">Save</button>
+                        <button onClick={this.handleSubmit} className="button-primary">Save</button>
                         <button onClick={this.handleChancel}>Cancel</button>
                     </footer>
                 </div>
