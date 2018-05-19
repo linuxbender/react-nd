@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {loadPosts} from '../../actions/postActions';
 import ArticlePost from '../common/ArticlePost';
 
-class PostManager extends React.Component {
+class HomeManager extends React.Component {
 
     render() {
         return (
@@ -17,4 +17,4 @@ const mapStateToProps = (state) => ({
     posts: state.post
 });
 
-export default connect(mapStateToProps)(PostManager);
+export default connect(mapStateToProps)(HomeManager);

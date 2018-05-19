@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../common/Header';
 import NewPost from './NewPost';
-import PostManager from './PostManager';
+import PostManager from './HomeManager';
 
 const Home = () => (
     <div>
