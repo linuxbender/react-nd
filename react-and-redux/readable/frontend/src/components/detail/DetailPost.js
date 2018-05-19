@@ -131,7 +131,7 @@ class DetailPost extends React.Component {
                                         </svg>
                                     </i>
                                 </label>
-                                <textarea name="formContent"></textarea>
+                                <textarea name="body"></textarea>
                             </div>
                             <div className="form-group">
                                 <label>Author:
@@ -143,7 +143,7 @@ class DetailPost extends React.Component {
                                         </svg>
                                     </i>
                                 </label>
-                                <input name="formAuthor" value=""/>
+                                <input name="author" value=""/>
                             </div>
                             <div className="form-group">
                                 <nav>

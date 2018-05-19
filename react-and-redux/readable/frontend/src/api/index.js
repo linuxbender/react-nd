@@ -80,3 +80,20 @@ export const initDetail = (id) => {
             return initDetail;
         });
 };
+
+export const deleteCommentById = id =>
+    fetch(`${api}/comments/${id}`, {
+        method: 'DELETE',
+        headers: {...headers}
+    }).then(res => res.json());
+
+export const createNewComment = comment => {
+    return fetch(`${api}/comments`, {
+        method: 'POST',
+        body: JSON.stringify(comment),
+        headers: {
+            ...headers,
+            'Content-Type': 'application/json'
+        }
+    }).then(res => res.json());
+};
