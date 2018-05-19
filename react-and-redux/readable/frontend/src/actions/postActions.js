@@ -1,4 +1,4 @@
-import {createPost, deletePostById, getAllPosts, getPostsByCategorie, readPostById, updatePost} from '../api';
+import {createPost, deletePostById, getAllPosts, getPostsByCategorie, updatePost} from '../api';
 import * as T from './';
 import {beginApiCall} from './apiStatusActions';
 
