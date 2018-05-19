@@ -22,10 +22,6 @@ const updatePostSuccess = data => {
     return {type: T.UPDATE_POST_SUCCESS, data};
 };
 
-const readPostSuccess = data => {
-    return {type: T.READ_POST_SUCCESS, data};
-};
-
 export const loadPosts = () => {
     return (dispatch) => {
         dispatch(beginApiCall());
@@ -75,17 +71,6 @@ export const editPost = (post) => {
         dispatch(beginApiCall());
         return updatePost(post).then(data => {
             dispatch(updatePostSuccess(data));
-        }).catch(error => {
-            throw(error);
-        });
-    };
-};
-
-export const readPost = (id) => {
-    return (dispatch) => {
-        dispatch(beginApiCall());
-        return readPostById(id).then(data => {
-            dispatch(readPostSuccess(data));
         }).catch(error => {
             throw(error);
         });

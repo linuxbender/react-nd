@@ -3,12 +3,12 @@ import {connect} from 'react-redux';
 import withRouter from 'react-router-dom/es/withRouter';
 import {createNewPost} from '../../actions/postActions';
 import {uuidv4} from '../../utils/numberHelper';
-import {T_DetailPost} from '../../utils/typeHelper';
+import {T_Detail} from '../../utils/typeHelper';
 
 class DetailPost extends React.Component {
     constructor(props) {
         super(props);
-        this.state = T_DetailPost;
+        this.state = T_Detail;
     }
     handleChange = event => {
         this.setState({[event.target.name]: event.target.value});

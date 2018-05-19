@@ -1,8 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import withRouter from 'react-router-dom/es/withRouter';
-import {loadComments} from '../../actions/commentActions';
-import {readPost} from '../../actions/postActions';
+import {loadComments, readPost} from '../../actions/detailActions';
 
 class DetailManager extends React.Component {
 
@@ -17,8 +16,8 @@ class DetailManager extends React.Component {
         console.log("2");
         console.log(this.props.match.params.id);
         console.log(this.props);
-        this.props.dispatch(readPost(this.props.match.params.id))
-        this.props.dispatch(loadComments(this.props.match.params.id))
+        this.props.dispatch(readPost(this.props.match.params.id));
+        this.props.dispatch(loadComments(this.props.match.params.id));
         //this.props.history.push('/404');
         //console.log(this.props.match.params.id);
 

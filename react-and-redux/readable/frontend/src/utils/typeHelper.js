@@ -16,7 +16,7 @@ export const T_Comment = {
     timestamp: null
 };
 
-export const T_DetailPost = {
+export const T_Detail = {
     post: T_Post,
     comment: T_Comment
 
