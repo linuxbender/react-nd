@@ -20,6 +20,7 @@ class EditPost extends React.Component {
 
     handleSubmit = event => {
         this.setState({timestamp: Date.now()}, () => this.props.dispatch(editPost(this.state)));
+        this.props.handleNotification(event);
         event.preventDefault();
     };
 
@@ -79,7 +80,7 @@ class EditPost extends React.Component {
                         <textarea name="body" value={this.state.body} onChange={this.handleChange}/>
                     </div>
                     <footer>
-                        <button onClick={this.handleSubmit} className="button-primary">Save</button>
+                        <button onClick={this.handleSubmit} className="button-primary">Update</button>
                         <button onClick={this.handleChancel}>Cancel</button>
                     </footer>
                 </div>

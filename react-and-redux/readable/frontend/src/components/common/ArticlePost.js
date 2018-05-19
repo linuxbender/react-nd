@@ -10,16 +10,15 @@ class ArticlePost extends React.Component {
     }
 
     handlePostUpVote = event => {
-        console.log('on click upVote ' + this.props.post.id);
+        console.log('TODO on click upVote ' + this.props.post.id);
     };
 
     handleGoToDetail = event => {
-        console.log('on click detail ' + this.props.post.id);
+        console.log('TODO on click detail ' + this.props.post.id);
     };
 
     handlePostEdit = event => {
         this.setState({showEdit: true, showDelete: false});
-        console.log('on click edit ' + this.props.post.id);
     };
 
     handlePostDelete = event => {
