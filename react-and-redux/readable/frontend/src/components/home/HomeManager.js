@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {loadPosts} from '../../actions/postActions';
 import ArticlePost from '../common/ArticlePost';
 
 class HomeManager extends React.Component {
