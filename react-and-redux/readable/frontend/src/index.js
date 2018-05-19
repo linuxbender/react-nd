@@ -17,7 +17,7 @@ store.dispatch(loadCategories());
 
 ReactDOM.render(
     <Provider store={store}>
-        <BrowserRouter>
+        <BrowserRouter basename="/">
             <App/>
         </BrowserRouter>
     </Provider>,

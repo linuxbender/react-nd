@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import Link from 'react-router-dom/es/Link';
 import {navActiveCategory} from '../../actions/navActions';
 import {loadPosts, loadPostsByCategory} from '../../actions/postActions';
 import {mapNavCategory} from '../../utils/mapHelper';
@@ -15,7 +16,7 @@ const Header = ({category, activeCategory, dispatch}) => {
     };
     return (
         <header className="header">
-            <header>Readable</header>
+            <header><Link to="/">Readable</Link></header>
             <nav>
                 {category.map((category, index) =>
                     <div key={index}
