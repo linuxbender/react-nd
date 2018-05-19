@@ -9,7 +9,7 @@ export const T_Post = {
 
 export const T_Comment = {
     id: null,
-    title: '',
+    parentId: null,
     author: '',
     category: '',
     body: '',
