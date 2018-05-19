@@ -1,25 +1,29 @@
-import {createPost, deletePostById, getAllPosts, getPostsByCategorie, updatePost} from '../api';
-import * as types from './';
+import {createPost, deletePostById, getAllPosts, getPostsByCategorie, readPostById, updatePost} from '../api';
+import * as T from './';
 import {beginApiCall} from './apiStatusActions';
 
 const loadPostsSuccess = data => {
-    return {type: types.LOAD_POSTS_SUCCESS, data};
+    return {type: T.LOAD_POSTS_SUCCESS, data};
 };
 
 const loadPostsByCategorySuccess = data => {
-    return {type: types.LOAD_POSTS_BY_CATEGORY_SUCCESS, data};
+    return {type: T.LOAD_POSTS_BY_CATEGORY_SUCCESS, data};
 };
 
 const createPostSuccess = data => {
-    return {type: types.CREATE_POST_SUCCESS, data};
+    return {type: T.CREATE_POST_SUCCESS, data};
 };
 
 const deletePostSuccess = data => {
-    return {type: types.DELETE_POST_SUCCESS, data};
+    return {type: T.DELETE_POST_SUCCESS, data};
 };
 
 const updatePostSuccess = data => {
-    return {type: types.UPDATE_POST_SUCCESS, data};
+    return {type: T.UPDATE_POST_SUCCESS, data};
+};
+
+const readPostSuccess = data => {
+    return {type: T.READ_POST_SUCCESS, data};
 };
 
 export const loadPosts = () => {
@@ -71,6 +75,17 @@ export const editPost = (post) => {
         dispatch(beginApiCall());
         return updatePost(post).then(data => {
             dispatch(updatePostSuccess(data));
+        }).catch(error => {
+            throw(error);
+        });
+    };
+};
+
+export const readPost = (id) => {
+    return (dispatch) => {
+        dispatch(beginApiCall());
+        return readPostById(id).then(data => {
+            dispatch(readPostSuccess(data));
         }).catch(error => {
             throw(error);
         });

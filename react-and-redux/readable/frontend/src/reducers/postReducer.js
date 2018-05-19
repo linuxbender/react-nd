@@ -9,11 +9,12 @@ const postReducer = (state = initialState.post, action) => {
             return action.data;
         case types.CREATE_POST_SUCCESS:
             return [...state, action.data];
-        case types.DELETE_POST_SUCCESS:
-            return state.filter( i => i.id !== action.data.id);
+        case types.READ_POST_SUCCESS:
+            return action.data;
         case types.UPDATE_POST_SUCCESS:
-            console.log(action);
             return [...state.filter(i => i.id !== action.data.id), action.data];
+        case types.DELETE_POST_SUCCESS:
+            return state.filter(i => i.id !== action.data.id);
         default:
             return state;
     }

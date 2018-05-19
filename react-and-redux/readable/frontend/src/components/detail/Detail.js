@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'react-router-dom/es/Link';
-import DetailPost from './DetailPost';
+import DetailManager from './DetailManager';
 
 const Detail = () => (
     <div>
@@ -12,7 +12,7 @@ const Detail = () => (
             <footer></footer>
         </section>
         <section className="articles">
-            <DetailPost/>
+            <DetailManager/>
         </section>
     </div>
 );

@@ -215,4 +215,4 @@ const mapStateToProps = (state) => ({
     activeCategory: state.navActiveCategory
 });
 
-export default withRouter(connect(mapStateToProps)(DetailPost));
+export default DetailPost;

@@ -7,7 +7,7 @@ import SelectInput from './SelectInput';
 class EditPost extends React.Component {
     constructor(props) {
         super(props);
-        this.state = props.post;
+        this.state = props.posts;
     }
 
     handleChange = event => {
