@@ -19,9 +19,9 @@ class EditPost extends React.Component {
     };
 
     handleSubmit = event => {
-        this.setState({timestamp: Date.now()}, () => this.props.dispatch(editPost(this.state)));
-        this.props.handleNotification(event);
-        event.preventDefault();
+        this.setState({timestamp: Date.now()}, () =>
+            this.props.dispatch(editPost(this.state)) &&
+            this.props.handleNotification(event));
     };
 
     handleChancel = event => {
