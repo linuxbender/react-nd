@@ -1,36 +1,59 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import withRouter from 'react-router-dom/es/withRouter';
-import {createNewPost} from '../../actions/postActions';
+import {createComment, deleteComment} from '../../actions/detailActions';
 import {uuidv4} from '../../utils/numberHelper';
+import {T_Comment} from '../../utils/typeHelper';
 import BrandLogo from '../common/BrandLogo';
 
 class DetailPost extends React.Component {
     constructor(props) {
         super(props);
-        this.state = props.detail;
+        this.state = {comment: T_Comment, showDelete: false, commentId: ''};
     }
 
     handleChange = event => {
-        this.setState({[event.target.name]: event.target.value});
+        let comment = Object.assign({}, this.state.comment, {[event.target.name]: event.target.value});
+        this.setState({comment: comment, showDelete: false});
     };
 
-    handleSubmit = event => {
-        this.setState({id: uuidv4(), timestamp: Date.now()}, () => this.props.dispatch(createNewPost(this.state)));
-        event.preventDefault();
+    handleCommentSubmit = event => {
+        let comment = Object.assign({}, this.state.comment, {
+            id: uuidv4(),
+            timestamp: Date.now(),
+            parentId: this.props.detail.post.id
+        });
+        this.setState({
+            comment: comment,
+            showDelete: false
+        }, () => this.props.dispatch(createComment(this.state.comment)));
     };
 
-    componentWillReceiveProps(nextProps) {
-        this.setState(nextProps.detail);
-    }
+    handleCommentRest = event => {
+        this.setState({comment: T_Comment, showDelete: false});
+    };
+
+    handleShowView = event => {
+        let id = event.target.value;
+        this.setState({comment: this.state.comment, showDelete: true, commentId: id});
+    };
+
+    handleHideView = event => {
+        this.setState({comment: this.state.comment, showDelete: false, commentId: ''});
+    };
+
+    handleCommentDelete = event => {
+        let id = event.target.value;
+        this.props.dispatch(deleteComment(id));
+    };
 
     render() {
         return (
             <article className="article-detail">
-                <BrandLogo name={this.state.post.category || ''}/>
-                <header>{this.state.post.title}</header>
+                <BrandLogo name={this.props.detail.post.category}/>
+                <header>{this.props.detail.post.title}</header>
                 <div className="article-content">
-                    {this.state.post.body}
+                    {this.props.detail.post.body}
                 </div>
                 <footer>
                     <i className="icon-24-blue-90">
@@ -38,7 +61,7 @@ class DetailPost extends React.Component {
                             <path fillRule="evenodd"
                                   d="M9 0H1C.27 0 0 .27 0 1v15l5-3.09L10 16V1c0-.73-.27-1-1-1zm-.78 4.25L6.36 5.61l.72 2.16c.06.22-.02.28-.2.17L5 6.6 3.12 7.94c-.19.11-.25.05-.2-.17l.72-2.16-1.86-1.36c-.17-.16-.14-.23.09-.23l2.3-.03.7-2.16h.25l.7 2.16 2.3.03c.23 0 .27.08.09.23h.01z"/>
                         </svg>
-                        {new Date(this.state.post.timestamp).toLocaleDateString()}, {this.state.post.author}
+                        {new Date(this.props.detail.post.timestamp).toLocaleDateString()}, {this.props.detail.post.author}
                     </i>
                     <button className="button-action">
                         <i className="icon-24-red-90">
@@ -46,7 +69,7 @@ class DetailPost extends React.Component {
                                 <path fillRule="evenodd"
                                       d="M11.2 3c-.52-.63-1.25-.95-2.2-1-.97 0-1.69.42-2.2 1-.51.58-.78.92-.8 1-.02-.08-.28-.42-.8-1-.52-.58-1.17-1-2.2-1-.95.05-1.69.38-2.2 1-.52.61-.78 1.28-.8 2 0 .52.09 1.52.67 2.67C1.25 8.82 3.01 10.61 6 13c2.98-2.39 4.77-4.17 5.34-5.33C11.91 6.51 12 5.5 12 5c-.02-.72-.28-1.39-.8-2.02V3z"/>
                             </svg>
-                        </i>{this.state.post.voteScore || 0}
+                        </i>{this.props.detail.post.voteScore || 0}
                     </button>
                 </footer>
                 <section className="section-comments">
@@ -57,9 +80,9 @@ class DetailPost extends React.Component {
                                       d="M15 1H6c-.55 0-1 .45-1 1v2H1c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h1v3l3-3h4c.55 0 1-.45 1-1V9h1l3 3V9h1c.55 0 1-.45 1-1V2c0-.55-.45-1-1-1zM9 11H4.5L3 12.5V11H1V5h4v3c0 .55.45 1 1 1h3v2zm6-3h-2v1.5L11.5 8H6V2h9v6z"/>
                             </svg>
                         </i>
-                        Comments: {this.state.comment.length}
+                        Comments: {this.props.detail.comment.length}
                     </header>
-                    {this.state.comment.map(comment =>
+                    {this.props.detail.comment.map(comment =>
                         <div key={comment.id}>
                             <article>
                                 <div className="comment-content">
@@ -75,7 +98,8 @@ class DetailPost extends React.Component {
                                         {new Date(comment.timestamp).toLocaleDateString()}, {comment.author}
                                     </i>
                                     <nav>
-                                        <button className="button-action">
+                                        <button value={comment.id} onClick={this.handleShowView}
+                                                className="button-action">
                                             <i className="icon-24-red-90">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="16"
                                                      viewBox="0 0 12 16">
@@ -87,6 +111,7 @@ class DetailPost extends React.Component {
                                     </nav>
                                 </footer>
                             </article>
+                            {this.state.showDelete && this.state.commentId === comment.id &&
                             <article className="comment-delete">
                                 <header>Delete Comment!</header>
                                 <div className="comment-content">
@@ -103,11 +128,15 @@ class DetailPost extends React.Component {
                                 </div>
                                 <footer>
                                     <nav>
-                                        <button className="button-error">Delete</button>
-                                        <button>Cancel</button>
+                                        <button value={comment.id}
+                                                onClick={this.handleCommentDelete}
+                                                className="button-error">Delete
+                                        </button>
+                                        <button onClick={this.handleHideView}>Cancel</button>
                                     </nav>
                                 </footer>
                             </article>
+                            }
                         </div>
                     )}
                     <article className="comment-add">
@@ -131,7 +160,7 @@ class DetailPost extends React.Component {
                                         </svg>
                                     </i>
                                 </label>
-                                <textarea name="body"></textarea>
+                                <textarea onChange={this.handleChange} name="body" value={this.state.comment.body}/>
                             </div>
                             <div className="form-group">
                                 <label>Author:
@@ -143,12 +172,12 @@ class DetailPost extends React.Component {
                                         </svg>
                                     </i>
                                 </label>
-                                <input name="author" value=""/>
+                                <input onChange={this.handleChange} name="author" value={this.state.comment.author}/>
                             </div>
                             <div className="form-group">
                                 <nav>
-                                    <button className="button-primary">Save</button>
-                                    <button>Reset</button>
+                                    <button onClick={this.handleCommentSubmit} className="button-primary">Save</button>
+                                    <button onClick={this.handleCommentRest} type="reset">Reset</button>
                                 </nav>
                             </div>
                         </div>

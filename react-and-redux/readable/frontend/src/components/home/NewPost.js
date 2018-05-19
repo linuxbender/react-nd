@@ -26,7 +26,7 @@ class NewPost extends React.Component {
     };
 
     handleReset = event => {
-        this.setState(Object.assign({}, T_Post));
+        this.setState(T_Post);
     };
 
     componentWillReceiveProps(nextProps) {
