@@ -1,11 +1,15 @@
 import React from 'react';
+import Header from '../common/Header';
 import NewPost from './NewPost';
 import PostManager from './PostManager';
 
 const Home = () => (
-    <section className="articles">
-        <NewPost></NewPost>
-        <PostManager/>
-    </section>
+    <div>
+        <Header/>
+        <section className="articles">
+            <NewPost/>
+            <PostManager/>
+        </section>
+    </div>
 );
 export default Home;
