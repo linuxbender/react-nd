@@ -53,7 +53,7 @@ class ArticlePost extends React.Component {
                                 </svg>
                             </i>{this.props.post.voteCore || 0}
                         </button>
-                        <Link to="/detail">
+                        <Link to={'/detail/' + this.props.post.id}>
                             <button className="button-action">
                                 <i className="icon-24-black-100">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">

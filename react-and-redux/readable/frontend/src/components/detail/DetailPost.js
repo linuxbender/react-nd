@@ -1,22 +1,17 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import withRouter from 'react-router-dom/es/withRouter';
 import {createNewPost} from '../../actions/postActions';
-import {mapDropDownCategory} from '../../utils/mapHelper';
 import {uuidv4} from '../../utils/numberHelper';
-import {Post} from '../../utils/typeHelper';
+import {T_DetailPost} from '../../utils/typeHelper';
 
 class DetailPost extends React.Component {
     constructor(props) {
         super(props);
-        this.state = Post;
+        this.state = T_DetailPost;
     }
-
     handleChange = event => {
         this.setState({[event.target.name]: event.target.value});
-    };
-
-    handleChangeCategory = event => {
-        this.setState({category: event.target.value});
     };
 
     handleSubmit = event => {
@@ -25,11 +20,16 @@ class DetailPost extends React.Component {
     };
 
     handleReset = event => {
-        this.setState(Object.assign({}, Post));
+        //  this.setState(Object.assign({}, T_Post));
     };
 
+    componentDidMount() {
+        console.log(this.props);
+        console.log(this.props.match.params.id);
+    }
+
     componentWillReceiveProps(nextProps) {
-        this.setState({category: nextProps.activeCategory});
+        // this.setState({category: nextProps.activeCategory});
     }
 
     render() {
@@ -212,8 +212,7 @@ class DetailPost extends React.Component {
 
 const mapStateToProps = (state) => ({
     loading: state.apiCallsInProgress > 0,
-    category: mapDropDownCategory(state.category),
     activeCategory: state.navActiveCategory
 });
 
-export default connect(mapStateToProps)(DetailPost);
+export default withRouter(connect(mapStateToProps)(DetailPost));

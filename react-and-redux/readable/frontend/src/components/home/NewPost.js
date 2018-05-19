@@ -3,13 +3,13 @@ import {connect} from 'react-redux';
 import {createNewPost} from '../../actions/postActions';
 import {mapDropDownCategory} from '../../utils/mapHelper';
 import {uuidv4} from '../../utils/numberHelper';
-import {Post} from '../../utils/typeHelper';
+import {T_Post} from '../../utils/typeHelper';
 import SelectInput from '../common/SelectInput';
 
 class NewPost extends React.Component {
     constructor(props) {
         super(props);
-        this.state = Post;
+        this.state = T_Post;
     }
 
     handleChange = event => {
@@ -26,7 +26,7 @@ class NewPost extends React.Component {
     };
 
     handleReset = event => {
-        this.setState(Object.assign({}, Post));
+        this.setState(Object.assign({}, T_Post));
     };
 
     componentWillReceiveProps(nextProps) {
