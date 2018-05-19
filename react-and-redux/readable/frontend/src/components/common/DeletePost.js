@@ -5,7 +5,7 @@ import {deletePost} from '../../actions/postActions';
 class DeletePost extends React.Component {
 
     handleDeletePost = event => {
-        this.props.dispatch(deletePost(this.props.posts.id));
+        this.props.dispatch(deletePost(this.props.post.id));
         this.props.handleNotification(event);
     };
 

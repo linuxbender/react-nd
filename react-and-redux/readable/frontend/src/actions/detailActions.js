@@ -7,7 +7,7 @@ export const loadCommentsSuccess = (data = {}) => {
     return {type: types.LOAD_COMMENTS_SUCCESS, data};
 };
 
-const readPostSuccess = data => {
+export const readPostSuccess = data => {
     return {type: T.READ_POST_SUCCESS, data};
 };
 

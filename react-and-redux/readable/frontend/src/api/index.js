@@ -73,11 +73,10 @@ export const getAllCategories = () =>
         .then(res => res.json())
         .then(data => data.categories);
 
-export const initAppData = {"posts": {}, "categories": {}};
-
-export const initApp = () =>
-    Promise.all([getAllPosts(), getAllCategories()])
+export const initDetail = (id) => {
+    return Promise.all([readPostById(id), getAllPostComments(id)])
         .then(res => {
-            let initAppData = {posts: res[0], categories: res[1]};
-            return initAppData;
+            let initDetail = {post: res[0], comment: res[1]};
+            return initDetail;
         });
+};

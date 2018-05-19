@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import withRouter from 'react-router-dom/es/withRouter';
 import {loadComments, readPost} from '../../actions/detailActions';
+import DetailPost from './DetailPost';
 
 class DetailManager extends React.Component {
 
@@ -10,30 +11,30 @@ class DetailManager extends React.Component {
         if (props.match.params.id && props.match.params.id === '') {
             props.history.goBack();
         }
+        this.state = props.detail;
     }
 
     componentDidMount() {
-        console.log("2");
-        console.log(this.props.match.params.id);
-        console.log(this.props);
         this.props.dispatch(readPost(this.props.match.params.id));
-        this.props.dispatch(loadComments(this.props.match.params.id));
-        //this.props.history.push('/404');
-        //console.log(this.props.match.params.id);
+        this.props.dispatch(loadComments(this.props.match.params.id))
+    }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState(nextProps.detail);
     }
 
     render() {
         return (
             <div>
-                <div>{this.props.posts}</div>
+                {this.props.isLoading ? 'loading.................' : <DetailPost detail={this.state.detail}/>}
             </div>
         )
     }
 }
 
 const mapStateToProps = (state) => ({
-    loading: state.apiCallsInProgress > 0,
+    isLoading: state.apiCallsInProgress > 0,
+    detail: state.detail,
 });
 
 export default withRouter(connect(mapStateToProps)(DetailManager));

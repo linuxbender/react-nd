@@ -18,6 +18,5 @@ export const T_Comment = {
 
 export const T_Detail = {
     post: T_Post,
-    comment: T_Comment
-
+    comment: []
 };
