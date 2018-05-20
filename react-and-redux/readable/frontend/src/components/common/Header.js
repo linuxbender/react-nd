@@ -31,7 +31,7 @@ const Header = ({category, activeCategory, dispatch}) => {
 };
 
 const mapStateToProps = (state) => ({
-    loading: state.apiCallsInProgress > 0,
+    isLoading: state.apiCallsInProgress > 0,
     category: mapNavCategory(state.category),
     activeCategory: state.navActiveCategory
 });

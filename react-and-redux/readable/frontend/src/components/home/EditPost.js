@@ -90,7 +90,7 @@ class EditPost extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    loading: state.apiCallsInProgress > 0,
+    isLoading: state.apiCallsInProgress > 0,
     category: mapDropDownCategory(state.category)
 });
 

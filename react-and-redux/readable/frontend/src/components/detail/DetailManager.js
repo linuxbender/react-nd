@@ -19,10 +19,6 @@ class DetailManager extends React.Component {
         this.props.dispatch(loadComments(this.props.match.params.id));
     }
 
-    //componentWillReceiveProps(nextProps) {
-    // this.setState(nextProps.detail);
-    //}
-
     render() {
         return (
             <div>
