@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import withRouter from 'react-router-dom/es/withRouter';
 import {loadComments, readPost} from '../../actions/detailActions';
+import Loader from '../common/Loader';
 import DetailPost from './DetailPost';
 
 class DetailManager extends React.Component {
@@ -23,7 +24,7 @@ class DetailManager extends React.Component {
         return (
             <div>
                 {this.props.detail.post.error && this.props.history.push('/404')}
-                {this.props.isLoading ? 'loading.................' : <DetailPost detail={this.state.detail}/>}
+                {this.props.isLoading ? <Loader/> : <DetailPost detail={this.state.detail}/>}
             </div>
         )
     }
