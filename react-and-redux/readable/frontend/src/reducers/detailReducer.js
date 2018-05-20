@@ -1,7 +1,7 @@
 import * as types from '../actions';
-import initialState from '../utils/initialState';
+import {T_Store} from '../utils/typeHelper';
 
-const detailReducer = (state = initialState.detail, action) => {
+const detailReducer = (state = T_Store.detail, action) => {
     switch (action.type) {
         case types.READ_POST_SUCCESS:
             return Object.assign({}, state, {

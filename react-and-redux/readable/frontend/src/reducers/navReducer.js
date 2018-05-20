@@ -1,7 +1,7 @@
 import * as types from '../actions';
-import initialState from '../utils/initialState';
+import {T_Store} from '../utils/typeHelper';
 
-const navReducer = (state = initialState.navActiveCategory, action) => {
+const navReducer = (state = T_Store.navActiveCategory, action) => {
     switch (action.type) {
         case types.NAV_ACTIVE_CATEGORY:
             return action.data;

@@ -1,7 +1,7 @@
 import * as types from '../actions';
-import initialState from '../utils/initialState';
+import {T_Store} from '../utils/typeHelper';
 
-const postReducer = (state = initialState.post, action) => {
+const postReducer = (state = T_Store.post, action) => {
     switch (action.type) {
         case types.LOAD_POSTS_SUCCESS:
             return action.data.filter(i => i.deletet !== true);

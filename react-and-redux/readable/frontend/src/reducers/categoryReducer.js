@@ -1,7 +1,7 @@
 import * as types from '../actions';
-import initialState from '../utils/initialState';
+import {T_Store} from '../utils/typeHelper';
 
-const categoryReducer = (state = initialState.category, action) => {
+const categoryReducer = (state = T_Store.category, action) => {
     switch (action.type) {
         case types.LOAD_CATEGORIES_SUCCESS:
             return action.data;

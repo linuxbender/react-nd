@@ -20,3 +20,11 @@ export const T_Detail = {
     post: T_Post,
     comment: []
 };
+
+export const T_Store = {
+    category: [],
+    navActiveCategory: '',
+    post: [],
+    apiCallsInProgress: 0,
+    detail: T_Detail
+};
