@@ -7,14 +7,21 @@ import {T_Comment} from '../../utils/typeHelper';
 import BrandLogo from '../common/BrandLogo';
 
 class DetailPost extends React.Component {
+
     constructor(props) {
         super(props);
-        this.state = {comment: T_Comment, showDelete: false, commentId: ''};
+        this.state = {comment: T_Comment, showDelete: false, commentId: '', isValid: false};
+    }
+
+    componentDidMount() {
+        this.author = document.getElementById('commentAuthor');
+        this.body = document.getElementById('commentBody');
     }
 
     handleChange = event => {
+        let isValid = this.author.validity.valid && this.body.validity.valid;
         let comment = Object.assign({}, this.state.comment, {[event.target.name]: event.target.value});
-        this.setState({comment: comment, showDelete: false});
+        this.setState({comment: comment, showDelete: false, isValid: isValid});
     };
 
     handleCommentSubmit = event => {
@@ -152,31 +159,55 @@ class DetailPost extends React.Component {
                         <div className="comment-content">
                             <div className="form-group">
                                 <label>Your Comment:
-                                    <i className="icon-16-orange-60">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                             viewBox="0 0 16 16">
-                                            <path fillRule="evenodd"
-                                                  d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"/>
-                                        </svg>
-                                    </i>
-                                </label>
-                                <textarea onChange={this.handleChange} name="body" value={this.state.comment.body}/>
-                            </div>
-                            <div className="form-group">
-                                <label>Author:
                                     <i className="icon-16-green-90">
+                                        {this.state.isValid &&
                                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="16"
                                              viewBox="0 0 12 16">
                                             <path fillRule="evenodd"
                                                   d="M12 5.5l-8 8-4-4L1.5 8 4 10.5 10.5 4 12 5.5z"/>
                                         </svg>
+                                        }
                                     </i>
                                 </label>
-                                <input onChange={this.handleChange} name="author" value={this.state.comment.author}/>
+                                <textarea onChange={this.handleChange}
+                                          id="commentBody"
+                                          name="body"
+                                          minLength="8"
+                                          maxLength="250"
+                                          required="true"
+                                          value={this.state.comment.body}/>
+                            </div>
+                            <div className="form-group">
+                                <label>Author:
+                                    <i className="icon-16-green-90">
+                                        {this.state.isValid &&
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="16"
+                                             viewBox="0 0 12 16">
+                                            <path fillRule="evenodd"
+                                                  d="M12 5.5l-8 8-4-4L1.5 8 4 10.5 10.5 4 12 5.5z"/>
+                                        </svg>
+                                        }
+                                    </i>
+                                </label>
+                                <input onChange={this.handleChange}
+                                       id="commentAuthor"
+                                       type="text"
+                                       name="author"
+                                       minLength="3"
+                                       maxLength="12"
+                                       required="true"
+                                       value={this.state.comment.author}/>
                             </div>
                             <div className="form-group">
                                 <nav>
-                                    <button onClick={this.handleCommentSubmit} className="button-primary">Save</button>
+                                    {this.state.isValid ?
+                                        <button onClick={this.handleCommentSubmit}
+                                                className="button-primary">Save</button> :
+                                        <button disabled="true"
+                                                onClick={this.handleCommentSubmit}
+                                                className="button-action">Save</button>
+                                    }
+
                                     <button onClick={this.handleCommentRest} type="reset">Reset</button>
                                 </nav>
                             </div>
