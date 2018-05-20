@@ -1,18 +1,28 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {loadCategories} from '../../actions/categoryActions';
+import {loadPosts} from '../../actions/postActions';
 import ArticlePost from '../common/ArticlePost';
 
 class HomeManager extends React.Component {
 
+    componentDidMount() {
+        this.props.dispatch(loadPosts());
+        this.props.dispatch(loadCategories());
+    }
+
     render() {
         return (
-            this.props.posts.map(post => <ArticlePost key={post.id} post={post}/>)
+            <div>
+                {this.props.isLoading ? 'loading.................' : this.props.posts.map(post => <ArticlePost
+                    key={post.id} post={post}/>)}
+            </div>
         )
     }
 }
 
 const mapStateToProps = (state) => ({
-    loading: state.apiCallsInProgress > 0,
+    isLoading: state.apiCallsInProgress > 0,
     posts: state.post
 });
 

@@ -1,16 +1,17 @@
 import React from 'react';
-import {loadPosts} from '../../actions/postActions';
+import {Link} from 'react-router-dom';
+import Header from '../common/Header';
 import DetailManager from './DetailManager';
 
 class Detail extends React.Component {
-    handleBack = event => this.props.dispatch(loadPosts()) && this.props.history.push("/");
 
     render() {
         return (<div>
+            <Header/>
             <section className="articles">
                 <header></header>
                 <div>
-                    <a href='/' onClick={this.handleBack}>Back</a>
+                    <Link to='/'>Back</Link>
                 </div>
                 <footer></footer>
             </section>
