@@ -1,4 +1,12 @@
-import {createPost, deletePostById, getAllPosts, getPostsByCategorie, updatePost, upVotePost} from '../api/readableApi';
+import {
+    createPost,
+    deletePostById,
+    getAllPosts,
+    getPostsByCategorie,
+    updatePost,
+    upDownPost,
+    upVotePost
+} from '../api/readableApi';
 import * as T from './actionNames';
 import {beginApiCall} from './apiStatusActions';
 
@@ -25,6 +33,22 @@ const updatePostSuccess = data => {
 const updatePostUpVoteSuccess = data => {
     return {type: T.UPDATE_POST_UP_VOTE_SUCCESS, data};
 };
+
+const updatePostDownVoteSuccess = data => {
+    return {type: T.UPDATE_POST_DOWN_VOTE_SUCCESS, data};
+};
+
+export const updatePostDownVote = id => {
+    return (dispatch) => {
+        dispatch(beginApiCall());
+        return upDownPost(id).then(data => {
+            dispatch(updatePostDownVoteSuccess(data));
+        }).catch(error => {
+            throw(error);
+        });
+    };
+};
+
 
 export const updatePostUpVote = id => {
     return (dispatch) => {

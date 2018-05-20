@@ -15,6 +15,8 @@ const postReducer = (state = T_Store.post, action) => {
             return state.filter(i => i.id !== action.data.id);
         case T.UPDATE_POST_UP_VOTE_SUCCESS:
             return [...state.filter(i => i.id !== action.data.id), action.data];
+        case T.UPDATE_POST_DOWN_VOTE_SUCCESS:
+            return [...state.filter(i => i.id !== action.data.id), action.data];
         default:
             return state;
     }
