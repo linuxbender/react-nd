@@ -13,6 +13,4 @@ ReactDOM.render(
         <BrowserRouter basename="/">
             <App/>
         </BrowserRouter>
-    </Provider>,
-    document.getElementById('app')
-);
+    </Provider>, document.getElementById('app'));
