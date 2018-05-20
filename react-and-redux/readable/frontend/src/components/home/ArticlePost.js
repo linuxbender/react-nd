@@ -1,5 +1,7 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import Link from 'react-router-dom/es/Link';
+import {updatePostUpVote} from '../../actions/postActions';
 import BrandLogo from '../common/BrandLogo';
 import DeletePost from './DeletePost';
 import EditPost from './EditPost';
@@ -11,11 +13,7 @@ class ArticlePost extends React.Component {
     }
 
     handlePostUpVote = event => {
-        console.log('TODO on click upVote ' + this.props.post.id);
-    };
-
-    handleGoToDetail = event => {
-        console.log('TODO on click detail ' + this.props.post.id);
+        this.props.dispatch(updatePostUpVote(this.props.post.id));
     };
 
     handlePostEdit = event => {
@@ -35,7 +33,7 @@ class ArticlePost extends React.Component {
             <div>
                 <article>
                     <BrandLogo name={this.props.post.category}/>
-                    <header>{this.props.post.title}</header>
+                    <header><Link to={'/detail/' + this.props.post.id}>{this.props.post.title}</Link></header>
                     <div className="article-content">{this.props.post.body}</div>
                     <footer>
                         <i className="icon-24-blue-90">
@@ -51,7 +49,7 @@ class ArticlePost extends React.Component {
                                     <path fillRule="evenodd"
                                           d="M11.2 3c-.52-.63-1.25-.95-2.2-1-.97 0-1.69.42-2.2 1-.51.58-.78.92-.8 1-.02-.08-.28-.42-.8-1-.52-.58-1.17-1-2.2-1-.95.05-1.69.38-2.2 1-.52.61-.78 1.28-.8 2 0 .52.09 1.52.67 2.67C1.25 8.82 3.01 10.61 6 13c2.98-2.39 4.77-4.17 5.34-5.33C11.91 6.51 12 5.5 12 5c-.02-.72-.28-1.39-.8-2.02V3z"/>
                                 </svg>
-                            </i>{this.props.post.voteCore || 0}
+                            </i>{this.props.post.voteScore || 0}
                         </button>
                         <Link to={'/detail/' + this.props.post.id}>
                             <button className="button-action">
@@ -90,4 +88,8 @@ class ArticlePost extends React.Component {
     }
 }
 
-export default ArticlePost;
+const mapStateToProps = (state) => ({
+    isLoading: state.apiCallsInProgress > 0
+});
+
+export default connect(mapStateToProps)(ArticlePost);

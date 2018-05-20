@@ -15,8 +15,8 @@ class HomeManager extends React.Component {
     render() {
         return (
             <div>
-                {this.props.isLoading ? <Loader/> : this.props.posts.map(post => <ArticlePost
-                    key={post.id} post={post}/>)}
+                {this.props.isLoading ? <Loader/> : this.props.posts.map(post =>
+                    <ArticlePost key={post.id} post={post}/>)}
             </div>
         )
     }
