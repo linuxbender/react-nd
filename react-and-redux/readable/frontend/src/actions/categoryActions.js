@@ -1,5 +1,5 @@
 import * as T from './actionNames';
-import {getAllCategories} from '../api';
+import {getAllCategories} from '../api/readableApi';
 import {beginApiCall} from './apiStatusActions';
 
 const loadCategoriesSuccess = (data) => {

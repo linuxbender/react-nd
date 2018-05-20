@@ -1,4 +1,4 @@
-import {createNewComment, deleteCommentById, getAllPostComments, readPostById} from '../api';
+import {createNewComment, deleteCommentById, getAllPostComments, readPostById} from '../api/readableApi';
 import {beginApiCall} from './apiStatusActions';
 import * as T from './actionNames';
 
