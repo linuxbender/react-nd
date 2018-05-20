@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'react-router-dom/es/Link';
-import BrandLogo from './BrandLogo';
+import BrandLogo from '../common/BrandLogo';
 import DeletePost from './DeletePost';
 import EditPost from './EditPost';
 

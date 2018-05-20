@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {editPost} from '../../actions/postActions';
 import {mapDropDownCategory} from '../../utils/mapHelper';
-import SelectInput from './SelectInput';
+import SelectInput from '../common/SelectInput';
 
 class EditPost extends React.Component {
     constructor(props) {

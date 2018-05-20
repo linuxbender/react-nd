@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {loadCategories} from '../../actions/categoryActions';
 import {loadPosts} from '../../actions/postActions';
-import ArticlePost from '../common/ArticlePost';
+import ArticlePost from './ArticlePost';
 
 class HomeManager extends React.Component {
 
