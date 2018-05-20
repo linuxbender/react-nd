@@ -1,17 +1,17 @@
-import * as types from '../actions';
+import * as T from '../actions/actionNames';
 import {T_Store} from '../utils/typeHelper';
 
 const postReducer = (state = T_Store.post, action) => {
     switch (action.type) {
-        case types.LOAD_POSTS_SUCCESS:
+        case T.LOAD_POSTS_SUCCESS:
             return action.data.filter(i => i.deletet !== true);
-        case types.LOAD_POSTS_BY_CATEGORY_SUCCESS:
+        case T.LOAD_POSTS_BY_CATEGORY_SUCCESS:
             return action.data;
-        case types.CREATE_POST_SUCCESS:
+        case T.CREATE_POST_SUCCESS:
             return [...state, action.data];
-        case types.UPDATE_POST_SUCCESS:
+        case T.UPDATE_POST_SUCCESS:
             return [...state.filter(i => i.id !== action.data.id), action.data];
-        case types.DELETE_POST_SUCCESS:
+        case T.DELETE_POST_SUCCESS:
             return state.filter(i => i.id !== action.data.id);
         default:
             return state;

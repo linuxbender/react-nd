@@ -1,10 +1,9 @@
 import {createNewComment, deleteCommentById, getAllPostComments, readPostById} from '../api';
-import * as types from './';
 import {beginApiCall} from './apiStatusActions';
-import * as T from './index';
+import * as T from './actionNames';
 
 export const loadCommentsSuccess = (data = {}) => {
-    return {type: types.LOAD_COMMENTS_SUCCESS, data};
+    return {type: T.LOAD_COMMENTS_SUCCESS, data};
 };
 
 export const readPostSuccess = data => {

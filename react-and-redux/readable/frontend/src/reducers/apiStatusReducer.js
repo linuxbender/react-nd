@@ -1,4 +1,4 @@
-import * as types from '../actions';
+import * as T from '../actions/actionNames';
 import {T_Store} from '../utils/typeHelper';
 
 const actionTypeEndsInSuccess = (type) => {
@@ -6,9 +6,9 @@ const actionTypeEndsInSuccess = (type) => {
 };
 
 const apiStatusReducer = (state = T_Store.apiCallsInProgress, action) => {
-    if (action.type === types.BEGIN_API_CALL) {
+    if (action.type === T.BEGIN_API_CALL) {
         return state + 1;
-    } else if (action.type === types.API_CALL_ERROR ||
+    } else if (action.type === T.API_CALL_ERROR ||
         actionTypeEndsInSuccess(action.type)) {
         return state - 1;
     }

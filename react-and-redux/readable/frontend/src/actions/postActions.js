@@ -1,5 +1,5 @@
 import {createPost, deletePostById, getAllPosts, getPostsByCategorie, updatePost} from '../api';
-import * as T from './';
+import * as T from './actionNames';
 import {beginApiCall} from './apiStatusActions';
 
 const loadPostsSuccess = data => {

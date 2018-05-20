@@ -1,5 +1,5 @@
-import * as types from './index';
+import * as T from './actionNames';
 
 export const navActiveCategory = (data = '') => {
-    return {type: types.NAV_ACTIVE_CATEGORY, data};
+    return {type: T.NAV_ACTIVE_CATEGORY, data};
 };
