@@ -9,7 +9,7 @@ const AppRoutes = () => (
     <Switch>
         <Route exact path="/" component={Home}/>
         <Route exact path="/detail/:id" component={Detail}/>
-        <Route exact component={FourZeroFour}/>
+        <Route component={FourZeroFour}/>
     </Switch>
 );
 
