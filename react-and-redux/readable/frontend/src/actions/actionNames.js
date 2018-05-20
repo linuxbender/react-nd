@@ -20,3 +20,4 @@ export const DELETE_COMMENT_SUCCESS = 'DELETE_COMMENT_SUCCESS';
 // app
 export const BEGIN_API_CALL = 'BEGIN_API_CALL';
 export const API_CALL_ERROR = 'API_CALL_ERROR';
+export const RESET_DETAIL = 'RESET_DETAIL';

@@ -73,14 +73,6 @@ export const getAllCategories = () =>
         .then(res => res.json())
         .then(data => data.categories);
 
-export const initDetail = (id) => {
-    return Promise.all([readPostById(id), getAllPostComments(id)])
-        .then(res => {
-            let initDetail = {post: res[0], comment: res[1]};
-            return initDetail;
-        });
-};
-
 export const deleteCommentById = id =>
     fetch(`${api}/comments/${id}`, {
         method: 'DELETE',

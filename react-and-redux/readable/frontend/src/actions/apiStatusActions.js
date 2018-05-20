@@ -7,4 +7,3 @@ export const beginApiCall = () => {
 export const apiCallError = () => {
     return {type: T.API_CALL_ERROR};
 };
-
