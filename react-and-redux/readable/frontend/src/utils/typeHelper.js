@@ -11,14 +11,8 @@ export const T_Comment = {
     id: null,
     parentId: null,
     author: '',
-    category: '',
     body: '',
     timestamp: null
-};
-
-export const T_Detail = {
-    post: T_Post,
-    comment: []
 };
 
 export const T_Store = {
@@ -26,7 +20,15 @@ export const T_Store = {
     navActiveCategory: '',
     post: [],
     apiCallsInProgress: 0,
-    detail: T_Detail
+    comment: []
+};
+
+export const T_FORM_COMMENT = {
+    comment: T_Comment,
+    newComment: T_Comment,
+    isValid: false,
+    isAuthorValid: false,
+    isBodyValid: false,
 };
 
 export const T_FORM_POST = {

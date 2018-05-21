@@ -57,10 +57,6 @@ export const createPost = post => {
     }).then(res => res.json());
 };
 
-export const readPostById = id =>
-    fetch(`${api}/posts/${id}`, {headers})
-        .then(res => res.json());
-
 export const updatePost = (post) => {
     return fetch(`${api}/posts/${post.id}`, {
         method: 'PUT',
@@ -99,3 +95,34 @@ export const createNewComment = comment => {
         }
     }).then(res => res.json());
 };
+
+export const updateCommentById = comment => {
+    return fetch(`${api}/comments/${comment.id}`, {
+        method: 'PUT',
+        body: JSON.stringify(comment),
+        headers: {
+            ...headers,
+            'Content-Type': 'application/json'
+        }
+    }).then(res => res.json());
+};
+
+export const upVoteComment = id =>
+    fetch(`${api}/comments/${id}`, {
+        method: 'POST',
+        body: '{"option": "upVote"}',
+        headers: {
+            ...headers,
+            'Content-Type': 'application/json'
+        }
+    }).then(res => res.json());
+
+export const downVoteComment = id =>
+    fetch(`${api}/comments/${id}`, {
+        method: 'POST',
+        body: '{"option": "downVote"}',
+        headers: {
+            ...headers,
+            'Content-Type': 'application/json'
+        }
+    }).then(res => res.json());

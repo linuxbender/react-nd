@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Link from 'react-router-dom/es/Link';
-import {resetDetail} from '../../actions/detailActions';
+import {resetDetail} from '../../actions/commentActions';
 
 class FourZeroFour extends React.Component {
 
