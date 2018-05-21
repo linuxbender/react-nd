@@ -11,7 +11,6 @@ class NewPost extends React.Component {
     constructor(props) {
         super(props);
         this.state = T_FORM_POST;
-        this.state.newPost.category = props.currentCategory;
     }
 
     componentDidMount() {
@@ -123,8 +122,7 @@ class NewPost extends React.Component {
 
 const mapStateToProps = (state) => ({
     category: mapDropDownCategory(state.category),
-    isLoading: state.apiCallsInProgress > 0,
-    currentCategory: state.navActiveCategory
+    isLoading: state.apiCallsInProgress > 0
 });
 
 export default connect(mapStateToProps)(NewPost);
