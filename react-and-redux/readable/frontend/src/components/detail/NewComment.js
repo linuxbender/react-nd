@@ -29,7 +29,6 @@ class NewComment extends React.Component {
     };
 
     handleSubmit = event => {
-        console.log("TODO set parentId  form the current post");
         let comment = Object.assign({}, this.state.newComment, {id: uuidv4(), timestamp: Date.now()});
         this.setState(Object.assign({}, T_FORM_COMMENT), () => this.props.dispatch(createComment(comment)));
     };
