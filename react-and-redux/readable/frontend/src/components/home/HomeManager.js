@@ -5,6 +5,7 @@ import {loadPosts} from '../../actions/postActions';
 import Loader from '../common/Loader';
 import ArticlePost from './ArticlePost';
 import NewPost from './NewPost';
+import SortBar from './SortBar';
 
 class HomeManager extends React.Component {
 
@@ -17,10 +18,9 @@ class HomeManager extends React.Component {
         return (
             <div>
                 {this.props.isLoading && <Loader/>}
-                {!this.props.isLoading && this.props.posts.map(post =>
-                    <ArticlePost key={post.id} post={post}/>)}
+                {!this.props.isLoading && <SortBar/>}
+                {!this.props.isLoading && this.props.posts.map(post => <ArticlePost key={post.id} post={post}/>)}
                 {!this.props.isLoading && <NewPost/>}
-
             </div>
         )
     }
