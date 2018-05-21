@@ -13,7 +13,8 @@ class NewPost extends React.Component {
 
     handleSubmit = event => {
         let post = Object.assign({}, this.state.post, {id: uuidv4(), timestamp: Date.now()});
-        this.setState(T_FORM_POST, () => this.props.dispatch(createNewPost(post)));
+        this.setState(Object.assign({}, T_FORM_POST, {resetForm: true}),
+            () => this.props.dispatch(createNewPost(post)));
     };
 
     handleModel = model => {
@@ -21,7 +22,7 @@ class NewPost extends React.Component {
     };
 
     handleReset = () => {
-        this.setState(Object.assign({}, this.state, {resetForm: true}))
+        this.setState(Object.assign({}, T_FORM_POST, {resetForm: true}))
     };
 
     render() {

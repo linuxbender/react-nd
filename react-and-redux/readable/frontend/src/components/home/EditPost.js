@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {editPost} from '../../actions/postActions';
+import {createNewPost, editPost} from '../../actions/postActions';
+import {uuidv4} from '../../utils/numberHelper';
 import {T_FORM_POST} from '../../utils/typeHelper';
 import FormPost from './FormPost';
 
@@ -12,9 +13,9 @@ class EditPost extends React.Component {
     }
 
     handleSubmit = event => {
-        this.setState(Object.assign({}, this.state), () =>
-            this.props.dispatch(editPost(this.state.post)) &&
-            this.props.handleNotification(event));
+        let post = Object.assign({}, this.state.post,);
+        this.setState(Object.assign({}, T_FORM_POST, {resetForm: true}),
+            () => this.props.dispatch(editPost(post)) && this.props.handleNotification(event));
     };
 
     handleChancel = event => {
@@ -22,7 +23,7 @@ class EditPost extends React.Component {
     };
 
     handleModel = model => {
-        this.setState(Object.assign({}, {post: model.post, isValid: model.isValid}));
+        this.setState(Object.assign({}, {post: model.post, isValid: model.isValid, resetForm: false}));
     };
 
     render() {
