@@ -1,20 +1,17 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {editPost} from '../../actions/postActions';
-import {T_FORM_POST} from '../../utils/typeHelper';
 import FormPost from './FormPost';
 
 class EditPost extends React.Component {
     constructor(props) {
         super(props);
-        this.state = T_FORM_POST;
-        this.state.post = props.post;
+        this.state = {editPost: props.post, isValid: false};
     }
 
     handleSubmit = event => {
-        let post = Object.assign({}, this.state.post,);
-        this.setState(Object.assign({}, T_FORM_POST, {resetForm: true}),
-            () => this.props.dispatch(editPost(post)) && this.props.handleNotification(event));
+        this.props.dispatch(editPost(this.state.editPost));
+        this.props.handleNotification(event);
     };
 
     handleChancel = event => {
@@ -22,7 +19,7 @@ class EditPost extends React.Component {
     };
 
     handleModel = model => {
-        this.setState(Object.assign({}, {post: model.post, isValid: model.isValid, resetForm: false}));
+        this.setState({editPost: model.post, isValid: model.isValid});
     };
 
     render() {
@@ -37,7 +34,7 @@ class EditPost extends React.Component {
                     </i>
                     Edit post
                 </header>
-                <FormPost model={this.state.post} handleModel={this.handleModel}/>
+                <FormPost model={this.props.post} handleModel={this.handleModel}/>
                 <footer>
                     {this.state.isValid ? <button onClick={this.handleSubmit} className="button-primary">Update</button>
                         : <button className="button-action">Save</button>}

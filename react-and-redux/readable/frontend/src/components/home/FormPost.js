@@ -20,10 +20,6 @@ class FormPost extends React.Component {
         this.body = document.getElementById('postBody' + this.state.post.id);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.resetForm) this.setState(T_FORM_POST);
-    }
-
     handleChange = event => {
         let isValid = this.author.validity.valid &&
             this.title.validity.valid &&
@@ -101,8 +97,7 @@ class FormPost extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    category: mapDropDownCategory(state.category),
-    activeCategory: state.navActiveCategory
+    category: mapDropDownCategory(state.category)
 });
 
 export default connect(mapStateToProps)(FormPost);

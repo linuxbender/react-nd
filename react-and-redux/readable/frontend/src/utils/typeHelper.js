@@ -31,10 +31,10 @@ export const T_Store = {
 
 export const T_FORM_POST = {
     post: T_Post,
+    newPost: T_Post,
     isValid: false,
     isTitleValid: false,
     isAuthorValid: false,
     isBodyValid: false,
-    isCategoryValid: false,
-    resetForm: false
+    isCategoryValid: false
 };
