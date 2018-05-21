@@ -17,6 +17,10 @@ const postReducer = (state = T_Store.post, action) => {
             return [...state.filter(i => i.id !== action.data.id), action.data];
         case T.UPDATE_POST_DOWN_VOTE_SUCCESS:
             return [...state.filter(i => i.id !== action.data.id), action.data];
+        case T.SORT_POSTS_BY_BEST_SCORE:
+            return [...state.filter(i => i).sort((a, b) => b.voteScore - a.voteScore)];
+        case T.SORT_POST_BY_LOWEST_SCORE:
+            return [...state.filter(i => i).sort((a, b) => a.voteScore - b.voteScore)];
         default:
             return state;
     }

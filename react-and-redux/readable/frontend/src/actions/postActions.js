@@ -38,6 +38,14 @@ const updatePostDownVoteSuccess = data => {
     return {type: T.UPDATE_POST_DOWN_VOTE_SUCCESS, data};
 };
 
+export const sortPostsByBestScore = (data = '') => {
+    return {type: T.SORT_POSTS_BY_BEST_SCORE, data};
+};
+
+export const sortPostsByLowestScore = (data = '') => {
+    return {type: T.SORT_POST_BY_LOWEST_SCORE, data};
+};
+
 export const updatePostDownVote = id => {
     return (dispatch) => {
         dispatch(beginApiCall());
