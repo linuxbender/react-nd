@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {createNewPost, editPost} from '../../actions/postActions';
-import {uuidv4} from '../../utils/numberHelper';
+import {editPost} from '../../actions/postActions';
 import {T_FORM_POST} from '../../utils/typeHelper';
 import FormPost from './FormPost';
 

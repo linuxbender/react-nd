@@ -358,7 +358,7 @@ input {
     }
   }
   .article-detail {
-    width: fit-content;
+    width: 516px;
     display: grid;
     grid-template-areas: "article-img article-header" "article-img article-content" "article-footer article-footer" "article-comments article-comments" "comment-delete comment-delete" "comment-add comment-add";
     .section-comments {
