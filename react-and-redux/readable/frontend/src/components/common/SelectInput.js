@@ -1,11 +1,13 @@
 import React from 'react';
 
-const SelectInput = ({onChange, value, options}) => {
+const SelectInput = ({id, required, onChange, value, options}) => {
 
     const changeHandler = e => onChange(e);
 
     return (
-        <select name="formCategory"
+        <select id={id}
+                required={required}
+                name="category"
                 value={value}
                 onChange={changeHandler}>
             {

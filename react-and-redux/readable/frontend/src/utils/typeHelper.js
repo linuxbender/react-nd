@@ -28,3 +28,12 @@ export const T_Store = {
     apiCallsInProgress: 0,
     detail: T_Detail
 };
+
+export const T_FORM_POST = {
+    post: T_Post,
+    isValid: false,
+    isTitleValid: false,
+    isAuthorValid: false,
+    isBodyValid: false,
+    isCategoryValid: false
+};

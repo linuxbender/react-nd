@@ -194,7 +194,7 @@ class DetailPost extends React.Component {
                                        type="text"
                                        name="author"
                                        minLength="3"
-                                       maxLength="12"
+                                       maxLength="16"
                                        required="true"
                                        value={this.state.comment.author}/>
                             </div>
