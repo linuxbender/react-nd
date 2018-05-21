@@ -7,7 +7,7 @@ const HeaderDetail = () => {
             <header><Link to="/">Readable</Link></header>
             <nav>
                 <div className='nav-item-activ'>
-                    <Link to={'/'}>Back</Link>
+                    <Link to={'/'}>Go Back</Link>
                 </div>
             </nav>
         </header>
