@@ -35,5 +35,6 @@ export const T_FORM_POST = {
     isTitleValid: false,
     isAuthorValid: false,
     isBodyValid: false,
-    isCategoryValid: false
+    isCategoryValid: false,
+    resetForm: false
 };

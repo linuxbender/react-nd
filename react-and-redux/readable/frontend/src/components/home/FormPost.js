@@ -20,8 +20,11 @@ class FormPost extends React.Component {
         this.body = document.getElementById('postBody' + this.state.post.id);
     }
 
-    handleChange = event => {
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.resetForm) this.setState(T_FORM_POST);
+    }
 
+    handleChange = event => {
         let isValid = this.author.validity.valid &&
             this.title.validity.valid &&
             this.category.validity.valid &&

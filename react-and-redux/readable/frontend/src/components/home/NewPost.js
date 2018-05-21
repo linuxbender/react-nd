@@ -17,7 +17,11 @@ class NewPost extends React.Component {
     };
 
     handleModel = model => {
-        this.setState(Object.assign({}, {post: model.post, isValid: model.isValid}));
+        this.setState(Object.assign({}, {post: model.post, isValid: model.isValid, resetForm: false}));
+    };
+
+    handleReset = () => {
+        this.setState(Object.assign({}, this.state, {resetForm: true}))
     };
 
     render() {
@@ -31,7 +35,7 @@ class NewPost extends React.Component {
                     </i>
                     Create a new post
                 </header>
-                <FormPost model={this.state.post} handleModel={this.handleModel}/>
+                <FormPost model={this.state.post} handleModel={this.handleModel} resetForm={this.state.resetForm}/>
                 <footer>
                     {this.state.isValid ? <button onClick={this.handleSubmit} className="button-primary">Save</button>
                         : <button className="button-action">Save</button>}
