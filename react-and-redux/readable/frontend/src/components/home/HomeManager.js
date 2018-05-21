@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {loadCategories} from '../../actions/categoryActions';
 import {loadPosts} from '../../actions/postActions';
 import Loader from '../common/Loader';
-import ArticlePost from './ArticlePost';
+import ArticlePost from '../common/ArticlePost';
 import NewPost from './NewPost';
 import SortBar from './SortBar';
 

@@ -2,8 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {mapDropDownCategory} from '../../utils/mapHelper';
 import {T_FORM_POST} from '../../utils/typeHelper';
-import IsValidLogo from '../common/IsValidLogo';
-import SelectInput from '../common/SelectInput';
+import IsValidLogo from './IsValidLogo';
+import SelectInput from './SelectInput';
 
 class FormPost extends React.Component {
 

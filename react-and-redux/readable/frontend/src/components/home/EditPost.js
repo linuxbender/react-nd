@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {editPost} from '../../actions/postActions';
-import FormPost from './FormPost';
+import FormPost from '../common/FormPost';
 
 class EditPost extends React.Component {
     constructor(props) {

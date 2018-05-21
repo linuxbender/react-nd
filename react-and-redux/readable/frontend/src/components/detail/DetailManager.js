@@ -1,9 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import withRouter from 'react-router-dom/es/withRouter';
-import {loadComments, readPost} from '../../actions/detailActions';
+import {loadComments} from '../../actions/detailActions';
+import {loadPosts} from '../../actions/postActions';
 import Loader from '../common/Loader';
-import DetailPost from './DetailPost';
+import ArticlePost from '../common/ArticlePost';
+import BreadCrumBar from './BreadCrumBar';
+
+// import DetailPost from './DetailPost';
 
 class DetailManager extends React.Component {
 
@@ -16,21 +20,29 @@ class DetailManager extends React.Component {
     }
 
     componentDidMount() {
-        this.props.dispatch(readPost(this.props.match.params.id));
+        this.props.dispatch(loadPosts());
         this.props.dispatch(loadComments(this.props.match.params.id));
     }
 
     render() {
         return (
-            this.props.detail.post.error && this.props.history.push('/404') &&
-            this.props.isLoading ? <Loader/> : <DetailPost detail={this.state.detail}/>
+            <div>
+                {this.props.isLoading && <Loader/>}
+                {!this.props.isLoading && this.props.posts.length <= 0 && this.props.history.push('/')}
+                {!this.props.isLoading && this.props.posts.length > 1 && this.props.history.push('/404')}
+                {!this.props.isLoading && <BreadCrumBar/>}
+                {!this.props.isLoading && this.props.posts.map(post => <ArticlePost key={post.id} post={post}/>)}
+            </div>
         )
     }
 }
 
-const mapStateToProps = (state) => ({
+// {!this.props.isLoading && <DetailPost detail={this.state.detail}/>}
+
+const mapStateToProps = (state, ctx) => ({
     isLoading: state.apiCallsInProgress > 0,
     detail: state.detail,
+    posts: [...state.post.filter(i => i.id === ctx.match.params.id)]
 });
 
 export default withRouter(connect(mapStateToProps)(DetailManager));
