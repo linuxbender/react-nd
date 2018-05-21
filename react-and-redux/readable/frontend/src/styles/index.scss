@@ -264,27 +264,25 @@ input {
   grid-area: articles;
   display: grid;
   grid-gap: $base-8px;
-  grid-template-columns: fit-content(max(600px));
   justify-content: center;
-  align-items: center;
   article {
-    width: 480px;
     background-color: $color-white-100;
+    width: 500px;
     color: $color-black-90;
     box-shadow: $box-shadow;
     padding: $base-8px $base-8px;
     margin: $base-8px $base-0;
     border-radius: $base-4px;
-    display: inline-grid;
+    display: grid;
     grid-template-areas: "article-img article-header" "article-img article-content" "article-footer article-footer";
     img {
-      width: 48px;
       grid-area: article-img;
       padding: $base-8px 0;
       padding-right: $base-8px;
     }
     header {
       grid-area: article-header;
+      width: 440px;
       padding-bottom: $base-4px;
       font-style: italic;
       font-size: large;
@@ -360,6 +358,7 @@ input {
     }
   }
   .article-detail {
+    width: fit-content;
     display: grid;
     grid-template-areas: "article-img article-header" "article-img article-content" "article-footer article-footer" "article-comments article-comments" "comment-delete comment-delete" "comment-add comment-add";
     .section-comments {
@@ -381,7 +380,6 @@ input {
         display: grid;
         grid-area: comment-delete;
         grid-template-areas: "comment-header comment-header" "comment-content comment-content" "comment-footer comment-footer";
-        overflow: hidden;
         background-color: $color-red-60;
         color: $color-white-100;
         header {

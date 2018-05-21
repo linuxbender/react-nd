@@ -22,7 +22,7 @@ class DetailManager extends React.Component {
 
     render() {
         return (
-            this.props.detail.post.error && this.props.history.push('/404') ||
+            this.props.detail.post.error && this.props.history.push('/404') &&
             this.props.isLoading ? <Loader/> : <DetailPost detail={this.state.detail}/>
         )
     }
