@@ -173,10 +173,6 @@ body {
   grid-template-areas: "header" "articles";
 }
 
-body > * {
-  padding: $base-8px;
-}
-
 button {
   color: $color-black-100;
   background-color: $color-white-70;
@@ -272,6 +268,7 @@ input {
   justify-content: center;
   align-items: center;
   article {
+    width: 480px;
     background-color: $color-white-100;
     color: $color-black-90;
     box-shadow: $box-shadow;
@@ -281,6 +278,7 @@ input {
     display: inline-grid;
     grid-template-areas: "article-img article-header" "article-img article-content" "article-footer article-footer";
     img {
+      width: 48px;
       grid-area: article-img;
       padding: $base-8px 0;
       padding-right: $base-8px;
@@ -290,6 +288,10 @@ input {
       padding-bottom: $base-4px;
       font-style: italic;
       font-size: large;
+      a {
+        color: $color-black-100;
+        text-decoration: none;
+      }
     }
     .article-content {
       grid-area: article-content;
@@ -340,7 +342,7 @@ input {
   }
   .article-edit {
     display: grid;
-    min-height: 391px;
+    min-height: 400px;
     header {
       display: inline-flex;
     }
@@ -348,13 +350,7 @@ input {
   .article-delete {
     background-color: $color-red-60;
     color: $color-white-100;
-    transition: height 400ms 100ms;
-    transition-timing-function: cubic-bezier(.89, .13, .1, .93);
-    &:hover {
-      display: grid;
-      height: 142px;
-      cursor: pointer;
-    }
+    min-height: 142px;
     .article-content {
       .form-group {
         i {
@@ -394,8 +390,6 @@ input {
         overflow: hidden;
         background-color: $color-red-60;
         color: $color-white-100;
-        transition: height 400ms 100ms;
-        transition-timing-function: cubic-bezier(.89, .13, .1, .93);
         header {
           grid-area: comment-header;
         }
@@ -657,6 +651,10 @@ $icon-plus: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/sv
   header {
     font-size: 24px;
     font-style: italic;
+    a {
+      color: $color-white-100;
+      text-decoration: none;
+    }
   }
   nav {
     display: inline-flex;
@@ -685,16 +683,4 @@ $icon-plus: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/sv
   .container > * {
     margin: $base-2px;
   }
-}
-
-/* normal web */
-@media screen and (max-width: 80em) {
-}
-
-/* tabled */
-@media screen and (max-width: 60em) {
-}
-
-/* mobile */
-@media screen and (max-width: 40em) {
 }
