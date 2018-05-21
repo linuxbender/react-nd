@@ -314,13 +314,7 @@ input {
     }
   }
   .article-add {
-    transition: height 600ms 100ms;
-    transition-timing-function: cubic-bezier(.89, .13, .1, .93);
-    &:hover {
-      display: grid;
-      height: 391px;
-      cursor: pointer;
-    }
+    min-height: 400px;
     header {
       display: inline-flex;
       .button-pulse {

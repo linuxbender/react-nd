@@ -4,6 +4,7 @@ import {loadCategories} from '../../actions/categoryActions';
 import {loadPosts} from '../../actions/postActions';
 import Loader from '../common/Loader';
 import ArticlePost from './ArticlePost';
+import NewPost from './NewPost';
 
 class HomeManager extends React.Component {
 
@@ -15,7 +16,8 @@ class HomeManager extends React.Component {
     render() {
         return (
             <div>
-                {this.props.isLoading ? <Loader/> : this.props.posts.map(post =>
+                {this.props.isLoading ? <Loader/> : <NewPost/>}
+                {!this.props.isLoading && this.props.posts.map(post =>
                     <ArticlePost key={post.id} post={post}/>)}
             </div>
         )
