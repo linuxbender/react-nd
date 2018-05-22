@@ -1,22 +1,24 @@
-# Readable API Server
+# Readable App
+> Second project: React and Redux App for the udacity ng.
+ 
+## Installing / Getting started
 
-This is the starter project for the final assessment project for Udacity's Redux course where you will build a content and comment web app. Users will be able to post content to predefined categories, comment on their posts and other users' posts, and vote on posts and comments. Users will also be able to edit and delete posts and comments.
+You will need to add the development server from [here](https://github.com/udacity/reactnd-project-readable-starter), for the project to work properly. It should be running on `localhost:3001`.
+Or you can use the copy version in the project folder ``api-server``.
+```shell
+npm install && npm start
+```
 
-This repository includes the code for the backend API Server that you'll use to develop and interact with the front-end portion of the project.
 
-## Start Developing
+Go to the frontend project folder ``frontend``.
+Run the following command to get up and running:
 
-To get started developing right away:
+```shell
+npm install && npm start
+```
 
-* Install and start the API server
-    - `cd api-server`
-    - `npm install`
-    - `node server`
-* In another terminal window, use Create React App to scaffold out the front-end
-    - `create-react-app frontend`
-    - `cd frontend`
-    - `npm start`
+The above command will install all dependencies and open the project in development mode, in you default browser, on port 3000.
+> Please use a modern Firefox or Chrome. The Layout is self made. The reason was: learning and using CSS Flexbox, CSS Animation and CSS Grid.
 
-## API Server
-
-Information about the API server and how to use it can be found in its [README file](api-server/README.md).
+### Built With
+React, Redux, HTML5 
