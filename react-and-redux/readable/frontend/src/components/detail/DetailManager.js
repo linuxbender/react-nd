@@ -4,7 +4,7 @@ import withRouter from 'react-router-dom/es/withRouter';
 import {loadCategories} from '../../actions/categoryActions';
 import {loadComments} from '../../actions/commentActions';
 import {loadPosts} from '../../actions/postActions';
-import ArticlePost from '../common/ArticlePost';
+import ArticlePost from '../home/ArticlePost';
 import Loader from '../common/Loader';
 import ArticleComment from './ArticleComment';
 import BreadCrumBar from './BreadCrumBar';

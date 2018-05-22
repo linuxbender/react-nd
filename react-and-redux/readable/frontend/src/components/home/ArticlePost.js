@@ -2,9 +2,9 @@ import React from 'react';
 import {connect} from 'react-redux';
 import Link from 'react-router-dom/es/Link';
 import {updatePostDownVote, updatePostUpVote} from '../../actions/postActions';
-import BrandLogo from './BrandLogo';
-import DeletePost from '../home/DeletePost';
-import EditPost from '../home/EditPost';
+import BrandLogo from '../common/BrandLogo';
+import DeletePost from './DeletePost';
+import EditPost from './EditPost';
 
 class ArticlePost extends React.Component {
     constructor(props) {
