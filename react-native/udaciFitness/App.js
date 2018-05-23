@@ -6,11 +6,7 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-        <Text> Was geht ab!!!</Text>
-        <Ionicons color='blue' name='ios-pizza' size={80} />
+          <AddEntry />
       </View>
     );
   }
