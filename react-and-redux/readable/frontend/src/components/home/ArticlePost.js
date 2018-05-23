@@ -38,7 +38,9 @@ class ArticlePost extends React.Component {
             <div>
                 <article>
                     <BrandLogo name={this.props.post.category}/>
-                    <header><Link to={'/detail/' + this.props.post.id}>{this.props.post.title}</Link></header>
+                    <header><Link
+                        to={`/${this.props.post.category}/${this.props.post.id}`}>{this.props.post.title}</Link>
+                    </header>
                     <div className="article-content">{this.props.post.body}</div>
                     <footer>
                         <i className="icon-24-blue-90">
@@ -64,7 +66,7 @@ class ArticlePost extends React.Component {
                                 </svg>
                             </i> down
                         </button>
-                        <Link to={'/detail/' + this.props.post.id}>
+                        <Link to={`/${this.props.post.category}/${this.props.post.id}`}>
                             <button className="button-action">
                                 <i className="icon-24-black-100">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">

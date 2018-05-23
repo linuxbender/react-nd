@@ -8,7 +8,7 @@ import FourZeroFour from './components/pages/404';
 const AppRoutes = () => (
     <Switch>
         <Route exact path="/" component={Home}/>
-        <Route exact path="/detail/:id" component={Detail}/>
+        <Route exact path="/:category/:id" component={Detail}/>
         <Route component={FourZeroFour}/>
     </Switch>
 );
