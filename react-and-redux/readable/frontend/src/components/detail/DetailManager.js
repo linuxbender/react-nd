@@ -4,8 +4,8 @@ import withRouter from 'react-router-dom/es/withRouter';
 import {loadCategories} from '../../actions/categoryActions';
 import {loadComments} from '../../actions/commentActions';
 import {loadPosts} from '../../actions/postActions';
-import ArticlePost from '../home/ArticlePost';
 import Loader from '../common/Loader';
+import ArticlePost from '../home/ArticlePost';
 import ArticleComment from './ArticleComment';
 import BreadCrumBar from './BreadCrumBar';
 import NewComment from './NewComment';
@@ -16,10 +16,10 @@ class DetailManager extends React.Component {
     constructor(props) {
         super(props);
         if (props.match.params.id && props.match.params.id === '') {
-            props.history.push('/');
+            props.history.push('/404    ');
         }
         if (props.posts.length === 0) {
-            props.history.push('/');
+            props.history.push('/404');
         }
     }
 

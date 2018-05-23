@@ -12,11 +12,12 @@ class FourZeroFour extends React.Component {
     render() {
         return (
             <section className="articles">
-                <header>404</header>
-                <div className="article-content">
-                    <div>Page not Found</div>
-                    <div>Go to the App <Link to="/">Home</Link>for a fresh start.</div>
-                </div>
+                <article>
+                    <header>404 - page not found</header>
+                    <div className="article-content">
+                        Go to the App <Link to="/">Home</Link> for a fresh start.
+                    </div>
+                </article>
             </section>
         )
     }
