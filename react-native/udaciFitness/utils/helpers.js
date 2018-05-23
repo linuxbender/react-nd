@@ -1,3 +1,9 @@
+import React from 'react'
+import { View, StyleSheet, AsyncStorage } from 'react-native'
+import { FontAwesome, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
+import { Notifications, Permissions } from 'expo'
+import { white, red, orange, blue, lightPurp, pink, black } from './colors'
+
 export function getMetricMetaInfo (metric) {
     const info = {
         run: {
