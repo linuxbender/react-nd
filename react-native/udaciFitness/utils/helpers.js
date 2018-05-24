@@ -96,7 +96,7 @@ export function getMetricMetaInfo (metric) {
                 )
             }
         },
-    }
+    };
 
     return typeof metric === 'undefined'
         ? info
@@ -112,7 +112,7 @@ export function isBetween (num, x, y) {
 }
 
 export function calculateDirection (heading) {
-    let direction = ''
+    let direction = '';
 
     if (isBetween(heading, 0, 22.5)) {
         direction = 'North'

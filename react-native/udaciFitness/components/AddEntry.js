@@ -1,11 +1,13 @@
-import React, { Component } from 'react'
-import { View, TouchableOpacity, Text } from 'react-native'
-import { getMetricMetaInfo, timeToString } from '../utils/helpers'
+import {Ionicons} from '@expo/vector-icons'
+import React, {Component} from 'react'
+import {Text, TouchableOpacity, View} from 'react-native'
+import {getMetricMetaInfo, timeToString} from '../utils/helpers'
+import DateHeader from './DateHeader'
 import UdaciSlider from './UdaciSlider'
 import UdaciSteppers from './UdaciSteppers'
-import DateHeader from './DateHeader'
+import TextButton from './TextButton'
 
-function SubmitBtn ({ onPress }) {
+function SubmitBtn({onPress}) {
     return (
         <TouchableOpacity onPress={onPress}>
             <Text>SUBMIT</Text>
@@ -22,7 +24,7 @@ export default class AddEntry extends Component {
         eat: 0,
     };
     increment = (metric) => {
-        const { max, step } = getMetricMetaInfo(metric);
+        const {max, step} = getMetricMetaInfo(metric);
 
         this.setState((state) => {
             const count = state[metric] + step;
@@ -54,7 +56,7 @@ export default class AddEntry extends Component {
 
         // Update Redux
 
-        this.setState(() => ({ run: 0, bike: 0, swim: 0, sleep: 0, eat: 0 }))
+        this.setState(() => ({run: 0, bike: 0, swim: 0, sleep: 0, eat: 0}))
 
         // Navigate to home
 
@@ -62,14 +64,40 @@ export default class AddEntry extends Component {
 
         // Clear local notification
     };
+
+    reset = () => {
+        const key = timeToString()
+
+        // Update Redux
+
+        // Route to Home
+
+        // Update "DB"
+    };
+
     render() {
         const metaInfo = getMetricMetaInfo();
+
+        if (this.props.alreadyLogged) {
+            return (
+                <View>
+                    <Ionicons
+                        name={'ios-happy-outline'}
+                        size={100}
+                    />
+                    <Text>You already logged your information for today.</Text>
+                    <TextButton onPress={this.reset}>
+                        Reset
+                    </TextButton>
+                </View>
+            )
+        }
 
         return (
             <View>
                 <DateHeader date={(new Date()).toLocaleDateString()}/>
                 {Object.keys(metaInfo).map((key) => {
-                    const { getIcon, type, ...rest } = metaInfo[key];
+                    const {getIcon, type, ...rest} = metaInfo[key];
                     const value = this.state[key];
 
                     return (
@@ -90,7 +118,7 @@ export default class AddEntry extends Component {
                         </View>
                     )
                 })}
-                <SubmitBtn onPress={this.submit} />
+                <SubmitBtn onPress={this.submit}/>
             </View>
         )
     }
