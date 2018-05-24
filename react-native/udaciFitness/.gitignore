@@ -34,3 +34,6 @@ yarn.lock
 # Gradle:
 .idea/**/gradle.xml
 .idea/**/libraries
+
+# httpRequests
+.idea/*.http
