@@ -1,11 +1,12 @@
 import {Ionicons} from '@expo/vector-icons'
 import React, {Component} from 'react'
 import {Text, TouchableOpacity, View} from 'react-native'
+import {removeEntry, submitEntry} from '../utils/api'
 import {getMetricMetaInfo, timeToString} from '../utils/helpers'
 import DateHeader from './DateHeader'
+import TextButton from './TextButton'
 import UdaciSlider from './UdaciSlider'
 import UdaciSteppers from './UdaciSteppers'
-import TextButton from './TextButton'
 
 function SubmitBtn({onPress}) {
     return (
@@ -56,23 +57,23 @@ export default class AddEntry extends Component {
 
         // Update Redux
 
-        this.setState(() => ({run: 0, bike: 0, swim: 0, sleep: 0, eat: 0}))
+        this.setState(() => ({run: 0, bike: 0, swim: 0, sleep: 0, eat: 0}));
 
         // Navigate to home
 
-        // Save to "DB"
+        submitEntry({key, entry});
 
         // Clear local notification
     };
 
     reset = () => {
-        const key = timeToString()
+        const key = timeToString();
 
         // Update Redux
 
         // Route to Home
 
-        // Update "DB"
+        removeEntry(key);
     };
 
     render() {
