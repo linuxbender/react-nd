@@ -1,34 +1,41 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom';
 import Link from 'react-router-dom/es/Link';
 import {navActiveCategory} from '../../actions/navActions';
 import {loadPosts, loadPostsByCategory} from '../../actions/postActions';
 import {mapNavCategory} from '../../utils/mapHelper';
 
-const Header = ({category, activeCategory, dispatch}) => {
-    const onFilterCategoryHandler = category => {
+class Header extends React.Component {
+
+    onFilterCategoryHandler = category => {
         if (category !== '') {
-            dispatch(loadPostsByCategory(category));
+            this.props.dispatch(loadPostsByCategory(category));
+            this.props.history.push(category);
         } else {
-            dispatch(loadPosts());
+            this.props.dispatch(loadPosts());
+            this.props.history.push('/')
         }
-        dispatch(navActiveCategory(category));
+        this.props.dispatch(navActiveCategory(category));
     };
-    return (
-        <header className="header">
-            <header><Link to="/">Readable</Link></header>
-            <nav>
-                {category.map((category, index) =>
-                    <div key={index}
-                         onClick={() => onFilterCategoryHandler(category.path)}
-                         className={category.path === activeCategory ? 'nav-item-activ' : ''}>
-                        <a>{category.name}</a>
-                    </div>
-                )}
-            </nav>
-        </header>
-    );
-};
+
+    render() {
+        return (
+            <header className="header">
+                <header><Link to="/">Readable</Link></header>
+                <nav>
+                    {this.props.category.map((category, index) =>
+                        <div key={index}
+                             onClick={() => this.onFilterCategoryHandler(category.path)}
+                             className={category.path === this.props.activeCategory ? 'nav-item-activ' : ''}>
+                            <a>{category.name}</a>
+                        </div>
+                    )}
+                </nav>
+            </header>
+        )
+    }
+}
 
 const mapStateToProps = (state) => ({
     isLoading: state.apiCallsInProgress > 0,
@@ -36,4 +43,4 @@ const mapStateToProps = (state) => ({
     activeCategory: state.navActiveCategory
 });
 
-export default connect(mapStateToProps)(Header);
+export default withRouter(connect(mapStateToProps)(Header));
