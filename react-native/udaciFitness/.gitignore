@@ -21,7 +21,8 @@ yarn.lock
 # User-specific stuff:
 .idea/**/workspace.xml
 .idea/**/tasks.xml
-.idea/dictionaries
+.idea/**/dictionaries
+.idea/**/shelf
 
 # Sensitive or high-churn files:
 .idea/**/dataSources/
@@ -30,10 +31,11 @@ yarn.lock
 .idea/**/sqlDataSources.xml
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
+.idea/**/dbnavigator.xml
 
 # Gradle:
 .idea/**/gradle.xml
 .idea/**/libraries
 
 # httpRequests
-.idea/*.http
+.idea/httpRequests
