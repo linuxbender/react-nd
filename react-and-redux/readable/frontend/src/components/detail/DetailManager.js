@@ -13,21 +13,17 @@ import SortBar from './SortBar';
 
 class DetailManager extends React.Component {
 
-    constructor(props) {
-        super(props);
-        if (props.match.params.id && props.match.params.id === '') {
-            props.history.push('/404    ');
-        }
-        if (props.posts.length === 0) {
-            props.history.push('/404');
-        }
-    }
-
     componentDidMount() {
         this.props.dispatch(loadPosts());
         this.props.dispatch(loadCategories());
         this.props.dispatch(loadComments(this.props.match.params.id));
     }
+
+    componentWillReceiveProps(nextProps) {
+        if (!nextProps.isLoading && nextProps.posts.length === 0) {
+            nextProps.history.push('error/404');
+        }
+    };
 
     render() {
         return (
@@ -45,7 +41,7 @@ class DetailManager extends React.Component {
 }
 
 const mapStateToProps = (state, ctx) => {
-    let posts = [...state.post.filter(i => i.id === ctx.match.params.id)] || [];
+    let posts = [...state.post.filter(i => i.id === ctx.match.params.id && i.category === ctx.match.params.category)];
     let postId = '';
     if (posts.length !== 0) {
         postId = posts[0].id
