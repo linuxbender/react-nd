@@ -16,9 +16,9 @@ const commentReducer = (state = T_Store.comment, action) => {
         case T.UPDATE_COMMENT_DOWN_VOTE_SUCCESS:
             return [...state.filter(i => i.id !== action.data.id), action.data].sort((a, b) => b.timestamp - a.timestamp);
         case T.SORT_COMMENTS_BY_BEST_SCORE:
-            return [...state.filter(i => i).sort((a, b) => b.voteScore - a.voteScore)].sort((a, b) => b.timestamp - a.timestamp);
+            return [...state.filter(i => i).sort((a, b) => b.voteScore - a.voteScore)];
         case T.SORT_COMMENTS_BY_LOWEST_SCORE:
-            return [...state.filter(i => i).sort((a, b) => a.voteScore - b.voteScore)].sort((a, b) => b.timestamp - a.timestamp);
+            return [...state.filter(i => i).sort((a, b) => a.voteScore - b.voteScore)];
         default:
             return state;
     }
