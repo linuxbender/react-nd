@@ -1,14 +1,20 @@
-import {ADD_ENTRY, RECEIVE_ENTRIES} from '../actions';
+import {ADD_ENTRY, RECEIVE_ENTRIES,} from '../actions'
 
-const entries = (state = {}, action) => {
+function entries(state = {}, action) {
     switch (action.type) {
         case RECEIVE_ENTRIES:
-            return {...state, ...actions.entries};
+            return {
+                ...state,
+                ...action.entries,
+            };
         case ADD_ENTRY:
-            return {...state, ...action.entry};
+            return {
+                ...state,
+                ...action.entry,
+            };
         default:
-            return state;
+            return state
     }
-};
+}
 
-export default entries;
+export default entries
