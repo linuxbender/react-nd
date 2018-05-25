@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 import DateHeader from './DateHeader'
 import { getMetricMetaInfo } from '../utils/helpers'
@@ -9,7 +9,7 @@ export default ({ date, metrics }) => (
     <View>
         { date && <DateHeader date={date} />}
         { Object.keys(metrics).map(metric => {
-            const { getIcon, displayName, unit, backgroundColor } = getMetricMetaInfo(metric);
+            const { getIcon, displayName, unit } = getMetricMetaInfo(metric);
 
             return (
                 <View style={styles.metric} key={metric}>
