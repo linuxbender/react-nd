@@ -2,6 +2,7 @@ import {FontAwesome, Ionicons} from '@expo/vector-icons'
 import {Constants} from 'expo'
 import React from 'react'
 import {Platform, StatusBar, View} from 'react-native'
+// components
 import {createStackNavigator, createMaterialTopTabNavigator} from 'react-navigation'
 import {Provider} from 'react-redux'
 import {createStore} from 'redux'
@@ -10,6 +11,7 @@ import EntryDetail from './components/EntryDetail'
 import History from './components/History'
 import Live from './components/Live'
 import reducer from './reducers'
+// utils
 import {purple, white} from './utils/colors'
 import {setLocalNotification} from './utils/helpers'
 
@@ -74,14 +76,16 @@ const MainNavigator = createStackNavigator({
         navigationOptions: {
             headerTintColor: white,
             headerStyle: {
-                backgroundColor: purple
+                backgroundColor: purple,
             }
         }
     }
 });
 
 export default class App extends React.Component {
-    store = createStore(reducer);
+    componentDidMount() {
+        setLocalNotification()
+    }
 
     render() {
         return (

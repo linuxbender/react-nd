@@ -1,11 +1,14 @@
+// components
 import {Ionicons} from '@expo/vector-icons'
 import React, {Component} from 'react'
 import {Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native'
 import {NavigationActions} from 'react-navigation'
 import {connect} from 'react-redux'
+// actions
 import {addEntry} from '../actions'
 import {removeEntry, submitEntry} from '../utils/api'
 import {purple, white} from '../utils/colors'
+// utils
 import {
     clearLocalNotification,
     getDailyReminderValue,
