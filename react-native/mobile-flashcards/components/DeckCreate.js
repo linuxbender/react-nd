@@ -1,4 +1,4 @@
-import {Content, Text} from 'native-base';
+import {Content, Form, Input, Item, Label, Text} from 'native-base';
 import React, {Component} from 'react'
 
 class DeckCreate extends Component {
@@ -6,7 +6,12 @@ class DeckCreate extends Component {
     render() {
         return (
             <Content padder>
-                <Text>Hello New Deck</Text>
+                <Form>
+                    <Item>
+                        <Label>What is the title of your new deck?</Label>
+                        <Input placeholder="Username" />
+                    </Item>
+                </Form>
             </Content>
         )
     }

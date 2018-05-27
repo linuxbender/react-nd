@@ -1,11 +1,10 @@
 import {AppLoading, Font} from 'expo';
-import {Container, Tab, Tabs} from 'native-base';
+import {Body, Container, Header, Left, Right, Tab, Tabs, Text, Title} from 'native-base';
 import React from 'react';
 import {StyleSheet} from 'react-native';
 import About from './components/About';
 import DeckCreate from './components/DeckCreate';
 import DeckList from './components/DeckList';
-import {darkBlue} from './utils/constants';
 
 export default class App extends React.Component {
     constructor(props) {
@@ -21,7 +20,6 @@ export default class App extends React.Component {
         this.setState({loading: false});
     }
 
-
     render() {
         if (this.state.loading) {
             return (
@@ -32,8 +30,12 @@ export default class App extends React.Component {
         }
         return (
             <Container>
-                <Tabs>
-                    <Tab heading="Decks">
+                <Header hasTabs>
+                    <Body><Title>Mobile Flash</Title></Body>
+                    <Right/>
+                </Header>
+                <Tabs style={styles.header}>
+                    <Tab heading="Deck">
                         <DeckList/>
                     </Tab>
                     <Tab heading="New Deck">
@@ -56,6 +58,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     header: {
-        backgroundColor: darkBlue
+        backgroundColor: '#384850'
     }
 });
