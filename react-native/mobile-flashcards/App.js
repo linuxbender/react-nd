@@ -1,12 +1,15 @@
-import {AppLoading, Font} from 'expo';
-import {Body, Container, Header, Left, Right, Tab, Tabs, Text, Title} from 'native-base';
 import React from 'react';
 import {StyleSheet} from 'react-native';
+import {Body, Container, Header, Right, Tab, Tabs, Title} from 'native-base';
+import {AppLoading, Font} from 'expo';
+
 import About from './components/About';
 import DeckCreate from './components/DeckCreate';
 import DeckList from './components/DeckList';
+import {isIos} from './utils/platformHelper';
 
 export default class App extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {loading: true};
@@ -21,6 +24,7 @@ export default class App extends React.Component {
     }
 
     render() {
+
         if (this.state.loading) {
             return (
                 <Container>
@@ -28,13 +32,15 @@ export default class App extends React.Component {
                 </Container>
             );
         }
+        const tabPosition = isIos() ? 'bottom' : 'top';
+
         return (
             <Container>
                 <Header hasTabs>
                     <Body><Title>Mobile Flash</Title></Body>
                     <Right/>
                 </Header>
-                <Tabs style={styles.header}>
+                <Tabs tabBarPosition={tabPosition.toString()} style={styles.header}>
                     <Tab heading="Deck">
                         <DeckList/>
                     </Tab>
