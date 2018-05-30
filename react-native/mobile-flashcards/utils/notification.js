@@ -1,7 +1,28 @@
 import {Notifications, Permissions} from 'expo'
-import React from 'react'
 import {AsyncStorage} from 'react-native'
-import {NOTIFICATION_KEY} from './constants';
+import {NOTIFICATION_KEY} from './constants'
+
+
+export function clearLocalNotification() {
+    return AsyncStorage.removeItem(NOTIFICATION_KEY)
+        .then(Notifications.cancelAllScheduledNotificationsAsync)
+}
+
+function createNotification() {
+    return {
+        title: 'Study your flash cards!',
+        body: "📚 Don't forget to study your flash cards!",
+        ios: {
+            sound: true,
+        },
+        android: {
+            sound: true,
+            priority: 'high',
+            sticky: false,
+            vibrate: true,
+        }
+    }
+}
 
 export function setLocalNotification() {
     AsyncStorage.getItem(NOTIFICATION_KEY)
@@ -15,7 +36,7 @@ export function setLocalNotification() {
 
                             let tomorrow = new Date();
                             tomorrow.setDate(tomorrow.getDate() + 1);
-                            tomorrow.setHours(12);
+                            tomorrow.setHours(20);
                             tomorrow.setMinutes(0);
 
                             Notifications.scheduleLocalNotificationAsync(

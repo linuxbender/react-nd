@@ -1,13 +1,13 @@
-import {Content, Text} from 'native-base';
 import React, {Component} from 'react'
+import {Text, View} from 'react-native';
 
 class DeckDetail extends Component {
 
     render() {
         return (
-            <Content padder>
-                <Text>Hello New Deck</Text>
-            </Content>
+            <View>
+                <Text>Hello Deck Detail</Text>
+            </View>
         )
     }
 }
