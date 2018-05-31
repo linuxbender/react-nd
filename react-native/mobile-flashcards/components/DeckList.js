@@ -1,18 +1,14 @@
-import {Entypo} from '@expo/vector-icons'
-import {AppLoading} from 'expo'
-import React, {Component} from 'react'
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native'
-import {connect} from 'react-redux'
-import {loadDecks} from '../actions'
-import {appStyles, black} from '../utils/constants'
-import {clearLocalNotification, setLocalNotification} from '../utils/notification'
-import {getDecks} from '../utils/storage'
+import {Entypo} from '@expo/vector-icons';
+import {AppLoading} from 'expo';
+import React, {Component} from 'react';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {connect} from 'react-redux';
+import {loadDecks} from '../actions';
+import {appStyles, black} from '../utils/constants';
+import {clearLocalNotification, setLocalNotification} from '../utils/notification';
+import {getDecks} from '../utils/storage';
 
 class DeckList extends Component {
-
-    static navigationOptions = {
-        title: 'Home',
-    };
 
     state = {
         ready: false,
@@ -42,7 +38,7 @@ class DeckList extends Component {
                     deckList.map(deck => (
                         <TouchableOpacity
                             key={deck.title}
-                            onPress={() => this.props.navigation.navigate('DeckSummary', {deckName: deck.title})}
+                            onPress={() => this.props.navigation.navigate('DeckDetail', {id: deck.title})}
                             style={styles.deckItem}>
                             <View style={styles.deckItemView}>
                                 <Text style={[appStyles.header, styles.deckItemTitle]}>{deck.title}</Text>

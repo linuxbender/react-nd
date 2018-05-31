@@ -1,15 +1,14 @@
-import {AppLoading} from 'expo'
-import React, {Component} from 'react'
-import {StyleSheet, Text, View} from 'react-native'
-import {connect} from 'react-redux'
-import {appStyles, orange, teal} from '../utils/constants'
-import AppButton from './AppButton'
+import {AppLoading} from 'expo';
+import React, {Component} from 'react';
+import {StyleSheet, Text, View} from 'react-native';
+import {connect} from 'react-redux';
+import {appStyles, orange, teal} from '../utils/constants';
+import AppButton from './AppButton';
 
 class DeckSummary extends Component {
     handleAddCard = () => {
         const {deckName, decks, navigation} = this.props;
         const deck = decks[deckName];
-
         navigation.navigate('CardForm', {deckName, deck})
     };
     handleQuiz = () => {

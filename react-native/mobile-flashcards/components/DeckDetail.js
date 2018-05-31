@@ -1,15 +1,17 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
 import {Text, View} from 'react-native';
+import {withNavigation} from 'react-navigation';
 
 class DeckDetail extends Component {
 
     render() {
+        console.log(this.props.navigation.state);
         return (
             <View>
-                <Text>Hello Deck Detail</Text>
+                <Text>Hello : </Text>
             </View>
         )
     }
 }
 
-export default DeckDetail;
+export default withNavigation(DeckDetail);

@@ -1,44 +1,88 @@
-import {Entypo, MaterialIcons} from '@expo/vector-icons'
-import {Constants} from 'expo'
+import {MaterialIcons} from '@expo/vector-icons'
 import React from 'react'
 import {StatusBar, View} from 'react-native'
 import {createMaterialTopTabNavigator, createStackNavigator} from 'react-navigation'
 import {Provider} from 'react-redux'
 import {createStore} from 'redux'
-import CardForm from './components/CardForm'
+import DeckDetail from './components/DeckDetail';
 import DeckForm from './components/DeckForm'
 import DeckList from './components/DeckList'
-import DeckSummary from './components/DeckSummary'
-import Quiz from './components/Quiz'
 import reducer from './reducers'
+import {darkBlue, eggShell, orange, white} from './utils/constants';
 
 const store = createStore(reducer);
 
-function AppStatusBar({backgroundColor, ...props}) {
+// Icon Browser: https://expo.github.io/vector-icons/
+
+const AppStatusBar = ({backgroundColor, ...props}) => {
     return (
-        <View style={{backgroundColor, height: Constants.statusBarHeight}}>
-            <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+        <View style={{paddingTop: Expo.Constants.statusBarHeight}}>
+            <StatusBar barStyle="default" translucent backgroundColor={backgroundColor} {...props} />
         </View>
     )
-}
+};
 
 const HomeStack = createStackNavigator({
-    Home: DeckList,
-    Details: DeckSummary,
-    Quiz: Quiz,
-    CardForm: CardForm
+    Home: {
+        screen: DeckList,
+        path: '/',
+        navigationOptions: {
+            header: null,
+            headerTransparent: true
+        }
+    },
+    DeckDetail: {
+        screen: DeckDetail,
+        path: '/deckDetail/:id',
+        navigationOptions: {
+            header: null,
+            headerTransparent: true
+        }
+    }
 });
+
 const DeckFormStack = createStackNavigator({
-    NewDeck: DeckForm
+    NewDeck: {
+        screen: DeckForm,
+        path: '/newDeck',
+        navigationOptions: {
+            header: null,
+            headerTransparent: true
+        }
+    }
 });
 
 const RootNavigation = createMaterialTopTabNavigator(
     {
         DeckList: {
             screen: HomeStack,
-            tabBarLabel: 'New Deck'
+            path: '/',
+            navigationOptions: {
+                tabBarLabel: 'My Decks',
+                tabBarIcon: ({tintColor}) => <MaterialIcons name='list' color={tintColor} size={24}/>
+            }
         },
-        NewDeck: DeckFormStack
+        NewDeck: {
+            screen: DeckFormStack,
+            path: '/newDeck',
+            navigationOptions: {
+                tabBarLabel: 'New Deck',
+                tabBarIcon: ({tintColor}) => <MaterialIcons name='playlist-add' color={tintColor} size={24}/>
+            }
+        }
+    },
+    {
+        tabBarOptions: {
+            showIcon: true,
+            activeTintColor: white,
+            inactiveTintColor: eggShell,
+            style: {
+                backgroundColor: darkBlue
+            },
+            indicatorStyle: {
+                backgroundColor: orange
+            },
+        }
     }
 );
 
@@ -47,6 +91,7 @@ export default class App extends React.Component {
         return (
             <Provider store={store}>
                 <View style={{flex: 1}}>
+                    <AppStatusBar backgroundColor={darkBlue}/>
                     <RootNavigation/>
                 </View>
             </Provider>
