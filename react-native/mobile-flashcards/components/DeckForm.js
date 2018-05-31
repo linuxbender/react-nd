@@ -1,19 +1,13 @@
 import React, {Component} from 'react'
-import {StatusBar, StyleSheet, Text, TextInput, View} from 'react-native'
+import {StyleSheet, Text, TextInput, View} from 'react-native'
 import {connect} from 'react-redux'
 import {createDeck} from '../actions'
-import {appStyles, teal} from '../utils/constants'
+import {appStyles, darkBlue} from '../utils/constants'
 import {saveDeckTitle} from '../utils/storage'
 import AppButton from './AppButton'
 
 class DeckForm extends Component {
     static navigationOptions = {
-        hidden: true,
-        haeder: null,
-        headerStyle : {
-            backgroundColor:'#243346'
-        },
-        headerTintColor:"#fff"
     };
 
     state = {
@@ -67,7 +61,7 @@ class DeckForm extends Component {
                     placeholder='New Deck Name'/>
 
                 <AppButton
-                    style={[appStyles.padItem, {backgroundColor: teal}]}
+                    style={[appStyles.padItem, {backgroundColor: darkBlue}]}
                     onPress={this.save}>
                     Create New Deck
                 </AppButton>

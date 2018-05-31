@@ -1,3 +1,5 @@
+import {uuid} from '../utils/numberHelper';
+
 export const LOAD_DECKS = 'LOAD_DECKS';
 export const UPDATE_DECK = 'UPDATE_DECK';
 
@@ -19,6 +21,8 @@ export function updateDeck(deck) {
 
 export function createDeck(deckName) {
     const newDeck = {
+        id: uuid(),
+        key: uuid(),
         title: deckName,
         questions: [],
     };

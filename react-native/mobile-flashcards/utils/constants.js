@@ -1,11 +1,11 @@
-import { StyleSheet} from 'react-native'
+import {StyleSheet} from 'react-native'
 
 export const STORAGE_KEY = 'com.theforce:udacity-mobile-flashcards:storage';
 export const NOTIFICATION_KEY = 'com.theforce:udacity-mobile-flashcards:notification';
 
 // https://coolors.co/083d77-ebebd3-f4d35e-ee964b-f95738
 
-export const lightBlue = '#a5b8cd';
+export const lightBlue = '#1d4992';
 export const darkBlue = '#083d77';
 export const eggShell = '#ebebd3';
 export const yellow = '#f4d35e';
@@ -14,6 +14,7 @@ export const pink = '#ff084a';
 
 // other colors
 export const white = '#ffffff';
+export const blackLicorice = '#212121';
 export const black = '#000000';
 
 // styles

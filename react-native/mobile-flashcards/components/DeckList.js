@@ -1,93 +1,120 @@
-import {Entypo} from '@expo/vector-icons';
+import {MaterialIcons} from '@expo/vector-icons';
 import {AppLoading} from 'expo';
 import React, {Component} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {connect} from 'react-redux';
 import {loadDecks} from '../actions';
-import {appStyles, black} from '../utils/constants';
+import {black, darkBlue, eggShell, lightBlue, orange, white} from '../utils/constants';
 import {clearLocalNotification, setLocalNotification} from '../utils/notification';
 import {getDecks} from '../utils/storage';
 
 class DeckList extends Component {
 
+    static navigationOptions = {
+        title: 'Home',
+    };
+
     state = {
-        ready: false,
+        isReady: false,
     };
 
     componentDidMount() {
-        getDecks()
-            .then(decks => {
+        getDecks().then(decks => {
                 this.props.dispatch(loadDecks(decks))
             })
-            .then(() => this.setState(() => ({ready: true})))
-            // reset notification
+            .then(() => this.setState(() => ({isReady: true})))
             .then(clearLocalNotification)
             .then(setLocalNotification)
     }
 
     render() {
-        const {decks, deckList} = this.props;
-        const {ready} = this.state;
-        if (ready === false) {
+        const {deckList} = this.props;
+        console.group(this.props.decks);
+        const {isReady} = this.state;
+        if (!isReady) {
             return <AppLoading/>
         }
 
         return (
-            <View style={[appStyles.container, styles.container]}>
-                {deckList.length ?
-                    deckList.map(deck => (
-                        <TouchableOpacity
-                            key={deck.title}
-                            onPress={() => this.props.navigation.navigate('DeckDetail', {id: deck.title})}
-                            style={styles.deckItem}>
-                            <View style={styles.deckItemView}>
-                                <Text style={[appStyles.header, styles.deckItemTitle]}>{deck.title}</Text>
-                                <Text style={styles.deckItemCount}>{deck.questions.length} cards</Text>
-                            </View>
-                            <Entypo name="chevron-thin-right" size={30} color={black} style={styles.deckItemArrow}/>
+            <View style={styles.container}>
+                {deckList.length === 0 &&
+                <View style={styles.containerNoData}>
+                    <MaterialIcons name="playlist-add" size={128} color={black}/>
+                    <Text style={styles.infoTextNoData}>Your deck list is empty :-(</Text>
+                    <View style={styles.padding8}>
+                        <TouchableOpacity style={styles.addButton}
+                                          onPress={() => this.props.navigation.navigate('NewDeck')}>
+                            <Text style={styles.whiteButtonText}>Add Deck</Text>
                         </TouchableOpacity>
-                    )) :
-                    <Text style={[appStyles.header, {
-                        paddingTop: 28,
-                        paddingBottom: 28
-                    }]}>
-                        You have no Decks
-                    </Text>
+                    </View>
+                </View>
                 }
+                <FlatList data={deckList}
+                          renderItem={({item}) =>
+                              <TouchableOpacity style={styles.listItem}
+                                                onPress={() => this.props.navigation.navigate('DeckDetails', {key: item.title})}>
+                                  <Text key={item.key} style={styles.title}>{item.title}</Text>
+                                  <Text style={styles.badge}>{item.questions.length || 0} cards</Text>
+                                  <MaterialIcons name="keyboard-arrow-right" size={32} color={white}/>
+                              </TouchableOpacity>
+                          }
+                />
             </View>
         )
     }
 }
 
 const styles = StyleSheet.create({
-    container: {
-        marginLeft: 0,
-        marginRight: 0,
+    padding8: {
+        padding: 8
     },
-    deckItem: {
-        paddingTop: 28,
-        paddingBottom: 28,
+    container: {
+        flex: 1
+    },
+    infoTextNoData: {
+        padding: 8,
+        fontWeight: 'bold',
+        fontSize: 24
+    },
+    containerNoData: {
+        flexDirection: 'column',
+        alignItems: 'center',
+        padding: 8
+    },
+    addButton: {
+        alignSelf: 'center',
+        borderRadius: 8,
+        padding: 20,
+        backgroundColor: darkBlue
+    },
+    whiteButtonText: {
+        color: white,
+        fontWeight: 'bold'
+    },
+    listItem: {
+        padding: 16,
+        backgroundColor: lightBlue,
         flexDirection: 'row',
-        borderBottomColor: black,
+        flexWrap: 'nowrap',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        alignContent: 'space-between',
+        borderBottomColor: eggShell,
         borderBottomWidth: 1,
     },
-    deckItemView: {
-        flex: 1,
-    },
-    deckItemTitle: {
-        fontSize: 20,
+    title: {
+        color: white,
+        fontSize: 18,
+        flexGrow: 2,
         fontWeight: '600',
-        textAlign: 'center',
     },
-    deckItemCount: {
-        textAlign: 'center',
-    },
-    deckItemArrow: {
-        alignSelf: 'center',
-        position: 'absolute',
-        right: 15,
-        width: 30,
-    },
+    badge: {
+        padding: 8,
+        fontWeight: 'bold',
+        backgroundColor: orange,
+        borderRadius: 25,
+        color: white
+    }
 });
 
 const mapStateToProps = (decks) => ({

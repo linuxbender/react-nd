@@ -4,7 +4,7 @@ import {StatusBar, View} from 'react-native'
 import {createMaterialTopTabNavigator, createStackNavigator} from 'react-navigation'
 import {Provider} from 'react-redux'
 import {createStore} from 'redux'
-import DeckDetail from './components/DeckDetail';
+import DeckDetails from './components/DeckDetail';
 import DeckForm from './components/DeckForm'
 import DeckList from './components/DeckList'
 import reducer from './reducers'
@@ -22,52 +22,26 @@ const AppStatusBar = ({backgroundColor, ...props}) => {
     )
 };
 
-const HomeStack = createStackNavigator({
-    Home: {
-        screen: DeckList,
-        path: '/',
-        navigationOptions: {
-            header: null,
-            headerTransparent: true
-        }
-    },
-    DeckDetail: {
-        screen: DeckDetail,
-        path: '/deckDetail/:id',
-        navigationOptions: {
-            header: null,
-            headerTransparent: true
-        }
-    }
-});
-
-const DeckFormStack = createStackNavigator({
-    NewDeck: {
-        screen: DeckForm,
-        path: '/newDeck',
-        navigationOptions: {
-            header: null,
-            headerTransparent: true
-        }
-    }
-});
-
-const RootNavigation = createMaterialTopTabNavigator(
+const uiTabs = createMaterialTopTabNavigator(
     {
         DeckList: {
-            screen: HomeStack,
-            path: '/',
+            screen: DeckList,
+            path: '/deckList',
             navigationOptions: {
                 tabBarLabel: 'My Decks',
-                tabBarIcon: ({tintColor}) => <MaterialIcons name='list' color={tintColor} size={24}/>
+                tabBarIcon: ({tintColor}) => <MaterialIcons name='list' color={tintColor} size={24}/>,
+                header: null,
+                headerTransparent: true
             }
         },
         NewDeck: {
-            screen: DeckFormStack,
+            screen: DeckForm,
             path: '/newDeck',
             navigationOptions: {
                 tabBarLabel: 'New Deck',
-                tabBarIcon: ({tintColor}) => <MaterialIcons name='playlist-add' color={tintColor} size={24}/>
+                tabBarIcon: ({tintColor}) => <MaterialIcons name='playlist-add' color={tintColor} size={24}/>,
+                header: null,
+                headerTransparent: true
             }
         }
     },
@@ -86,13 +60,34 @@ const RootNavigation = createMaterialTopTabNavigator(
     }
 );
 
+const AppScreens = createStackNavigator({
+    Home: {
+        screen: uiTabs,
+        path: '/',
+        navigationOptions: {
+            header: null,
+            headerTransparent: true
+        }
+    },
+    DeckDetails: {
+        screen: DeckDetails,
+        path: '/deckDetails/:key',
+        navigationOptions: {
+            headerTintColor: white,
+            headerStyle: {
+                backgroundColor: darkBlue,
+            }
+        }
+    }
+});
+
 export default class App extends React.Component {
     render() {
         return (
             <Provider store={store}>
                 <View style={{flex: 1}}>
                     <AppStatusBar backgroundColor={darkBlue}/>
-                    <RootNavigation/>
+                    <AppScreens/>
                 </View>
             </Provider>
         );

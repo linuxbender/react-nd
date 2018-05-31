@@ -34,7 +34,7 @@ class DeckSummary extends Component {
             <View style={appStyles.container}>
                 <View style={styles.deckSummary}>
                     <Text style={[appStyles.header, styles.deckTitle]}>{deck.title}</Text>
-                    <Text style={styles.deckItemCount}>{deck.questions.length} cards</Text>
+                    <Text style={styles.badge}>{deck.questions.length} cards</Text>
                 </View>
 
 
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         textAlign: 'center',
     },
-    deckItemCount: {
+    badge: {
         textAlign: 'center',
     },
 });
