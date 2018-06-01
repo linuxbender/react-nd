@@ -2,7 +2,6 @@ import {Notifications, Permissions} from 'expo'
 import {AsyncStorage} from 'react-native'
 import {NOTIFICATION_KEY} from './constants'
 
-
 export function clearLocalNotification() {
     return AsyncStorage.removeItem(NOTIFICATION_KEY)
         .then(Notifications.cancelAllScheduledNotificationsAsync)

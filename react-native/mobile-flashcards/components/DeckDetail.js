@@ -12,8 +12,6 @@ class DeckDetail extends Component {
     }
 
     render() {
-        // console.log(this.props.navigation);
-        console.group(this.props.navigation.state.params.key);
         return (
             <View>
                 <Text>Hello : {this.props.navigation.state.params.key}</Text>

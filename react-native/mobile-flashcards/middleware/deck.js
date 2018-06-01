@@ -38,3 +38,15 @@ export const selectBookFlow = ({dispatch}) => next => action => {
 
 export const booksMdl = [getBooksFlow, processBooksCollection, selectBookFlow];
 */
+export const addNewDeck = ({dispatch}) => next => action => {
+    next(action);
+
+    //todo
+};
+export const getDecks = ({dispatch}) => next => action => {
+    next(action);
+
+    //todo
+};
+
+export const deckMiddleware = [addNewDeck, getDecks];

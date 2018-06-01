@@ -20,16 +20,15 @@ class DeckList extends Component {
 
     componentDidMount() {
         getDecks().then(decks => {
-                this.props.dispatch(loadDecks(decks))
-            })
+            this.props.dispatch(loadDecks(decks))
+        })
             .then(() => this.setState(() => ({isReady: true})))
             .then(clearLocalNotification)
             .then(setLocalNotification)
     }
 
     render() {
-        const {deckList} = this.props;
-        console.group(this.props.decks);
+        const {deckList, decks} = this.props;
         const {isReady} = this.state;
         if (!isReady) {
             return <AppLoading/>
@@ -117,11 +116,8 @@ const styles = StyleSheet.create({
     }
 });
 
-const mapStateToProps = (decks) => ({
-    decks,
-    deckList: (typeof decks == 'object' ?
-        Object.keys(decks).map(deckName => decks[deckName]) :
-        []),
+const mapStateToProps = (decks = []) => ({
+    deckList: decks,
 });
 
 export default connect(mapStateToProps)(DeckList)

@@ -1,21 +1,17 @@
 import {Entypo, MaterialIcons} from '@expo/vector-icons'
 import {Constants} from 'expo'
 import React from 'react'
-import {Platform, StatusBar, View} from 'react-native'
+import {StatusBar, View} from 'react-native'
 // components
-import {createStackNavigator, createBottomTabNavigator} from 'react-navigation'
+import {createBottomTabNavigator, createStackNavigator} from 'react-navigation'
 import {Provider} from 'react-redux'
-import {createStore} from 'redux'
 import CardForm from './components/CardForm'
 import DeckForm from './components/DeckForm'
 import DeckList from './components/DeckList'
 import DeckSummary from './components/DeckSummary'
 import Quiz from './components/Quiz'
-import reducer from './reducers'
 // utils
 import {darkBlue, white} from './utils/constants'
-
-const store = createStore(reducer);
 
 function AppStatusBar({backgroundColor, ...props}) {
     return (
@@ -24,7 +20,6 @@ function AppStatusBar({backgroundColor, ...props}) {
         </View>
     )
 }
-
 
 const Tabs = createBottomTabNavigator({
         DeckList: {

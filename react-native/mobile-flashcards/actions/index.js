@@ -21,7 +21,6 @@ export function updateDeck(deck) {
 
 export function createDeck(deckName) {
     const newDeck = {
-        id: uuid(),
         key: uuid(),
         title: deckName,
         questions: [],
