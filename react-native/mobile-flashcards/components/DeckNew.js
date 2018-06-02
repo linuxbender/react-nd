@@ -5,7 +5,7 @@ import {createNewDeck} from '../actions/deckActions';
 import {appStyles, darkBlue} from '../utils/constants'
 import AppButton from './AppButton'
 
-class DeckForm extends Component {
+class DeckNew extends Component {
     static navigationOptions = {};
 
     state = {
@@ -79,4 +79,4 @@ const mapDispatchToProps = dispatch => ({
     onCreateNewDeck: deckName => dispatch(createNewDeck(deckName))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(DeckForm)
+export default connect(mapStateToProps, mapDispatchToProps)(DeckNew)

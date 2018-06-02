@@ -6,7 +6,7 @@ import {createBottomTabNavigator, createStackNavigator} from 'react-navigation'
 import {Provider} from 'react-redux'
 import CardForm from './components/CardForm'
 import DeckDetail from './components/DeckDetail';
-import DeckForm from './components/DeckForm'
+import DeckForm from './components/DeckNew'
 import DeckList from './components/DeckList'
 import Quiz from './components/Quiz'
 import {darkBlue, white} from './utils/constants'

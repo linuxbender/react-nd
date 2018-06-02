@@ -4,7 +4,7 @@ import {StatusBar, View} from 'react-native'
 import {createMaterialTopTabNavigator, createStackNavigator} from 'react-navigation'
 import {Provider} from 'react-redux'
 import DeckDetails from './components/DeckDetail';
-import DeckForm from './components/DeckForm'
+import DeckForm from './components/DeckNew'
 import DeckList from './components/DeckList'
 import configureStore from './store/appStore';
 import {darkBlue, eggShell, orange, white} from './utils/constants';
