@@ -12,6 +12,7 @@ class DeckForm extends Component {
     state = {
         deckName: ''
     };
+
     handleTextInput = (deckName) => {
         this.setState({deckName})
     };
@@ -66,9 +67,9 @@ const styles = StyleSheet.create({
     },
 });
 
-const mapStateToProps = (decks) => {
+const mapStateToProps = (state) => {
     return {
-        decks,
+        decks: state.decks
     }
 };
 

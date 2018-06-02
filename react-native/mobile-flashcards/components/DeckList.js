@@ -1,5 +1,4 @@
 import {MaterialIcons} from '@expo/vector-icons';
-import {AppLoading} from 'expo';
 import React, {Component} from 'react';
 import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {connect} from 'react-redux';
@@ -17,26 +16,14 @@ class DeckList extends Component {
     componentDidMount() {
         this.props.dispatch(loadDecks());
         /*
-            .then(clearLocalNotification)
-            .then(setLocalNotification)*/
+            clearLocalNotification)
+            setLocalNotification)*/
     }
 
     render() {
         const {decks, ui, dispatch} = this.props;
         return (
             <View style={styles.container}>
-                {!ui.isLoading && decks.length === 0 &&
-                <View style={styles.containerNoData}>
-                    <MaterialIcons name="playlist-add" size={128} color={black}/>
-                    <Text style={styles.infoTextNoData}>Your deck list is empty :-(</Text>
-                    <View style={styles.padding8}>
-                        <TouchableOpacity style={styles.addButton}
-                                          onPress={() => this.props.navigation.navigate('NewDeck')}>
-                            <Text style={styles.whiteButtonText}>Add Deck</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-                }
                 <FlatList data={decks}
                           onRefresh={() => dispatch(loadDecks())}
                           refreshing={ui.isLoading}
@@ -48,6 +35,18 @@ class DeckList extends Component {
                                   <MaterialIcons name="keyboard-arrow-right" size={32} color={white}/>
                               </TouchableOpacity>
                           }
+                          ListEmptyComponent={(
+                              <View style={styles.containerNoData}>
+                                  <MaterialIcons name="playlist-add" size={128} color={black}/>
+                                  <Text style={styles.infoTextNoData}>Your deck list is empty :-(</Text>
+                                  <View style={styles.padding8}>
+                                      <TouchableOpacity style={styles.addButton}
+                                                        onPress={() => this.props.navigation.navigate('NewDeck')}>
+                                          <Text style={styles.whiteButtonText}>Add Deck</Text>
+                                      </TouchableOpacity>
+                                  </View>
+                              </View>
+                          )}
                 />
             </View>
         )
@@ -107,11 +106,6 @@ const styles = StyleSheet.create({
     }
 });
 
-const mapStateToProps = (state) => {
-    return ({
-        decks: state.decks,
-        ui: state.ui
-    })
-};
+const mapStateToProps = (state) => ({decks: state.decks, ui: state.ui});
 
 export default connect(mapStateToProps)(DeckList)
