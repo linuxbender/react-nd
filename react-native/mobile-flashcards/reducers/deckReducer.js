@@ -1,7 +1,8 @@
 import {
-    CREATE_DECK_SUCCESS,
+    CREATE_NEW_DECK_SUCCESS,
     DELETE_DECK_SUCCESS,
     LOAD_DECKS_SUCCESS,
+    SORT_DECKS_LIST_DESCENDING,
     UPDATE_DECK_SUCCESS
 } from '../actions/deckActions';
 import {T_Store} from '../utils/typeHelper';
@@ -10,12 +11,14 @@ const deckReducer = (state = T_Store.decks, action) => {
     switch (action.type) {
         case LOAD_DECKS_SUCCESS:
             return action.data;
-        case CREATE_DECK_SUCCESS:
+        case CREATE_NEW_DECK_SUCCESS:
             return [...state, action.data];
         case UPDATE_DECK_SUCCESS:
             return [...state.filter(i => i.key !== action.data.key), action.data];
         case DELETE_DECK_SUCCESS:
             return state.filter(i => i.key !== action.data.key);
+        case SORT_DECKS_LIST_DESCENDING:
+            return [...state.sort((a, b) => b.timestamp - a.timestamp)];
         default:
             return state;
     }

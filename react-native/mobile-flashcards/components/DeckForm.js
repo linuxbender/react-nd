@@ -6,8 +6,7 @@ import {appStyles, darkBlue} from '../utils/constants'
 import AppButton from './AppButton'
 
 class DeckForm extends Component {
-    static navigationOptions = {
-    };
+    static navigationOptions = {};
 
     state = {
         deckName: ''
@@ -21,15 +20,22 @@ class DeckForm extends Component {
         const {deckName} = this.state;
         const {decks, navigation, dispatch} = this.props;
 
-        const existingDeckNames = Object.keys(decks).map(title => title.toLowerCase());
-
-        if (!deckName || !deckName.length) {
-            return alert('Please enter a deck name.')
+        if (!deckName.trim() || !deckName.trim().length) {
+            return alert('Deck name is required')
         }
 
-        if (existingDeckNames.indexOf(deckName.toLowerCase()) !== -1) {
+        if (deckName.trim().length <= 3) {
+            return alert('Your deck name need more the 3 characters')
+        }
+
+        const isUnique = decks
+            .map(deck => deck.title.toLowerCase())
+            .filter(deck => deck === deckName.trim().toLocaleLowerCase())
+            .some(title => title.length > 0);
+
+        if (isUnique) {
             this.setState(() => ({deckName: ''}));
-            return alert(`You already have a "${deckName}" deck. Please choose a new deck name.`)
+            return alert(`Your deck title "${deckName}" is not unique. Please choose an other name`)
         }
 
         dispatch(createNewDeck(deckName));
