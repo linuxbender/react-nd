@@ -2,7 +2,7 @@ import {MaterialIcons} from '@expo/vector-icons';
 import React, {Component} from 'react';
 import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {connect} from 'react-redux';
-import {loadDecks} from '../actions/deckActions';
+import {createNewDeck, loadDecks} from '../actions/deckActions';
 import {black, darkBlue, eggShell, lightBlue, orange, white} from '../utils/constants';
 import {clearLocalNotification, setLocalNotification} from '../utils/notification';
 import {getDecks} from '../utils/storage';
@@ -14,22 +14,22 @@ class DeckList extends Component {
     };
 
     componentDidMount() {
-        this.props.dispatch(loadDecks());
+        this.props.onLoadDecks();
         /*
             clearLocalNotification)
             setLocalNotification)*/
     }
 
     render() {
-        const {decks, ui, dispatch} = this.props;
+        const {decks, ui, onLoadDecks} = this.props;
         return (
             <View style={styles.container}>
                 <FlatList data={decks}
-                          onRefresh={() => dispatch(loadDecks())}
+                          onRefresh={onLoadDecks}
                           refreshing={ui.isLoading}
                           renderItem={({item}) =>
                               <TouchableOpacity style={styles.listItem}
-                                                onPress={() => this.props.navigation.navigate('DeckDetails', {key: item.title})}>
+                                                onPress={() => this.props.navigation.navigate('DeckDetails', {key: item.key})}>
                                   <Text key={item.key} style={styles.title}>{item.title}</Text>
                                   <Text style={styles.badge}>{item.questions.length || 0} cards</Text>
                                   <MaterialIcons name="keyboard-arrow-right" size={32} color={white}/>
@@ -108,4 +108,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => ({decks: state.decks, ui: state.ui});
 
-export default connect(mapStateToProps)(DeckList)
+const mapDispatchToProps = dispatch => ({
+    onLoadDecks: () => dispatch(loadDecks())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DeckList)
