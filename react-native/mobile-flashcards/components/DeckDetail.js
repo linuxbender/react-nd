@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
-import {Text, View} from 'react-native';
-import {withNavigation} from 'react-navigation';
+import {StyleSheet, Text, View} from 'react-native';
+import {connect} from 'react-redux';
+import {appStyles, darkBlue, pink, yellow} from '../utils/constants';
+import {T_Deck} from '../utils/typeHelper';
+import AppButton from './AppButton';
 
 class DeckDetail extends Component {
 
@@ -11,13 +14,75 @@ class DeckDetail extends Component {
     componentDidMount() {
     }
 
+    handleAddCard = () => {
+        //const {deckName, decks, navigation} = this.props;
+        //navigation.navigate('CardForm', {deckName, deck})
+    };
+    handleQuiz = () => {
+        const {deck, navigation} = this.props;
+
+        if (!deck.questions.length) {
+            return alert('Please add cards to the deck first!')
+        }
+
+        //navigation.navigate('Quiz', {deck.title, deck})
+    };
+
     render() {
+        const {deck} = this.props;
+
         return (
-            <View>
-                <Text>Hello : {this.props.navigation.state.params.key}</Text>
+            <View style={appStyles.container}>
+                <View style={styles.detailContainer}>
+                    <Text style={[appStyles.header, styles.deckTitle]}>{deck.title}</Text>
+                    <Text style={styles.badge}>{deck.questions.length} cards</Text>
+                </View>
+                <View style={appStyles.padItem}>
+                    <AppButton style={{backgroundColor: darkBlue}}
+                               onPress={this.handleAddCard}>
+                        Add Card
+                    </AppButton>
+                </View>
+
+                <View style={appStyles.padItem}>
+                    <AppButton style={{backgroundColor: yellow}}
+                               onPress={this.handleQuiz}>
+                        Start Quiz
+                    </AppButton>
+                </View>
+
+                <View style={appStyles.padItem}>
+                    <AppButton style={{backgroundColor: pink}}
+                               onPress={this.handleDeleteDeck}>
+                        Delete Deck
+                    </AppButton>
+                </View>
             </View>
         )
     }
 }
 
-export default withNavigation(DeckDetail);
+const styles = StyleSheet.create({
+    detailContainer: {
+        paddingTop: 28,
+        paddingBottom: 28
+    },
+    deckTitle: {
+        fontSize: 32,
+        fontWeight: '600',
+        textAlign: 'center'
+    },
+    badge: {
+        alignSelf: 'center'
+    },
+});
+
+
+const mapStateToProps = (state, ctx) => {
+    const {key} = ctx.navigation.state.params;
+    return {
+        deck: state.decks.filterByKey(key).firstOrDefault(T_Deck)
+    }
+};
+
+export default connect(mapStateToProps)(DeckDetail);

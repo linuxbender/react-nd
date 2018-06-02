@@ -8,6 +8,7 @@ import DeckForm from './components/DeckForm'
 import DeckList from './components/DeckList'
 import configureStore from './store/appStore';
 import {darkBlue, eggShell, orange, white} from './utils/constants';
+import './utils/arrayHelper';
 
 const store = configureStore();
 

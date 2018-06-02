@@ -2,16 +2,15 @@ import {Entypo, MaterialIcons} from '@expo/vector-icons'
 import {Constants} from 'expo'
 import React from 'react'
 import {StatusBar, View} from 'react-native'
-// components
 import {createBottomTabNavigator, createStackNavigator} from 'react-navigation'
 import {Provider} from 'react-redux'
 import CardForm from './components/CardForm'
+import DeckDetail from './components/DeckDetail';
 import DeckForm from './components/DeckForm'
 import DeckList from './components/DeckList'
-import DeckSummary from './components/DeckSummary'
 import Quiz from './components/Quiz'
-// utils
 import {darkBlue, white} from './utils/constants'
+import './utils/arrayHelper';
 
 function AppStatusBar({backgroundColor, ...props}) {
     return (
@@ -63,7 +62,7 @@ const MainNavigator = createStackNavigator({
         screen: Tabs,
     },
     DeckSummary: {
-        screen: DeckSummary,
+        screen: DeckDetail,
         navigationOptions: ({navigation}) => ({
             title: `"${navigation.state.params.deckName}" Deck`,
             headerTintColor: white,

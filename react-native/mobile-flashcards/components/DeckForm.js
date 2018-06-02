@@ -47,7 +47,7 @@ class DeckForm extends Component {
         return (
             <View style={appStyles.container}>
                 <Text style={[appStyles.padItem, appStyles.header, styles.header]}>
-                    What will you call your new deck?
+                    What is the title of your new deck?
                 </Text>
 
                 <TextInput
@@ -60,7 +60,7 @@ class DeckForm extends Component {
                 <AppButton
                     style={[appStyles.padItem, {backgroundColor: darkBlue}]}
                     onPress={this.handleSubmit}>
-                    Create New Deck
+                    Save your new deck
                 </AppButton>
             </View>
         )
