@@ -18,7 +18,7 @@ class DeckForm extends Component {
 
     handleSubmit = () => {
         const {deckName} = this.state;
-        const {decks, navigation, dispatch} = this.props;
+        const {decks, navigation, onCreateNewDeck} = this.props;
 
         if (!deckName.trim() || !deckName.trim().length) {
             return alert('Deck name is required')
@@ -38,7 +38,7 @@ class DeckForm extends Component {
             return alert(`Your deck title "${deckName}" is not unique. Please choose an other name`)
         }
 
-        dispatch(createNewDeck(deckName));
+        onCreateNewDeck(deckName);
 
         this.setState(() => ({deckName: ''}), () => navigation.navigate('DeckList'));
     };
@@ -73,10 +73,10 @@ const styles = StyleSheet.create({
     },
 });
 
-const mapStateToProps = (state) => {
-    return {
-        decks: state.decks
-    }
-};
+const mapStateToProps = state => ({decks: state.decks});
 
-export default connect(mapStateToProps)(DeckForm)
+const mapDispatchToProps = dispatch => ({
+    onCreateNewDeck: deckName => dispatch(createNewDeck(deckName))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DeckForm)
