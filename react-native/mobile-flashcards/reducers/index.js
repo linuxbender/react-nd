@@ -4,4 +4,4 @@ import deckReducer from './deckReducer';
 export const reducers = combineReducers({
     decks: deckReducer,
 });
-export default deckReducer;
+export default reducers;

@@ -3,14 +3,13 @@ import React from 'react'
 import {StatusBar, View} from 'react-native'
 import {createMaterialTopTabNavigator, createStackNavigator} from 'react-navigation'
 import {Provider} from 'react-redux'
-import {createStore} from 'redux'
 import DeckDetails from './components/DeckDetail';
 import DeckForm from './components/DeckForm'
 import DeckList from './components/DeckList'
-import reducer from './reducers'
+import configureStore from './store/appStore';
 import {darkBlue, eggShell, orange, white} from './utils/constants';
 
-const store = createStore(reducer);
+const store = configureStore();
 
 // Icon Browser: https://expo.github.io/vector-icons/
 

@@ -15,24 +15,23 @@ class DeckList extends Component {
     };
 
     state = {
-        isReady: false,
+        isReady: false
     };
 
     componentDidMount() {
-        getDecks().then(decks => {
-            this.props.dispatch(loadDecks(decks))
-        })
-            .then(() => this.setState(() => ({isReady: true})))
+        this.props.dispatch(loadDecks(), () => this.setState({isReady: true}));
+        /*
             .then(clearLocalNotification)
-            .then(setLocalNotification)
+            .then(setLocalNotification)*/
     }
 
     render() {
-        const {deckList, decks} = this.props;
+        const {deckList} = this.props;
         const {isReady} = this.state;
-        if (!isReady) {
-            return <AppLoading/>
-        }
+        //console.log(!isReady);
+        //if (!isReady) {
+        //    return <AppLoading/>
+        //}
 
         return (
             <View style={styles.container}>
@@ -116,8 +115,10 @@ const styles = StyleSheet.create({
     }
 });
 
-const mapStateToProps = (decks = []) => ({
-    deckList: decks,
-});
+const mapStateToProps = (state) => {
+    return ({
+        deckList: state.decks
+    })
+};
 
 export default connect(mapStateToProps)(DeckList)

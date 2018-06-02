@@ -1,17 +1,20 @@
-import {LOAD_DECKS, UPDATE_DECK,} from '../actions'
+import * as T from '../actions/actionNames';
+import {T_Store} from '../utils/typeHelper';
 
-const decks = (state = {}, action) => {
+const deckReducer = (state = T_Store.decks, action) => {
     switch (action.type) {
-        case LOAD_DECKS:
-            return action.decks;
-        case UPDATE_DECK:
-            return {
-                ...state,
-                ...action.updatedDeck,
-            };
+        case T.LOAD_DECKS_SUCCESS:
+            return action.data;
+        case T.CREATE_DECK_SUCCESS:
+            console.log("in Reducer: CREATE_DECK_SUCCESS");
+            return [...state, action.data];
+        case T.UPDATE_DECK_SUCCESS:
+            return [...state.filter(i => i.key !== action.data.key), action.data];
+        case T.DELETE_DECK_SUCCESS:
+            return state.filter(i => i.key !== action.data.key);
         default:
-            return state
+            return state;
     }
 };
 
-export default decks
+export default deckReducer;

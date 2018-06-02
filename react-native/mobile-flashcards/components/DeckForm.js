@@ -1,9 +1,8 @@
 import React, {Component} from 'react'
 import {StyleSheet, Text, TextInput, View} from 'react-native'
 import {connect} from 'react-redux'
-import {createDeck} from '../actions'
+import {createNewDeck} from '../actions/deckActions';
 import {appStyles, darkBlue} from '../utils/constants'
-import {saveDeckTitle} from '../utils/storage'
 import AppButton from './AppButton'
 
 class DeckForm extends Component {
@@ -31,16 +30,22 @@ class DeckForm extends Component {
         }
 
         // update redux
-        this.props.dispatch(
-            createDeck(deckName)
-        );
+        //this.props.dispatch(
+        //    createDeck(deckName)
+        //);
 
         // update db
-        saveDeckTitle(deckName)
-            .then(() => {
+
+        this.props.dispatch(createNewDeck(deckName));
+
+        /*saveDeckTitle(deckName)
+            .then((data) => {
+                console.log("neu erstellt");
+                console.log(data);
+                getDecks();
                 // navigate to new deck
-                navigation.navigate('DeckSummary', {deckName})
-            });
+                // navigation.navigate('DeckList')
+            });*/
 
         // reset
         this.setState(() => ({deckName: ''}))

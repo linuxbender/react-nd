@@ -1,52 +1,32 @@
-/*import {apiRequest} from "../actions/api";
-import {FETCH_BOOKS_ERROR, FETCH_BOOKS_SUCCESS, GET_BOOKS, SELECT_BOOK, updateBooks} from "../actions/books";
-import {createOrder} from "../actions/order";
-import {hideSpinner, orderInProgress, showSpinner} from "../actions/ui";
+import * as T from '../actions/actionNames';
+import {METHOD_GET_ITEM, METHOD_MERGE_ITEM, storageRequest} from '../actions/storageActions';
+import {uuid} from '../utils/numberHelper';
+import {T_Deck} from '../utils/typeHelper';
 
-const URL = 'https://www.googleapis.com/books/v1/volumes?q=react';
-
-// this middleware only care about the getBooks action
-export const getBooksFlow = ({dispatch}) => next => action => {
-    next(action);
-
-    if (action.type === GET_BOOKS) {
-        dispatch(apiRequest('GET', URL, null, FETCH_BOOKS_SUCCESS, FETCH_BOOKS_ERROR));
-        dispatch(showSpinner());
-    }
-
-};
-
-// on successful fetch, process the books data
-export const processBooksCollection = ({dispatch}) => next => action => {
-    next(action);
-
-    if (action.type === FETCH_BOOKS_SUCCESS) {
-        dispatch(updateBooks(action.payload.items));
-        dispatch(hideSpinner())
-    }
-};
-
-// notify about an order in progress, dispatch an order event
-export const selectBookFlow = ({dispatch}) => next => action => {
-    next(action);
-
-    if (action.type === SELECT_BOOK) {
-        dispatch(orderInProgress());
-        dispatch(createOrder(action.payload))
-    }
-};
-
-export const booksMdl = [getBooksFlow, processBooksCollection, selectBookFlow];
-*/
 export const addNewDeck = ({dispatch}) => next => action => {
     next(action);
 
-    //todo
+    if (action.type === T.CREATE_NEW_DECK) {
+        const data = Object.assign({}, T_Deck, {title: action.data, key: uuid(), timestamp: Date.now()});
+        dispatch(storageRequest(METHOD_MERGE_ITEM, data, T.CREATE_DECK_SUCCESS, T.CREATE_DECK_ERROR));
+        //dispatch(showSpinner());
+    }
+
+    if (action.type === T.CREATE_DECK_ERROR) {
+        //dispatch(hideSpinner());
+    }
+    if (action.type === T.CREATE_DECK_SUCCESS) {
+        //dispatch(hideSpinner());
+    }
 };
+
 export const getDecks = ({dispatch}) => next => action => {
     next(action);
 
-    //todo
+    if (action.type === T.LOAD_DECKS) {
+        dispatch(storageRequest(METHOD_GET_ITEM, action.data, T.LOAD_DECKS_SUCCESS, T.CREATE_DECK_ERROR));
+        //dispatch(hideSpinner());
+    }
 };
 
 export const deckMiddleware = [addNewDeck, getDecks];
