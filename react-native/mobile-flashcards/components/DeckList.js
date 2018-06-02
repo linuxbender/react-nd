@@ -14,10 +14,6 @@ class DeckList extends Component {
         title: 'Home',
     };
 
-    state = {
-        isReady: false
-    };
-
     componentDidMount() {
         this.props.dispatch(loadDecks());
         /*
@@ -26,16 +22,10 @@ class DeckList extends Component {
     }
 
     render() {
-        const {deckList} = this.props;
-        const {isReady} = this.state;
-        //console.log(!isReady);
-        //if (!isReady) {
-        //    return <AppLoading/>
-        //}
-
+        const {decks, ui, dispatch} = this.props;
         return (
             <View style={styles.container}>
-                {deckList.length === 0 &&
+                {!ui.isLoading && decks.length === 0 &&
                 <View style={styles.containerNoData}>
                     <MaterialIcons name="playlist-add" size={128} color={black}/>
                     <Text style={styles.infoTextNoData}>Your deck list is empty :-(</Text>
@@ -47,7 +37,9 @@ class DeckList extends Component {
                     </View>
                 </View>
                 }
-                <FlatList data={deckList}
+                <FlatList data={decks}
+                          onRefresh={() => dispatch(loadDecks())}
+                          refreshing={ui.isLoading}
                           renderItem={({item}) =>
                               <TouchableOpacity style={styles.listItem}
                                                 onPress={() => this.props.navigation.navigate('DeckDetails', {key: item.title})}>
@@ -117,7 +109,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return ({
-        deckList: state.decks
+        decks: state.decks,
+        ui: state.ui
     })
 };
 
