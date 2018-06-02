@@ -1,24 +1,39 @@
-import * as T from './actionNames';
+// decks
+export const LOAD_DECKS_SUCCESS = 'LOAD_DECKS_SUCCESS';
+export const LOAD_DECKS_ERROR = 'LOAD_DECKS_ERROR';
+
+export const CREATE_DECK_SUCCESS = 'CREATE_DECK_SUCCESS';
+export const CREATE_DECK_ERROR = 'CREATE_DECK_ERROR';
+
+export const UPDATE_DECK_SUCCESS = 'UPDATE_DECK_SUCCESS';
+export const UPDATE_DECK_ERROR = 'UPDATE_DECK_ERROR';
+
+export const DELETE_DECK_SUCCESS = 'DELETE_DECK_SUCCESS';
+export const DELETE_DECK_ERROR = 'DELETE_DECK_ERROR';
+
+export const CREATE_NEW_DECK = 'CREATE_NEW_DECK';
+export const LOAD_DECKS = 'LOAD_DECKS';
+
 
 export const loadDecksSuccess = data => ({
-    type: T.LOAD_DECKS_SUCCESS, data
+    type: LOAD_DECKS_SUCCESS, data
 });
 
 export const createDeckSuccess = data => ({
-    type: T.CREATE_DECK_SUCCESS, data
+    type: CREATE_DECK_SUCCESS, data
 });
 
 export const updateDeckSuccess = data => ({
-    type: T.UPDATE_DECK_SUCCESS, data
+    type: UPDATE_DECK_SUCCESS, data
 });
 
 export const deleteDeckSuccess = data => ({
-    type: T.DELETE_DECK_SUCCESS, data
+    type: DELETE_DECK_SUCCESS, data
 });
 
-export const createNewDeck = data => ({ type: T.CREATE_NEW_DECK, data});
+export const createNewDeck = data => ({ type: CREATE_NEW_DECK, data});
 
-export const loadDecks = decks => ({type: T.LOAD_DECKS, decks});
+export const loadDecks = decks => ({type: LOAD_DECKS, decks});
 
 
 export const UPDATE_DECK = 'UPDATE_DECK';

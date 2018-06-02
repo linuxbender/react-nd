@@ -1,4 +1,10 @@
-import * as T from '../actions/actionNames';
+import {
+    CREATE_DECK_ERROR,
+    CREATE_DECK_SUCCESS,
+    CREATE_NEW_DECK,
+    LOAD_DECKS, LOAD_DECKS_ERROR,
+    LOAD_DECKS_SUCCESS
+} from '../actions/deckActions';
 import {METHOD_GET_ITEM, METHOD_MERGE_ITEM, storageRequest} from '../actions/storageActions';
 import {uuid} from '../utils/numberHelper';
 import {T_Deck} from '../utils/typeHelper';
@@ -6,16 +12,16 @@ import {T_Deck} from '../utils/typeHelper';
 export const addNewDeck = ({dispatch}) => next => action => {
     next(action);
 
-    if (action.type === T.CREATE_NEW_DECK) {
+    if (action.type === CREATE_NEW_DECK) {
         const dtoData = Object.assign({}, T_Deck, {title: action.data, key: uuid(), timestamp: Date.now()});
-        dispatch(storageRequest(METHOD_MERGE_ITEM, dtoData, T.CREATE_DECK_SUCCESS, T.CREATE_DECK_ERROR));
+        dispatch(storageRequest(METHOD_MERGE_ITEM, dtoData, CREATE_DECK_SUCCESS, CREATE_DECK_ERROR));
         //dispatch(showSpinner());
     }
 
-    if (action.type === T.CREATE_DECK_ERROR) {
+    if (action.type === CREATE_DECK_ERROR) {
         //dispatch(hideSpinner());
     }
-    if (action.type === T.CREATE_DECK_SUCCESS) {
+    if (action.type === CREATE_DECK_SUCCESS) {
         //dispatch(hideSpinner());
     }
 };
@@ -23,12 +29,12 @@ export const addNewDeck = ({dispatch}) => next => action => {
 export const getDecks = ({dispatch}) => next => action => {
     next(action);
 
-    if (action.type === T.LOAD_DECKS) {
-        dispatch(storageRequest(METHOD_GET_ITEM, action.data, T.LOAD_DECKS_SUCCESS, T.LOAD_DECKS_ERROR));
+    if (action.type === LOAD_DECKS) {
+        dispatch(storageRequest(METHOD_GET_ITEM, action.data, LOAD_DECKS_SUCCESS, LOAD_DECKS_ERROR));
         //dispatch(hideSpinner());
     }
 
-    if (action.type === T.LOAD_DECKS_ERROR) {
+    if (action.type === LOAD_DECKS_ERROR) {
         //dispatch(hideSpinner());
     }
 };
