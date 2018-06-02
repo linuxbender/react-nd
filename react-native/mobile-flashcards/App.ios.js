@@ -4,7 +4,7 @@ import React from 'react'
 import {StatusBar, View} from 'react-native'
 import {createBottomTabNavigator, createStackNavigator} from 'react-navigation'
 import {Provider} from 'react-redux'
-import CardForm from './components/CardForm'
+import CardForm from './components/CardNew'
 import DeckDetail from './components/DeckDetail';
 import DeckForm from './components/DeckNew'
 import DeckList from './components/DeckList'

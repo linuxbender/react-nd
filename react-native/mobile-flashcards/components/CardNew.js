@@ -7,7 +7,7 @@ import {appStyles, teal} from '../utils/constants'
 import {addCardToDeck} from '../utils/storage'
 import AppButton from './AppButton'
 
-class CardForm extends Component {
+class CardNew extends Component {
     state = {
         question: '',
         answer: '',
@@ -105,4 +105,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default connect()(CardForm)
+export default connect()(CardNew)
