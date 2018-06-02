@@ -15,9 +15,11 @@ class DeckForm extends Component {
     handleTextInput = (deckName) => {
         this.setState({deckName})
     };
-    save = () => {
+
+    handleSubmit = () => {
         const {deckName} = this.state;
-        const {decks, navigation} = this.props;
+        const {decks, navigation, dispatch} = this.props;
+
         const existingDeckNames = Object.keys(decks).map(title => title.toLowerCase());
 
         if (!deckName || !deckName.length) {
@@ -29,26 +31,9 @@ class DeckForm extends Component {
             return alert(`You already have a "${deckName}" deck. Please choose a new deck name.`)
         }
 
-        // update redux
-        //this.props.dispatch(
-        //    createDeck(deckName)
-        //);
+        dispatch(createNewDeck(deckName));
 
-        // update db
-
-        this.props.dispatch(createNewDeck(deckName));
-
-        /*saveDeckTitle(deckName)
-            .then((data) => {
-                console.log("neu erstellt");
-                console.log(data);
-                getDecks();
-                // navigate to new deck
-                // navigation.navigate('DeckList')
-            });*/
-
-        // reset
-        this.setState(() => ({deckName: ''}))
+        this.setState(() => ({deckName: ''}), () => navigation.navigate('DeckList'));
     };
 
     render() {
@@ -67,7 +52,7 @@ class DeckForm extends Component {
 
                 <AppButton
                     style={[appStyles.padItem, {backgroundColor: darkBlue}]}
-                    onPress={this.save}>
+                    onPress={this.handleSubmit}>
                     Create New Deck
                 </AppButton>
             </View>

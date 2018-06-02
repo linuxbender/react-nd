@@ -3,7 +3,7 @@ import {AppLoading} from 'expo';
 import React, {Component} from 'react';
 import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {connect} from 'react-redux';
-import {loadDecks} from '../actions';
+import {loadDecks} from '../actions/deckActions';
 import {black, darkBlue, eggShell, lightBlue, orange, white} from '../utils/constants';
 import {clearLocalNotification, setLocalNotification} from '../utils/notification';
 import {getDecks} from '../utils/storage';
@@ -19,7 +19,7 @@ class DeckList extends Component {
     };
 
     componentDidMount() {
-        this.props.dispatch(loadDecks(), () => this.setState({isReady: true}));
+        this.props.dispatch(loadDecks());
         /*
             .then(clearLocalNotification)
             .then(setLocalNotification)*/

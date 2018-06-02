@@ -19,3 +19,15 @@ export const deleteDeckSuccess = data => ({
 export const createNewDeck = data => ({ type: T.CREATE_NEW_DECK, data});
 
 export const loadDecks = decks => ({type: T.LOAD_DECKS, decks});
+
+
+export const UPDATE_DECK = 'UPDATE_DECK';
+
+export function updateDeck(deck) {
+    return {
+        type: UPDATE_DECK,
+        updatedDeck: {
+            [deck.key]: deck
+        }
+    }
+}

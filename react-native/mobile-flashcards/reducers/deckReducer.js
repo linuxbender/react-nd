@@ -6,7 +6,6 @@ const deckReducer = (state = T_Store.decks, action) => {
         case T.LOAD_DECKS_SUCCESS:
             return action.data;
         case T.CREATE_DECK_SUCCESS:
-            console.log("in Reducer: CREATE_DECK_SUCCESS");
             return [...state, action.data];
         case T.UPDATE_DECK_SUCCESS:
             return [...state.filter(i => i.key !== action.data.key), action.data];
