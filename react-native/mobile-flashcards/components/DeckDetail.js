@@ -14,9 +14,10 @@ class DeckDetail extends Component {
     componentDidMount() {
     }
 
-    handleAddCard = () => {
+    handleCardNew = () => {
+        const {deck, navigation} = this.props;
         //const {deckName, decks, navigation} = this.props;
-        //navigation.navigate('CardForm', {deckName, deck})
+        navigation.navigate('CardNew', {key: deck.key})
     };
     handleQuiz = () => {
         const {deck, navigation} = this.props;
@@ -24,10 +25,13 @@ class DeckDetail extends Component {
         if (!deck.questions.length) {
             return alert('Please add cards to the deck first!')
         }
-
+ // DeckDelete
         //navigation.navigate('Quiz', {deck.title, deck})
     };
-
+    handleDeckDelete = () => {
+        const {deck, navigation} = this.props;
+        navigation.navigate('DeckDelete', {key: deck.key})
+    };
     render() {
         const {deck} = this.props;
 
@@ -38,22 +42,20 @@ class DeckDetail extends Component {
                     <Text style={styles.badge}>{deck.questions.length} cards</Text>
                 </View>
                 <View style={appStyles.padItem}>
-                    <AppButton style={{backgroundColor: darkBlue}}
-                               onPress={this.handleAddCard}>
-                        Add Card
-                    </AppButton>
-                </View>
-
-                <View style={appStyles.padItem}>
                     <AppButton style={{backgroundColor: yellow}}
                                onPress={this.handleQuiz}>
                         Start Quiz
                     </AppButton>
                 </View>
-
+                <View style={appStyles.padItem}>
+                    <AppButton style={{backgroundColor: darkBlue}}
+                               onPress={this.handleCardNew}>
+                        Add Card
+                    </AppButton>
+                </View>
                 <View style={appStyles.padItem}>
                     <AppButton style={{backgroundColor: pink}}
-                               onPress={this.handleDeleteDeck}>
+                               onPress={this.handleDeckDelete}>
                         Delete Deck
                     </AppButton>
                 </View>

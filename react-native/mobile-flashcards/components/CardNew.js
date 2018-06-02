@@ -3,7 +3,7 @@ import {StyleSheet, Text, TextInput, View} from 'react-native'
 import {NavigationActions} from 'react-navigation'
 import {connect} from 'react-redux'
 import {updateDeck} from '../actions/deckActions';
-import {appStyles, teal} from '../utils/constants'
+import {appStyles, darkBlue} from '../utils/constants'
 import {addCardToDeck} from '../utils/storage'
 import AppButton from './AppButton'
 
@@ -90,7 +90,7 @@ class CardNew extends Component {
                     placeholder='Enter the answer text'/>
 
                 <AppButton
-                    style={[appStyles.padItem, {backgroundColor: teal}]}
+                    style={[appStyles.padItem, {backgroundColor: darkBlue}]}
                     onPress={this.save}>
                     Add Card to {deckName}
                 </AppButton>

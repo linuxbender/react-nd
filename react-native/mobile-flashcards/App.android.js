@@ -3,8 +3,10 @@ import React from 'react'
 import {StatusBar, View} from 'react-native'
 import {createMaterialTopTabNavigator, createStackNavigator} from 'react-navigation'
 import {Provider} from 'react-redux'
-import DeckDetails from './components/DeckDetail';
-import DeckForm from './components/DeckNew'
+import CardNew from './components/CardNew';
+import DeckDelete from './components/DeckDelete';
+import DeckDetail from './components/DeckDetail';
+import DeckNew from './components/DeckNew'
 import DeckList from './components/DeckList'
 import configureStore from './store/appStore';
 import {darkBlue, eggShell, orange, white} from './utils/constants';
@@ -34,8 +36,8 @@ const uiTabs = createMaterialTopTabNavigator(
                 headerTransparent: true
             }
         },
-        NewDeck: {
-            screen: DeckForm,
+        DeckNew: {
+            screen: DeckNew,
             path: '/newDeck',
             navigationOptions: {
                 tabBarLabel: 'New Deck',
@@ -69,9 +71,29 @@ const AppScreens = createStackNavigator({
             headerTransparent: true
         }
     },
-    DeckDetails: {
-        screen: DeckDetails,
-        path: '/deckDetails/:key',
+    DeckDetail: {
+        screen: DeckDetail,
+        path: '/deckDetail/:key',
+        navigationOptions: {
+            headerTintColor: white,
+            headerStyle: {
+                backgroundColor: darkBlue,
+            }
+        }
+    },
+    DeckDelete: {
+        screen: DeckDelete,
+        path: '/deckDelete/:key',
+        navigationOptions: {
+            headerTintColor: white,
+            headerStyle: {
+                backgroundColor: darkBlue,
+            }
+        }
+    },
+    CardNew: {
+        screen: CardNew,
+        path: '/cardNew/:key',
         navigationOptions: {
             headerTintColor: white,
             headerStyle: {

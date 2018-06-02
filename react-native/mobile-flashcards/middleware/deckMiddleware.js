@@ -4,9 +4,9 @@ import {
     CREATE_NEW_DECK,
     LOAD_DECKS, LOAD_DECKS_ERROR,
     LOAD_DECKS_SUCCESS,
-    sortDecksListDescending
+    sortDecksListDescending, DELETE_DECK_SUCCESS, DELETE_DECK_ERROR, DELETE_DECK
 } from '../actions/deckActions';
-import {METHOD_GET_ITEM, METHOD_MERGE_ITEM, storageRequest} from '../actions/storageActions';
+import {METHOD_GET_ITEM, METHOD_MERGE_ITEM, METHOD_REMOVE_ITEM, storageRequest} from '../actions/storageActions';
 import {uuid} from '../utils/numberHelper';
 import {T_Deck} from '../utils/typeHelper';
 
@@ -41,4 +41,20 @@ export const getDecks = ({dispatch}) => next => action => {
     }
 };
 
-export const deckMiddleware = [addNewDeck, getDecks];
+export const deleteDeck = ({dispatch}) => next => action => {
+    next(action);
+
+    if (action.type === DELETE_DECK) {
+        const dtoData = Object.assign({}, T_Deck, {key: action.data});
+        dispatch(storageRequest(METHOD_REMOVE_ITEM, dtoData, DELETE_DECK_SUCCESS, DELETE_DECK_ERROR));
+    }
+
+    if (action.type === DELETE_DECK_SUCCESS) {
+        dispatch(sortDecksListDescending(action.data));
+    }
+
+    if (action.type === DELETE_DECK_ERROR) {
+    }
+};
+
+export const deckMiddleware = [addNewDeck, getDecks, deleteDeck];

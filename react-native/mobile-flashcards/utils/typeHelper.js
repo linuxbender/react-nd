@@ -8,8 +8,8 @@ export const T_Deck = {
 
 export const T_QUESTION = {
     key: null,
-    q: '',
-    a: '',
+    question: '',
+    answer: '',
     timestamp: null
 };
 

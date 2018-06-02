@@ -2,7 +2,7 @@ import {MaterialIcons} from '@expo/vector-icons';
 import React, {Component} from 'react';
 import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {connect} from 'react-redux';
-import {createNewDeck, loadDecks} from '../actions/deckActions';
+import {loadDecks} from '../actions/deckActions';
 import {black, darkBlue, eggShell, lightBlue, orange, white} from '../utils/constants';
 import {clearLocalNotification, setLocalNotification} from '../utils/notification';
 import {getDecks} from '../utils/storage';
@@ -29,7 +29,7 @@ class DeckList extends Component {
                           refreshing={ui.isLoading}
                           renderItem={({item}) =>
                               <TouchableOpacity style={styles.listItem}
-                                                onPress={() => this.props.navigation.navigate('DeckDetails', {key: item.key})}>
+                                                onPress={() => this.props.navigation.navigate('DeckDetail', {key: item.key})}>
                                   <Text key={item.key} style={styles.title}>{item.title}</Text>
                                   <Text style={styles.badge}>{item.questions.length || 0} cards</Text>
                                   <MaterialIcons name="keyboard-arrow-right" size={32} color={white}/>
@@ -41,7 +41,7 @@ class DeckList extends Component {
                                   <Text style={styles.infoTextNoData}>Your deck list is empty :-(</Text>
                                   <View style={styles.padding8}>
                                       <TouchableOpacity style={styles.addButton}
-                                                        onPress={() => this.props.navigation.navigate('NewDeck')}>
+                                                        onPress={() => this.props.navigation.navigate('DeckNew')}>
                                           <Text style={styles.whiteButtonText}>Add Deck</Text>
                                       </TouchableOpacity>
                                   </View>
