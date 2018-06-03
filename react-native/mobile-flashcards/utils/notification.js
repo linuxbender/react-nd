@@ -2,53 +2,51 @@ import {Notifications, Permissions} from 'expo'
 import {AsyncStorage} from 'react-native'
 import {NOTIFICATION_KEY} from './constants'
 
-export function clearLocalNotification() {
-    return AsyncStorage.removeItem(NOTIFICATION_KEY)
-        .then(Notifications.cancelAllScheduledNotificationsAsync)
-}
+export const clearLocalNotification = () => {
+    return AsyncStorage.removeItem(NOTIFICATION_KEY).then(Notifications.cancelAllScheduledNotificationsAsync)
+};
 
-function createNotification() {
+const createNotification = () => {
     return {
-        title: 'Study your flash cards!',
-        body: "📚 Don't forget to study your flash cards!",
+        title: 'Flash card challenge is waiting for you.',
+        body: 'Learn something everyday to achieve your personal goal!',
         ios: {
-            sound: true,
+            sound: true
         },
         android: {
             sound: true,
             priority: 'high',
             sticky: false,
-            vibrate: true,
+            vibrate: true
         }
     }
-}
+};
 
-export function setLocalNotification() {
+export const setLocalNotification = () => {
     AsyncStorage.getItem(NOTIFICATION_KEY)
         .then(JSON.parse)
         .then((data) => {
-            if (data === null) { // check: notification not already set
+            if (data === null) {
                 Permissions.askAsync(Permissions.NOTIFICATIONS)
                     .then(({status}) => {
                         if (status === 'granted') {
                             Notifications.cancelAllScheduledNotificationsAsync();
 
-                            let tomorrow = new Date();
-                            tomorrow.setDate(tomorrow.getDate() + 1);
-                            tomorrow.setHours(20);
-                            tomorrow.setMinutes(0);
+                            let nextDay = new Date();
+                            nextDay.setDate(nextDay.getDate() + 1);
+                            nextDay.setHours(20);
+                            nextDay.setMinutes(0);
 
                             Notifications.scheduleLocalNotificationAsync(
                                 createNotification(),
                                 {
-                                    time: tomorrow,
-                                    repeat: 'day',
+                                    time: nextDay,
+                                    repeat: 'day'
                                 }
                             );
-
                             AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true))
                         }
                     })
             }
         })
-}
+};

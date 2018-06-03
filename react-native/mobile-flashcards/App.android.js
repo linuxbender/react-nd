@@ -6,11 +6,12 @@ import {Provider} from 'react-redux'
 import CardNew from './components/CardNew';
 import DeckDelete from './components/DeckDelete';
 import DeckDetail from './components/DeckDetail';
-import DeckNew from './components/DeckNew'
 import DeckList from './components/DeckList'
+import DeckNew from './components/DeckNew'
+import Quiz from './components/Quiz';
 import configureStore from './store/appStore';
-import {darkBlue, eggShell, orange, white} from './utils/constants';
 import './utils/arrayHelper';
+import {darkBlue, eggShell, orange, white} from './utils/constants';
 
 const store = configureStore();
 
@@ -94,6 +95,16 @@ const AppScreens = createStackNavigator({
     CardNew: {
         screen: CardNew,
         path: '/cardNew/:key',
+        navigationOptions: {
+            headerTintColor: white,
+            headerStyle: {
+                backgroundColor: darkBlue,
+            }
+        }
+    },
+    Quiz: {
+        screen: Quiz,
+        path: '/quiz/:key',
         navigationOptions: {
             headerTintColor: white,
             headerStyle: {

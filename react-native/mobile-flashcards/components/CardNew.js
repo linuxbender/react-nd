@@ -38,8 +38,8 @@ class CardNew extends Component {
             return alert(validationMessage)
         }
 
-        this.props.onCreateNewCard(Object.assign({}, this.state));
-        this.setState(Object.assign({}, T_DeckAndQuestion));
+        this.props.onCreateNewCard({...this.state});
+        this.setState({...T_DeckAndQuestion, deck: this.props.deck});
     };
 
     render() {

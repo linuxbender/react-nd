@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native'
 
-export const STORAGE_KEY = 'com.theforce:udacity-mobile-flashcards:storage';
-export const NOTIFICATION_KEY = 'com.theforce:udacity-mobile-flashcards:notification';
+export const STORAGE_KEY = 'com.theforce:mobile-flashcards:storage';
+export const NOTIFICATION_KEY = 'com.theforce:mobile-flashcards:notification';
 
 // https://coolors.co/083d77-ebebd3-f4d35e-ee964b-f95738
 

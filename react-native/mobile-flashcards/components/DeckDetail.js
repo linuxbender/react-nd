@@ -25,7 +25,7 @@ class DeckDetail extends Component {
         if (!deck.questions.length) {
             return alert('Please add cards to the deck first!')
         }
-        navigation.navigate('CardNew', {key: deck.key})
+        navigation.navigate('Quiz', {key: deck.key})
     };
 
     handleDeckDelete = () => {
