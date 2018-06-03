@@ -2,15 +2,14 @@ export const T_Deck = {
     key: null,
     title: '',
     timestamp: null,
-    deleted: false,
     questions: []
 };
 
 export const T_Question = {
     key: null,
+    deckKey: null,
     question: '',
     answer: '',
-    deleted: false,
     timestamp: null
 };
 

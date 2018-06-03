@@ -1,8 +1,9 @@
 import {AsyncStorage} from 'react-native';
 import {
-    METHOD_GET_ITEM,
-    METHOD_MERGE_ITEM,
-    METHOD_SET_ITEM,
+    METHOD_ADD_CARD,
+    METHOD_ADD_DECK,
+    METHOD_READ_ALL_DECKS,
+    METHOD_REMOVE_DECK,
     STORAGE_REQUEST
 } from '../actions/storageActions';
 import {hideUiLoader, showUiLoader} from '../actions/uiActions';
@@ -17,43 +18,76 @@ export const storageApi = ({dispatch}) => next => action => {
 
         const {method, onSuccess, onError} = action.meta;
 
-        if (method === METHOD_MERGE_ITEM) {
-            console.log(METHOD_MERGE_ITEM);
+        if (method === METHOD_REMOVE_DECK) {
+            console.log(METHOD_REMOVE_DECK);
             console.log(action.data);
-            AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify({[action.data.key]: action.data}))
-                .then(() => dispatch(mapActionAndPayload(onSuccess, action.data)))
-                .then(() => dispatch(hideUiLoader()))
-                .catch(error => {
-                    dispatch(mapActionAndPayload(onError, error));
-                    dispatch(hideUiLoader());
-                });
-        }
 
-        if (method === METHOD_GET_ITEM) {
-            console.log(METHOD_GET_ITEM);
-            console.log(action.data);
             AsyncStorage.getItem(STORAGE_KEY)
-                .then(dbJSON => {
-                    let data = JSON.parse(dbJSON);
-                    return Object.keys(data).map(key => data[key]);
+                .then(JSON.parse)
+                .then(data => {
+                    data[action.data.key] = undefined;
+                    delete data[action.data.key];
+                    AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(data));
                 })
-                .then(data => dispatch(mapActionAndPayload(onSuccess, data)))
-                .then(() => dispatch(hideUiLoader()))
+                .then(() => {
+                    dispatch(mapActionAndPayload(onSuccess, action.data));
+                })
                 .catch(error => {
                     dispatch(mapActionAndPayload(onError, error));
+                    dispatch(hideUiLoader());
+                    return [];
+                });
+        }
+
+        if (method === METHOD_READ_ALL_DECKS) {
+            console.log(METHOD_READ_ALL_DECKS);
+            //AsyncStorage.removeItem(STORAGE_KEY);
+
+            AsyncStorage.getItem(STORAGE_KEY)
+                .then(JSON.parse)
+                .then(data => Object.keys(data).map(key => data[key]))
+                .then(result => {
+                    console.log(result.length);
+                    console.log(result);
+                    dispatch(mapActionAndPayload(onSuccess, result));
+                    dispatch(hideUiLoader());
+                }).catch(error => {
+                dispatch(mapActionAndPayload(onError, error));
+                dispatch(hideUiLoader());
+                return [];
+            });
+        }
+
+        if (method === METHOD_ADD_DECK) {
+            console.log(METHOD_ADD_DECK);
+
+            const data = {[action.data.key]: action.data};
+            console.log(data);
+
+            AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify(data))
+                .then(() => {
+                    dispatch(mapActionAndPayload(onSuccess, action.data));
                     dispatch(hideUiLoader());
                 });
         }
 
-        if(method === METHOD_SET_ITEM) {
-            console.log(METHOD_SET_ITEM);
+        if (method === METHOD_ADD_CARD) {
+            console.log(METHOD_ADD_CARD);
             console.log(action.data);
-            AsyncStorage.setItem(STORAGE_KEY, JSON.stringify({[action.data.key]: action.data}))
-                .then(() => dispatch(mapActionAndPayload(onSuccess, action.data)))
-                .then(() => dispatch(hideUiLoader()))
+
+            AsyncStorage.getItem(STORAGE_KEY)
+                .then(JSON.parse)
+                .then(data => {
+                    data[action.data.deckKey].questions.push(action.data);
+                    AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+                })
+                .then(() => {
+                    dispatch(mapActionAndPayload(onSuccess, action.data));
+                })
                 .catch(error => {
                     dispatch(mapActionAndPayload(onError, error));
                     dispatch(hideUiLoader());
+                    return [];
                 });
         }
     }

@@ -15,14 +15,14 @@ class CardNew extends Component {
     state = T_DeckAndQuestion;
 
     componentDidMount() {
-        this.setState(Object.assign({}, this.state, {deck: this.props.deck}));
+        this.setState({...this.state, deck: this.props.deck});
     }
 
     handleQuestionChange = (question) => {
-        this.setState(Object.assign({}, this.state, {question: question}));
+        this.setState({...this.state, question: question});
     };
     handleAnswerChange = (answer) => {
-        this.setState(Object.assign({}, this.state, {answer: answer}));
+        this.setState({...this.state, answer: answer});
     };
 
     handleSubmit = () => {
@@ -39,7 +39,7 @@ class CardNew extends Component {
         }
 
         this.props.onCreateNewCard(Object.assign({}, this.state));
-        this.setState(Object.assign({}, this.state, {question: '', answer: ''}));
+        this.setState(Object.assign({}, T_DeckAndQuestion));
     };
 
     render() {

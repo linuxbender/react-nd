@@ -4,26 +4,29 @@ import {
     CREATE_NEW_CARD_SUCCESS,
     sortCardsListDescending
 } from '../actions/cardActions';
-import {METHOD_MERGE_ITEM, storageRequest} from '../actions/storageActions';
+import {loadDecks} from '../actions/deckActions';
+import {METHOD_ADD_CARD, storageRequest} from '../actions/storageActions';
 import {uuid} from '../utils/numberHelper';
+import {T_Question} from '../utils/typeHelper';
 
 export const addNewCard = ({dispatch}) => next => action => {
     next(action);
 
     if (action.type === CREATE_NEW_CARD) {
 
-        let question = {
+        const questionDto = {
+            ...T_Question,
             key: uuid(),
+            deckKey: action.data.deck.key,
             question: action.data.question,
             answer: action.data.answer,
-            timestamp: Date.now()
+            timestamp: new Date()
         };
-        const dtoData = Object.assign({}, action.data.deck);
-        dtoData.questions.push(question);
-        dispatch(storageRequest(METHOD_MERGE_ITEM, dtoData, CREATE_NEW_CARD_SUCCESS, CREATE_NEW_CARD_ERROR));
+        dispatch(storageRequest(METHOD_ADD_CARD, questionDto, CREATE_NEW_CARD_SUCCESS, CREATE_NEW_CARD_ERROR));
     }
 
     if (action.type === CREATE_NEW_CARD_SUCCESS) {
+        dispatch(loadDecks());
         dispatch(sortCardsListDescending(action.data));
     }
 

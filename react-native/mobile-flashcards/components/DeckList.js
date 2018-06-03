@@ -4,8 +4,6 @@ import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {connect} from 'react-redux';
 import {loadDecks} from '../actions/deckActions';
 import {black, darkBlue, eggShell, lightBlue, orange, white} from '../utils/constants';
-import {clearLocalNotification, setLocalNotification} from '../utils/notification';
-import {getDecks} from '../utils/storage';
 
 class DeckList extends Component {
 
@@ -38,7 +36,7 @@ class DeckList extends Component {
                           ListEmptyComponent={(
                               <View style={styles.containerNoData}>
                                   <MaterialIcons name="playlist-add" size={128} color={black}/>
-                                  <Text style={styles.infoTextNoData}>Your deck list is empty :-(</Text>
+                                  <Text style={styles.infoTextNoData}>Your deck list is empty.</Text>
                                   <View style={styles.padding8}>
                                       <TouchableOpacity style={styles.addButton}
                                                         onPress={() => this.props.navigation.navigate('DeckNew')}>
