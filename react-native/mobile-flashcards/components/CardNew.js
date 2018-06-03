@@ -1,69 +1,49 @@
 import React, {Component} from 'react'
 import {StyleSheet, Text, TextInput, View} from 'react-native'
-import {NavigationActions} from 'react-navigation'
 import {connect} from 'react-redux'
-import {updateDeck} from '../actions/deckActions';
+import {createNewCard} from '../actions/cardActions';
 import {appStyles, darkBlue} from '../utils/constants'
-import {addCardToDeck} from '../utils/storage'
+import {T_Deck, T_DeckAndQuestion} from '../utils/typeHelper';
 import AppButton from './AppButton'
 
 class CardNew extends Component {
-    state = {
-        question: '',
-        answer: '',
+
+    static navigationOptions = {
+        title: 'New Card'
     };
 
+    state = T_DeckAndQuestion;
+
     componentDidMount() {
-        const {deckName, deck} = this.props.navigation.state.params;
-        this.setState({deck, deckName})
+        this.setState(Object.assign({}, this.state, {deck: this.props.deck}));
     }
 
     handleQuestionChange = (question) => {
-        this.setState({question})
+        this.setState(Object.assign({}, this.state, {question: question}));
     };
     handleAnswerChange = (answer) => {
-        this.setState({answer})
+        this.setState(Object.assign({}, this.state, {answer: answer}));
     };
-    save = () => {
-        const {deck, deckName, question, answer} = this.state;
-        const card = {question, answer};
 
-        let invalidMessage = '';
-        if (!question || !question.length) {
-            invalidMessage += 'Please enter a question.\n'
+    handleSubmit = () => {
+        const {question, answer} = this.state;
+        let validationMessage = '';
+        if (!question || !question.trim().length || question.trim().length <= 3) {
+            validationMessage += 'Question is required and need more then 3 characters.\n'
         }
-        if (!answer || !answer.length) {
-            invalidMessage += 'Please enter an answer.'
+        if (!answer || !answer.trim().length) {
+            validationMessage += 'Answer is required.'
         }
-        // show validation errors
-        if (invalidMessage.length) {
-            return alert(invalidMessage)
+        if (validationMessage.length) {
+            return alert(validationMessage)
         }
 
-        let updatedDeck = {...deck};
-        updatedDeck.questions.push(card);
-
-        // update redux
-        this.props.dispatch(
-            updateDeck(updatedDeck)
-        );
-
-        // update db
-        addCardToDeck(deckName, card);
-
-        // reset
-        this.setState(() => ({question: '', answer: '', deck: updatedDeck}));
-
-        // navigate home
-        this.props.navigation.dispatch(
-            NavigationActions.back()
-        )
-
+        this.props.onCreateNewCard(Object.assign({}, this.state));
+        this.setState(Object.assign({}, this.state, {question: '', answer: ''}));
     };
 
     render() {
-        const {deckName, deck} = this.state;
-        const questions = ((deck && deck.questions) || []);
+        const {deck} = this.state;
 
         return (
             <View style={appStyles.container}>
@@ -91,8 +71,8 @@ class CardNew extends Component {
 
                 <AppButton
                     style={[appStyles.padItem, {backgroundColor: darkBlue}]}
-                    onPress={this.save}>
-                    Add Card to {deckName}
+                    onPress={this.handleSubmit}>
+                    Save card for: {deck.title}
                 </AppButton>
             </View>
         )
@@ -105,4 +85,15 @@ const styles = StyleSheet.create({
     },
 });
 
-export default connect()(CardNew)
+const mapStateToProps = (state, ctx) => {
+    const {key} = ctx.navigation.state.params;
+    return {
+        deck: state.decks.filterByKey(key).firstOrDefault(T_Deck)
+    }
+};
+
+const mapDispatchToProps = dispatch => ({
+    onCreateNewCard: newCard => dispatch(createNewCard(newCard))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CardNew)

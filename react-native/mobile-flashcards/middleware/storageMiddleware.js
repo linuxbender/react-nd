@@ -1,5 +1,10 @@
 import {AsyncStorage} from 'react-native';
-import {METHOD_GET_ITEM, METHOD_MERGE_ITEM, METHOD_REMOVE_ITEM, STORAGE_REQUEST} from '../actions/storageActions';
+import {
+    METHOD_GET_ITEM,
+    METHOD_MERGE_ITEM,
+    METHOD_SET_ITEM,
+    STORAGE_REQUEST
+} from '../actions/storageActions';
 import {hideUiLoader, showUiLoader} from '../actions/uiActions';
 import {STORAGE_KEY} from '../utils/constants';
 
@@ -13,9 +18,9 @@ export const storageApi = ({dispatch}) => next => action => {
         const {method, onSuccess, onError} = action.meta;
 
         if (method === METHOD_MERGE_ITEM) {
-            const storageValue = JSON.stringify({[action.data.key]: action.data});
-
-            AsyncStorage[method](STORAGE_KEY, storageValue)
+            console.log(METHOD_MERGE_ITEM);
+            console.log(action.data);
+            AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify({[action.data.key]: action.data}))
                 .then(() => dispatch(mapActionAndPayload(onSuccess, action.data)))
                 .then(() => dispatch(hideUiLoader()))
                 .catch(error => {
@@ -25,7 +30,9 @@ export const storageApi = ({dispatch}) => next => action => {
         }
 
         if (method === METHOD_GET_ITEM) {
-            AsyncStorage[method](STORAGE_KEY)
+            console.log(METHOD_GET_ITEM);
+            console.log(action.data);
+            AsyncStorage.getItem(STORAGE_KEY)
                 .then(dbJSON => {
                     let data = JSON.parse(dbJSON);
                     return Object.keys(data).map(key => data[key]);
@@ -37,15 +44,17 @@ export const storageApi = ({dispatch}) => next => action => {
                     dispatch(hideUiLoader());
                 });
         }
-        if (method === METHOD_REMOVE_ITEM) {
-            AsyncStorage[method](STORAGE_KEY, action.data.key)
+
+        if(method === METHOD_SET_ITEM) {
+            console.log(METHOD_SET_ITEM);
+            console.log(action.data);
+            AsyncStorage.setItem(STORAGE_KEY, JSON.stringify({[action.data.key]: action.data}))
                 .then(() => dispatch(mapActionAndPayload(onSuccess, action.data)))
                 .then(() => dispatch(hideUiLoader()))
                 .catch(error => {
                     dispatch(mapActionAndPayload(onError, error));
                     dispatch(hideUiLoader());
                 });
-
         }
     }
     return next(action)

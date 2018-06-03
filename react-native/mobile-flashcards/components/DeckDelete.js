@@ -14,7 +14,7 @@ class DeckDelete extends Component {
 
     handleDelete = () => {
         const {deck, navigation, onDeleteDeck} = this.props;
-        onDeleteDeck(deck.key);
+        onDeleteDeck(deck);
         navigation.navigate('DeckList');
     };
 
@@ -73,7 +73,7 @@ const mapStateToProps = (state, ctx) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    onDeleteDeck: key => dispatch(deleteDeck(key))
+    onDeleteDeck: deck => dispatch(deleteDeck(deck))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeckDelete);

@@ -1,4 +1,5 @@
 import {applyMiddleware, compose, createStore} from 'redux'
+import {cardMiddleware} from '../middleware/cardMiddleware';
 import {deckMiddleware} from '../middleware/deckMiddleware';
 import {loggerMiddleware} from '../middleware/loggerMiddleware';
 import {storageMiddleware} from '../middleware/storageMiddleware';
@@ -13,7 +14,7 @@ const configureStore = (defaultState = T_Store) => {
     return createStore(
         rootReducer,
         defaultState,
-        composeEnhancers(applyMiddleware(...loggerMiddleware, ...deckMiddleware, ...storageMiddleware, ...uiMiddleware))
+        composeEnhancers(applyMiddleware(...loggerMiddleware, ...deckMiddleware, ...cardMiddleware, ...storageMiddleware, ...uiMiddleware))
     );
 };
 

@@ -16,18 +16,18 @@ class DeckDetail extends Component {
 
     handleCardNew = () => {
         const {deck, navigation} = this.props;
-        //const {deckName, decks, navigation} = this.props;
         navigation.navigate('CardNew', {key: deck.key})
     };
+
     handleQuiz = () => {
         const {deck, navigation} = this.props;
 
         if (!deck.questions.length) {
             return alert('Please add cards to the deck first!')
         }
- // DeckDelete
-        //navigation.navigate('Quiz', {deck.title, deck})
+        navigation.navigate('CardNew', {key: deck.key})
     };
+
     handleDeckDelete = () => {
         const {deck, navigation} = this.props;
         navigation.navigate('DeckDelete', {key: deck.key})
