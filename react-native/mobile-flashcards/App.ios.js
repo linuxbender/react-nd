@@ -1,108 +1,134 @@
-import {Entypo, MaterialIcons} from '@expo/vector-icons'
-import {Constants} from 'expo'
+import {Ionicons} from '@expo/vector-icons'
 import React from 'react'
 import {StatusBar, View} from 'react-native'
-import {createBottomTabNavigator, createStackNavigator} from 'react-navigation'
+import {createStackNavigator, createBottomTabNavigator} from 'react-navigation'
 import {Provider} from 'react-redux'
-import CardForm from './components/CardNew'
+import CardNew from './components/CardNew';
+import DeckDelete from './components/DeckDelete';
 import DeckDetail from './components/DeckDetail';
-import DeckForm from './components/DeckNew'
 import DeckList from './components/DeckList'
-import Quiz from './components/Quiz'
-import {darkBlue, white} from './utils/constants'
+import DeckNew from './components/DeckNew'
+import Quiz from './components/Quiz';
+import configureStore from './store/appStore';
 import './utils/arrayHelper';
+import {darkBlue, eggShell, orange, white} from './utils/constants';
+import {setLocalNotification} from './utils/notification';
 
-function AppStatusBar({backgroundColor, ...props}) {
+const store = configureStore();
+
+// Icon Browser: https://expo.github.io/vector-icons/
+
+const AppStatusBar = ({backgroundColor, ...props}) => {
     return (
-        <View style={{backgroundColor, height: Constants.statusBarHeight}}>
-            <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+        <View style={{paddingTop: Expo.Constants.statusBarHeight, paddingBottom: Expo.Constants.statusBarHeight}}>
+            <StatusBar backgroundColor={backgroundColor} {...props} />
         </View>
     )
-}
+};
 
-const Tabs = createBottomTabNavigator({
+const uiTabs = createBottomTabNavigator(
+    {
         DeckList: {
             screen: DeckList,
+            path: '/deckList',
             navigationOptions: {
-                tabBarLabel: 'Decks',
-                tabBarIcon: ({tintColor}) => <Entypo name='archive' size={30} color={tintColor}/>
+                tabBarLabel: 'My Decks',
+                tabBarIcon: ({tintColor}) => <Ionicons name='ios-albums-outline' color={tintColor} size={32}/>,
+                header: null,
+                headerTransparent: false,
+                title: 'My Deck..',
+                headerTitle: '42 42'
             }
         },
-        NewDeck: {
-            screen: DeckForm,
+        DeckNew: {
+            screen: DeckNew,
+            path: '/newDeck',
             navigationOptions: {
                 tabBarLabel: 'New Deck',
-                tabBarIcon: ({tintColor}) => <MaterialIcons name='create-new-folder' size={30} color={tintColor}/>
-            }
-        },
-    },
-    {
-        navigationOptions: {
-            header: null,
-            title: 'Home',
-        },
-        tabBarOptions: {
-            activeTintColor: darkBlue,
-            style: {
-                height: 56,
-                backgroundColor: white,
-                shadowColor: 'rgba(0, 0, 0, 0.24)',
-                shadowOffset: {
-                    width: 0,
-                    height: 3
-                },
-                shadowRadius: 6,
-                shadowOpacity: 1
+                tabBarIcon: ({tintColor}) => <Ionicons name='ios-add-circle-outline' color={tintColor} size={32}/>
             }
         }
-    });
-
-const MainNavigator = createStackNavigator({
-    Home: {
-        screen: Tabs,
     },
-    DeckSummary: {
+    {
+        tabBarOptions: {
+            showIcon: true,
+            activeTintColor: white,
+            inactiveTintColor: eggShell,
+            style: {
+                backgroundColor: darkBlue
+            },
+            indicatorStyle: {
+                backgroundColor: orange
+            },
+        }
+    }
+);
+
+const AppScreens = createStackNavigator({
+    Home: {
+        screen: uiTabs,
+        path: '/',
+        navigationOptions: {
+            header: null,
+            headerTransparent: true
+        }
+    },
+    DeckDetail: {
         screen: DeckDetail,
-        navigationOptions: ({navigation}) => ({
-            title: `"${navigation.state.params.deckName}" Deck`,
+        path: '/deckDetail/:key',
+        navigationOptions: {
             headerTintColor: white,
             headerStyle: {
                 backgroundColor: darkBlue,
             }
-        })
+        }
+    },
+    DeckDelete: {
+        screen: DeckDelete,
+        path: '/deckDelete/:key',
+        navigationOptions: {
+            headerTintColor: white,
+            headerStyle: {
+                backgroundColor: darkBlue,
+            }
+        }
+    },
+    CardNew: {
+        screen: CardNew,
+        path: '/cardNew/:key',
+        navigationOptions: {
+            headerTintColor: white,
+            headerStyle: {
+                backgroundColor: darkBlue,
+            }
+        }
     },
     Quiz: {
         screen: Quiz,
-        navigationOptions: ({navigation}) => ({
-            title: `"${navigation.state.params.deckName}" Quiz`,
+        path: '/quiz/:key',
+        navigationOptions: {
             headerTintColor: white,
             headerStyle: {
                 backgroundColor: darkBlue,
             }
-        })
-    },
-    CardForm: {
-        screen: CardForm,
-        navigationOptions: ({navigation}) => ({
-            title: `"${navigation.state.params.deckName}" New Card`,
-            headerTintColor: white,
-            headerStyle: {
-                backgroundColor: darkBlue,
-            }
-        })
+        }
     }
 });
 
 export default class App extends React.Component {
-    render() {
 
+    componentDidMount() {
+        setLocalNotification();
+    }
+
+    render() {
         return (
             <Provider store={store}>
-                <View style={{flex: 1}}>
-                    <AppStatusBar backgroundColor={darkBlue} barStyle='light-content'/>
-                    <MainNavigator/>
+                <View style={{flex: 1, backgroundColor:white, paddingTop:44 }} >
+                    <AppStatusBar backgroundColor={darkBlue}/>
+                    <AppScreens/>
                 </View>
             </Provider>
         );
     }
-}
+};
