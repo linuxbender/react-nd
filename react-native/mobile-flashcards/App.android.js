@@ -12,6 +12,7 @@ import Quiz from './components/Quiz';
 import configureStore from './store/appStore';
 import './utils/arrayHelper';
 import {darkBlue, eggShell, orange, white} from './utils/constants';
+import {setLocalNotification} from './utils/notification';
 
 const store = configureStore();
 
@@ -115,6 +116,11 @@ const AppScreens = createStackNavigator({
 });
 
 export default class App extends React.Component {
+
+    componentDidMount() {
+        setLocalNotification();
+    }
+
     render() {
         return (
             <Provider store={store}>
