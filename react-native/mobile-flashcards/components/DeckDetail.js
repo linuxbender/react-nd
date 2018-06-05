@@ -42,15 +42,15 @@ class DeckDetail extends Component {
                     <Text style={styles.badge}>{deck.questions.length} cards</Text>
                 </View>
                 <View style={appStyles.padItem}>
-                    <AppButton style={{backgroundColor: yellow}}
-                               onPress={this.handleQuiz}>
-                        Start Quiz
-                    </AppButton>
-                </View>
-                <View style={appStyles.padItem}>
                     <AppButton style={{backgroundColor: darkBlue}}
                                onPress={this.handleCardNew}>
                         Add Card
+                    </AppButton>
+                </View>
+                <View style={appStyles.padItem}>
+                    <AppButton style={{backgroundColor: yellow}}
+                               onPress={this.handleQuiz}>
+                        Start Quiz
                     </AppButton>
                 </View>
                 <View style={appStyles.padItem}>
