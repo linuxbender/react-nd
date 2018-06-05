@@ -7,9 +7,11 @@ export const NOTIFICATION_KEY = 'com.theforce:mobile-flashcards:notification';
 
 export const lightBlue = '#1d4992';
 export const darkBlue = '#083d77';
+export const deepGreen = '#01641d';
 export const eggShell = '#ebebd3';
 export const yellow = '#f4d35e';
 export const orange = '#f95738';
+export const softRed = '#e0413b';
 export const pink = '#ff084a';
 
 // other colors

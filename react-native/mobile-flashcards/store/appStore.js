@@ -14,7 +14,7 @@ const configureStore = (defaultState = T_Store) => {
     return createStore(
         rootReducer,
         defaultState,
-        composeEnhancers(applyMiddleware(...loggerMiddleware, ...deckMiddleware, ...cardMiddleware, ...storageMiddleware, ...uiMiddleware))
+        composeEnhancers(applyMiddleware(...loggerMiddleware, ...deckMiddleware, ...cardMiddleware, ...uiMiddleware, ...storageMiddleware))
     );
 };
 

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {connect} from 'react-redux';
-import {appStyles, darkBlue, pink, yellow} from '../utils/constants';
+import {appStyles, lightBlue, pink, yellow} from '../utils/constants';
 import {T_Deck} from '../utils/typeHelper';
 import AppButton from './AppButton';
 
@@ -42,7 +42,7 @@ class DeckDetail extends Component {
                     <Text style={styles.badge}>{deck.questions.length} cards</Text>
                 </View>
                 <View style={appStyles.padItem}>
-                    <AppButton style={{backgroundColor: darkBlue}}
+                    <AppButton style={{backgroundColor: lightBlue}}
                                onPress={this.handleCardNew}>
                         Add Card
                     </AppButton>

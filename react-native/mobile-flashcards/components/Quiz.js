@@ -1,9 +1,11 @@
 import React, {Component} from 'react'
-import {Button, Text, View} from 'react-native'
+import {Button, StyleSheet, Text, View} from 'react-native'
 import {NavigationActions} from 'react-navigation'
 import {connect} from 'react-redux'
+import {appStyles, deepGreen, lightBlue, pink} from '../utils/constants';
 import {clearLocalNotification, setLocalNotification} from '../utils/notification';
 import {T_Deck} from '../utils/typeHelper';
+import AppButton from './AppButton';
 
 class Quiz extends Component {
 
@@ -64,18 +66,45 @@ class Quiz extends Component {
 
         if (!this.state.isFinish) {
             return (
-                <View>
+                <View style={appStyles.container}>
                     <View>
                         <Text style={{marginBottom: 20}}>
                             {(this.state.quizzIndex + 1) + " / " + this.props.questions.length}
                         </Text>
+                    </View>
+                    <View style={styles.quizContainer}>
+                        <Text style={styles.badge}>Question is:</Text>
+                        <Text style={[appStyles.header, styles.deckTitle]}>{currentQuestion.question}</Text>
+                    </View>
+                    <View style={styles.quizContainer}>
+                        <Text style={styles.badge}>Answer is:</Text>
+                        <Text style={[appStyles.header, styles.deckTitle]}>{currentQuestion.answer}</Text>
+                    </View>
+                    <View style={appStyles.padItem}>
+                        <AppButton style={{backgroundColor: lightBlue}}
+                                   onPress={this.handleQuiz}>
+                            Show Answer
+                        </AppButton>
+                    </View>
+                    <View style={appStyles.padItem}>
+                        <AppButton style={{backgroundColor: deepGreen}}
+                                   onPress={this.handleQuiz}>
+                            Correct
+                        </AppButton>
+                    </View>
+                    <View style={appStyles.padItem}>
+                        <AppButton style={{backgroundColor: pink}}
+                                   onPress={this.handleQuiz}>
+                            Incorrect
+                        </AppButton>
+                    </View>
+                    {/*<View>
                         <Text>{currentQuestion.question}</Text>
-
                         {(this.state.showAnswer === false && this.state.resultMessage.length === 0) && (
                             <Button
                                 backgroundColor='#444444'
                                 buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 20}}
-                                title='SHOW ANSWER'
+                                title='Answer'
                                 onPress={() => this.setState({showAnswer: true})}/>
                         )}
                         {(this.state.showAnswer && this.state.resultMessage.length === 0) && (
@@ -87,12 +116,12 @@ class Quiz extends Component {
                                 <Button
                                     backgroundColor='green'
                                     buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 20}}
-                                    title='TRUE'
+                                    title='Correct'
                                     onPress={() => this.submitAnswer(true)}/>
                                 <Button
                                     backgroundColor='red'
                                     buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 20}}
-                                    title='FALSE'
+                                    title='Incorrect'
                                     onPress={() => this.submitAnswer(false)}/>
                             </View>
                         )}
@@ -103,16 +132,16 @@ class Quiz extends Component {
                                 <Button
                                     backgroundColor='#444444'
                                     buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 20}}
-                                    title='NEXT'
+                                    title='Next Question'
                                     onPress={this.nextQuestion}/>
                             </View>
                         )}
-                    </View>
+                    </View>*/}
                 </View>
             )
         } else {
             return (
-                <View>
+                <View style={appStyles.container}>
                     <View
                         title="Results 🏆">
                         <Text style={{marginBottom: 20}}>
@@ -122,14 +151,14 @@ class Quiz extends Component {
                             icon={{name: 'replay'}}
                             backgroundColor='#ffe274'
                             buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 20}}
-                            title='RESTART QUIZZ'
+                            title='Restart Quiz'
                             onPress={this.restartQuizz}/>
                         <Button
                             icon={{name: 'arrow-back'}}
                             backgroundColor='#444444'
                             onPress={this.backToDeck}
                             buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 20}}
-                            title='BACK TO DECK'/>
+                            title='Back to Deck Detail'/>
                     </View>
                 </View>
             )
@@ -137,6 +166,21 @@ class Quiz extends Component {
 
     }
 }
+
+const styles = StyleSheet.create({
+    quizContainer: {
+        paddingTop: 8,
+        paddingBottom: 8
+    },
+    deckTitle: {
+        fontSize: 32,
+        fontWeight: '600',
+        textAlign: 'center'
+    },
+    badge: {
+        alignSelf: 'center'
+    },
+});
 
 const mapStateToProps = (state, ctx) => {
     const {key} = ctx.navigation.state.params;
