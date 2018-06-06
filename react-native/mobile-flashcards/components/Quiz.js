@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import {StyleSheet, Text, View} from 'react-native'
-import {NavigationActions} from 'react-navigation'
 import {connect} from 'react-redux'
 import {appStyles, deepGreen, lightBlue, pink} from '../utils/constants';
 import {clearLocalNotification, setLocalNotification} from '../utils/notification';
@@ -37,44 +36,35 @@ class Quiz extends Component {
             .then(setLocalNotification)
     };
 
-    backToDeck = () => {
-        const backAction = NavigationActions.back();
-        this.props.navigation.dispatch(backAction);
-        clearLocalNotification()
-            .then(setLocalNotification)
-    };
-
     showAnswer = () => {
         this.setState({...this.state, showAnswer: true})
     };
 
     isCorrect = () => {
         const {questions, navigation} = this.props;
-
+        let {quizIndex} = this.state;
         let score = this.state.score + 1;
 
-        let quizIndex = this.state.quizIndex + 1;
-
-        if (quizIndex === questions.length) {
-            //todo
-            navigation.navigate('QuizSummary', {})
+        if (quizIndex + 1 === questions.length) {
+            const {key} = navigation.state.params;
+            navigation.navigate('QuizSummary', {key: key});
+        } else {
+            quizIndex += 1;
         }
 
         this.setState({...this.state, showAnswer: false, score: score, quizIndex: quizIndex})
-
     };
 
     isInCorrect = () => {
-
         const {questions, navigation} = this.props;
-
+        let {quizIndex} = this.state;
         let score = this.state.score - 1;
 
-        let quizIndex = this.state.quizIndex + 1;
-
-        if (quizIndex === questions.length) {
-            //todo
-            navigation.navigate('DeckList')
+        if (quizIndex + 1 === questions.length) {
+            const {key} = navigation.state.params;
+            navigation.navigate('QuizSummary', {key: key});
+        } else {
+            quizIndex += 1;
         }
 
         this.setState({...this.state, showAnswer: false, score: score, quizIndex: quizIndex})
@@ -84,7 +74,7 @@ class Quiz extends Component {
     render() {
         let currentQuestion = this.props.questions[this.state.quizIndex];
         const {showAnswer} = this.state;
-        
+
         return (
             <View style={appStyles.container}>
                 <View>

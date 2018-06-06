@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {connect} from 'react-redux';
-import {appStyles, lightBlue } from '../utils/constants';
+import {appStyles, lightBlue} from '../utils/constants';
+import {clearLocalNotification, setLocalNotification} from '../utils/notification';
 import {T_Deck} from '../utils/typeHelper';
 import AppButton from './AppButton';
 
@@ -16,11 +17,13 @@ class QuizSummary extends Component {
 
     handleRestartQuiz = () => {
         const {deck, navigation} = this.props;
+        clearLocalNotification().then(setLocalNotification);
         navigation.navigate('Quiz', {key: deck.key})
     };
 
     handleNavigateToDeckDetail = () => {
         const {deck, navigation} = this.props;
+        clearLocalNotification().then(setLocalNotification);
         navigation.navigate('DeckDetail', {key: deck.key})
     };
     render() {

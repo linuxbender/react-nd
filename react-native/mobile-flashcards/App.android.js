@@ -9,6 +9,7 @@ import DeckDetail from './components/DeckDetail';
 import DeckList from './components/DeckList'
 import DeckNew from './components/DeckNew'
 import Quiz from './components/Quiz';
+import QuizSummary from './components/QuizSummary';
 import configureStore from './store/appStore';
 import './utils/arrayHelper';
 import {darkBlue, eggShell, orange, white} from './utils/constants';
@@ -114,7 +115,7 @@ const AppScreens = createStackNavigator({
         }
     },
     QuizSummary: {
-        screen: Quiz,
+        screen: QuizSummary,
         path: '/quizSummary/:key',
         navigationOptions: {
             headerTintColor: white,
