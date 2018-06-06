@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 import {StyleSheet, Text, View} from 'react-native'
 import {connect} from 'react-redux'
+import {addQuizScore, showAnswer,updateQuizIndex} from '../actions/quizActions';
 import {appStyles, deepGreen, lightBlue, pink} from '../utils/constants';
-import {clearLocalNotification, setLocalNotification} from '../utils/notification';
-import {T_Deck, T_Quiz} from '../utils/typeHelper';
+import {T_Deck} from '../utils/typeHelper';
 import AppButton from './AppButton';
 
 class Quiz extends Component {
@@ -12,74 +12,48 @@ class Quiz extends Component {
         title: 'Quiz'
     };
 
-    state = {...T_Quiz};
-
-    submitAnswer = (userAnswer) => {
-        if (this.props.questions[this.state.quizIndex].answerType === userAnswer) {
-            this.setState((prevState) => {
-                return {score: prevState.score + 1}
-            });
-            this.setState({resultMessage: 'Well done ! 👍'})
-        } else {
-            this.setState({resultMessage: 'Huh, maybe next time ! 👎'})
-        }
-    };
-
-    restartQuiz = () => {
-        this.setState({
-            quizIndex: 0,
-            score: 0,
-            resultMessage: '',
-            isFinish: false
-        });
-        clearLocalNotification()
-            .then(setLocalNotification)
-    };
-
     showAnswer = () => {
-        this.setState({...this.state, showAnswer: true})
+        this.props.showAnswer(true);
     };
 
     isCorrect = () => {
         const {questions, navigation} = this.props;
-        let {quizIndex} = this.state;
-        let score = this.state.score + 1;
+        let {quizIndex, score} = this.props.quiz;
+
+        this.props.addQuizScore(score + 1);
+        this.props.showAnswer(false);
 
         if (quizIndex + 1 === questions.length) {
             const {key} = navigation.state.params;
             navigation.navigate('QuizSummary', {key: key});
         } else {
-            quizIndex += 1;
+            this.props.updateQuizIndex(quizIndex + 1)
         }
-
-        this.setState({...this.state, showAnswer: false, score: score, quizIndex: quizIndex})
     };
 
     isInCorrect = () => {
         const {questions, navigation} = this.props;
-        let {quizIndex} = this.state;
-        let score = this.state.score - 1;
+        let {quizIndex, score} = this.props.quiz;
+
+        this.props.showAnswer(false);
 
         if (quizIndex + 1 === questions.length) {
             const {key} = navigation.state.params;
             navigation.navigate('QuizSummary', {key: key});
         } else {
-            quizIndex += 1;
+            this.props.updateQuizIndex(quizIndex + 1)
         }
-
-        this.setState({...this.state, showAnswer: false, score: score, quizIndex: quizIndex})
-
     };
 
     render() {
-        let currentQuestion = this.props.questions[this.state.quizIndex];
-        const {showAnswer} = this.state;
+        const {showAnswer, quizIndex} = this.props.quiz;
+        let currentQuestion = this.props.questions[quizIndex];
 
         return (
             <View style={appStyles.container}>
                 <View>
                     <Text style={{marginBottom: 20}}>
-                        {(this.state.quizIndex + 1) + " / " + this.props.questions.length}
+                        {(quizIndex + 1) + " / " + this.props.questions.length}
                     </Text>
                 </View>
                 <View style={styles.quizContainer}>
@@ -133,8 +107,15 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state, ctx) => {
     const {key} = ctx.navigation.state.params;
     return {
-        questions: state.decks.filterByKey(key).firstOrDefault(T_Deck).questions
+        questions: state.decks.filterByKey(key).firstOrDefault(T_Deck).questions,
+        quiz: state.quiz
     }
 };
 
-export default connect(mapStateToProps)(Quiz);
+const mapDispatchToProps = dispatch => ({
+    addQuizScore: (questionScore) => dispatch(addQuizScore(questionScore)),
+    showAnswer: (param) => dispatch(showAnswer(param)),
+    updateQuizIndex: (param) => dispatch(updateQuizIndex(param))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Quiz);

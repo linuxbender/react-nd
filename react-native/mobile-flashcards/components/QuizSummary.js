@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {connect} from 'react-redux';
+import {restQuiz} from '../actions/quizActions';
 import {appStyles, lightBlue} from '../utils/constants';
 import {clearLocalNotification, setLocalNotification} from '../utils/notification';
-import {T_Deck} from '../utils/typeHelper';
+import {T_Deck, T_Quiz} from '../utils/typeHelper';
 import AppButton from './AppButton';
 
 class QuizSummary extends Component {
@@ -12,27 +13,27 @@ class QuizSummary extends Component {
         title: 'Quiz Summary'
     };
 
-    componentDidMount() {
-    }
-
     handleRestartQuiz = () => {
-        const {deck, navigation} = this.props;
+        const {deck, navigation, restQuiz} = this.props;
+        restQuiz();
         clearLocalNotification().then(setLocalNotification);
         navigation.navigate('Quiz', {key: deck.key})
     };
 
     handleNavigateToDeckDetail = () => {
-        const {deck, navigation} = this.props;
+        const {deck, navigation, restQuiz} = this.props;
+        restQuiz();
         clearLocalNotification().then(setLocalNotification);
         navigation.navigate('DeckDetail', {key: deck.key})
     };
+
     render() {
         const {deck} = this.props;
         return (
             <View style={appStyles.container}>
                 <View style={styles.detailContainer}>
                     <Text style={[appStyles.header, styles.deckTitle]}>Quiz Summary:</Text>
-                    <Text style={styles.badge}>score</Text>
+                    <Text style={styles.badge}>{this.props.quiz.score}</Text>
                 </View>
                 <View style={appStyles.padItem}>
                     <AppButton style={{backgroundColor: lightBlue}}
@@ -70,8 +71,13 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state, ctx) => {
     const {key} = ctx.navigation.state.params;
     return {
-        deck: state.decks.filterByKey(key).firstOrDefault(T_Deck)
+        deck: state.decks.filterByKey(key).firstOrDefault(T_Deck),
+        quiz: state.quiz
     }
 };
 
-export default connect(mapStateToProps)(QuizSummary);
+const mapDispatchToProps = dispatch => ({
+    restQuiz: () => dispatch(restQuiz(T_Quiz))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(QuizSummary);
