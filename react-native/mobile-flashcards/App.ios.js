@@ -1,7 +1,7 @@
 import {Ionicons} from '@expo/vector-icons'
 import React from 'react'
 import {StatusBar, View} from 'react-native'
-import {createStackNavigator, createBottomTabNavigator} from 'react-navigation'
+import {createBottomTabNavigator, createStackNavigator} from 'react-navigation'
 import {Provider} from 'react-redux'
 import CardNew from './components/CardNew';
 import DeckDelete from './components/DeckDelete';
@@ -106,6 +106,16 @@ const AppScreens = createStackNavigator({
     Quiz: {
         screen: Quiz,
         path: '/quiz/:key',
+        navigationOptions: {
+            headerTintColor: white,
+            headerStyle: {
+                backgroundColor: darkBlue,
+            }
+        }
+    },
+    QuizSummary: {
+        screen: Quiz,
+        path: '/quizSummary/:key',
         navigationOptions: {
             headerTintColor: white,
             headerStyle: {

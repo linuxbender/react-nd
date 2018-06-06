@@ -112,6 +112,16 @@ const AppScreens = createStackNavigator({
                 backgroundColor: darkBlue,
             }
         }
+    },
+    QuizSummary: {
+        screen: Quiz,
+        path: '/quizSummary/:key',
+        navigationOptions: {
+            headerTintColor: white,
+            headerStyle: {
+                backgroundColor: darkBlue,
+            }
+        }
     }
 });
 
