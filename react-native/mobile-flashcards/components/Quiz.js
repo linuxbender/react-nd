@@ -16,11 +16,10 @@ class Quiz extends Component {
         this.props.showAnswer(true);
     };
 
-    isCorrect = () => {
+    handleEndOfQuizOrContinue() {
         const {questions, navigation} = this.props;
-        let {quizIndex, score} = this.props.quiz;
+        let {quizIndex} = this.props.quiz;
 
-        this.props.addQuizScore(score + 1);
         this.props.showAnswer(false);
 
         if (quizIndex + 1 === questions.length) {
@@ -29,20 +28,18 @@ class Quiz extends Component {
         } else {
             this.props.updateQuizIndex(quizIndex + 1)
         }
+    }
+
+    isCorrect = () => {
+        let {score} = this.props.quiz;
+
+        this.props.addQuizScore(score + 1);
+
+        this.handleEndOfQuizOrContinue();
     };
 
     isInCorrect = () => {
-        const {questions, navigation} = this.props;
-        let {quizIndex, score} = this.props.quiz;
-
-        this.props.showAnswer(false);
-
-        if (quizIndex + 1 === questions.length) {
-            const {key} = navigation.state.params;
-            navigation.navigate('QuizSummary', {key: key});
-        } else {
-            this.props.updateQuizIndex(quizIndex + 1)
-        }
+        this.handleEndOfQuizOrContinue();
     };
 
     render() {

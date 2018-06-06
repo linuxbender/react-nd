@@ -32,8 +32,8 @@ class QuizSummary extends Component {
         return (
             <View style={appStyles.container}>
                 <View style={styles.detailContainer}>
-                    <Text style={[appStyles.header, styles.deckTitle]}>Quiz Summary:</Text>
-                    <Text style={styles.badge}>{this.props.quiz.score}</Text>
+                    <Text style={[appStyles.header, styles.deckTitle]}>Your score in this round is:</Text>
+                    <Text style={styles.badge}>{this.props.quiz.score} out of {deck.questions.length} are correct.</Text>
                 </View>
                 <View style={appStyles.padItem}>
                     <AppButton style={{backgroundColor: lightBlue}}
