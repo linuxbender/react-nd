@@ -27,3 +27,10 @@ export const T_DeckAndQuestion = {
     question: '',
     answer: ''
 };
+
+export const T_Quiz = {
+    quizIndex: 0,
+    score: 0,
+    showAnswer: false,
+    resultMessage: ''
+};
