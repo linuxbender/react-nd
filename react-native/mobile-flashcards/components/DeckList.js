@@ -13,9 +13,6 @@ class DeckList extends Component {
 
     componentDidMount() {
         this.props.onLoadDecks();
-        /*
-            clearLocalNotification)
-            setLocalNotification)*/
     }
 
     render() {
