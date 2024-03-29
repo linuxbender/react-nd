@@ -1,6 +1,8 @@
 # React Kata 01 Session
 
-![Screenshot](public/screenshot.png "Screenshot")
+Basic Kanban Board, using React Context and Provider and Hooks
+
+![Screenshot](screenshot.png "Screenshot")
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
