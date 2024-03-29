@@ -34,11 +34,10 @@ const KanbanEdit = ({ stageCount }) => {
       </div>
       <div>
         <input
-          id="input-new"
+          id="input-selected"
           value={selectedTask.name}
           placeholder="Selected Task..."
-          onChange={emptyFunc}
-          disabled={selectedTask.stage >= 0}
+          disabled={true}
         />
         <button
           id="btn-right"
