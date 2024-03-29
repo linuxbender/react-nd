@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# React Kata 01 Session
+
+![Screenshot](public/screenshot.png "Screenshot")
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
