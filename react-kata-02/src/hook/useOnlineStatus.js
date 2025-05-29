@@ -1,21 +1,18 @@
-import { useSyncExternalStore } from "react";
+import {useSyncExternalStore} from "react";
 
 const getSnapshot = () => {
-  return navigator.onLine;
+    return navigator.onLine;
 };
 
 const subscribe = (callback) => {
-  window.addEventListener("online", callback);
-  window.addEventListener("offline", callback);
-  return () => {
-    window.removeEventListener("online", callback);
-    window.removeEventListener("offline", callback);
-  };
+    const abortController = new AbortController();
+    window.addEventListener("online", callback, {signal: abortController.signal});
+    window.addEventListener("offline", callback, {signal: abortController.signal});
+    return () => abortController.abort();
 };
 
 const useOnlineStatus = () => {
-  const isOnline = useSyncExternalStore(subscribe, getSnapshot);
-  return isOnline;
+    return useSyncExternalStore(subscribe, getSnapshot);
 };
 
 export default useOnlineStatus;

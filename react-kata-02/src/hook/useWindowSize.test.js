@@ -1,5 +1,5 @@
 import React from "react";
-import { render, act } from "@testing-library/react";
+import {act, render} from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect"; // Für toBeInTheDocument
 import useWindowSize from "./useWindowSize";
 
@@ -8,7 +8,7 @@ describe("useWindowSize", () => {
 
   beforeAll(() => {
     resizeEvent = new Event("resize");
-    // Mocken von window.innerWidth und window.innerHeight
+    // Mocked von window.innerWidth und window.innerHeight
     Object.defineProperty(window, "innerWidth", {
       writable: true,
       configurable: true,

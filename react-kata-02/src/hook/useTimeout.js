@@ -1,20 +1,25 @@
-import { useState, useEffect } from "react";
+import {useEffect, useRef, useState} from "react";
 
 const useTimeout = (callback, delay) => {
-  const [ready, setReady] = useState(false);
+    const [ready, setReady] = useState(false);
+    const savedCallback = useRef(callback);
 
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      callback();
-      setReady(prev => prev = true);
-    }, delay);
+    useEffect(() => {
+        savedCallback.current = callback;
+    }, [callback]);
 
-    return () => {
-      clearTimeout(timeoutId);
-    };
-  }, [callback, delay]);
+    useEffect(() => {
+        if (typeof delay !== "number" && delay < 0) return;
 
-  return ready;
+        const timeoutId = setTimeout(() => {
+            callback();
+            setReady(prev => true);
+        }, delay);
+
+        return () => clearTimeout(timeoutId);
+    }, [callback, delay]);
+
+    return ready;
 };
 
 export default useTimeout;
