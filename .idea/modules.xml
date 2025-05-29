@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/react-kata-03/react-kata-03.iml" filepath="$PROJECT_DIR$/react-kata-03/react-kata-03.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/react-nd.iml" filepath="$PROJECT_DIR$/.idea/react-nd.iml" />
     </modules>
   </component>
