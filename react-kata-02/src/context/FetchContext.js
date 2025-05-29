@@ -1,88 +1,89 @@
-/**
- * This file provides custom fetch functionality for React applications.
- * It includes a Provider component (FetchProvider) and a Hook (useFetch).
- *
- * FetchProvider allows intercepting fetch requests and adding pre and post interceptors.
- * useFetch is a Hook that utilizes the FetchProvider context to fetch data from a specific URL endpoint.
- *
- * FetchProvider Props:
- * - children: The child components to be wrapped by FetchProvider.
- * - preInterceptors: A list of functions to be executed before making a fetch request.
- * - postInterceptors: A list of functions to be executed after completing a fetch request.
- * - basePath: The base path to prepend to each fetch request URL endpoint.
- *
- * useFetch Parameters:
- * - url: The URL from which to fetch the data.
- * - options: The fetch options to be passed to the fetch request.
- *
- * FetchProvider and useFetch work together to provide a flexible and easy-to-use fetch integration in React applications.
- */
-
-import { createContext, useContext, useEffect, useState, useRef } from "react";
+import {createContext, useContext, useEffect, useState} from "react";
 
 const FetchContext = createContext(null);
 
 export const FetchProvider = ({
-  children,
-  preInterceptors = [],
-  postInterceptors = [],
-  basePath = null,
-}) => {
-  const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState([]);
+                                  children,
+                                  preInterceptors = [],
+                                  postInterceptors = [],
+                                  basePath = "",
+                              }) => {
+    const [loading, setLoading] = useState(false);
+    const [errors, setErrors] = useState([]);
 
-  if (!basePath) throw new Error("FetchContex.Provider basePath must be set");
+    if (!basePath) throw new Error("FetchContext.Provider basePath must be set");
 
-  const executePreInterceptors = (url, options = {}) =>
-    preInterceptors.forEach((it) => it(url, options));
+    const executePreInterceptors = async (url, options = {}) => {
+        for (const it of preInterceptors) {
+            await it(url, options);
+        }
+    };
 
-  const executePostInterceptors = (url, options = {}, e = null) =>
-    postInterceptors.forEach((it) => it(url, options, e));
+    const executePostInterceptors = async (url, options = {}, error = null) => {
+        for (const it of postInterceptors) {
+            await it(url, options, error);
+        }
+    };
 
-  const fetchData = async (url, options) => {
-    const endpoint = basePath + url;
-    try {
-      setLoading(true);
-      executePreInterceptors(endpoint, options);
+    const fetchData = async (url, options) => {
+        const endpoint = basePath + url;
+        setLoading(true);
+        try {
+            await executePreInterceptors(endpoint, options);
 
-      const res = await fetch(endpoint, options);
-      const data = await res.json();
+            const res = await fetch(endpoint, options);
+            if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+            const data = await res.json();
 
-      executePostInterceptors(endpoint, options);
-      setLoading(false);
+            await executePostInterceptors(endpoint, options, null);
+            return data;
+        } catch (e) {
+            setErrors(prev => [...prev, e]);
+            await executePostInterceptors(endpoint, options, e);
+            throw e;
+        } finally {
+            setLoading(false);
+        }
+    };
 
-      return data;
-    } catch (e) {
-      setErrors([...errors, e]);
-      executePostInterceptors(endpoint, options, e);
-    } finally {
-      setLoading(false);
-    }
-  };
+    const contextValue = {loading, errors, fetchData};
 
-  const contex = { loading, errors, fetchData };
-
-  return (<FetchContext.Provider value={contex}>{children}</FetchContext.Provider>);
+    return (
+        <FetchContext.Provider value={contextValue}>
+            {children}
+        </FetchContext.Provider>
+    );
 };
 
 const useFetch = (url, options = {}) => {
-  const [data, setData] = useState(null);
-  const { loading, fetchData } = useContext(FetchContext);
-  const optionsRef = useRef(options);
-  const fetchDataRef = useRef(fetchData);
+    const [data, setData] = useState(null);
+    const {loading, fetchData} = useContext(FetchContext);
 
-  if (!fetchData)
-    throw new Error("useFetch must be used within a FetchContext");
+    if (!fetchData)
+        throw new Error("useFetch must be used within a FetchContext");
 
-  useEffect(() => {
-    const executFetch = async () => {
-      const response = await fetchDataRef.current(url, optionsRef.current);
-      setData(response);
-    };
-    executFetch();
-  }, [url]);
+    useEffect(() => {
+        let isMounted = true;
+        const abortController = new AbortController();
 
-  return [data, loading];
+        const executeFetch = async () => {
+            try {
+                const response = await fetchData(url, options,{ signal: abortController.signal });
+                if (isMounted) setData(response);
+            } catch {
+                if (isMounted) setData(null);
+            } finally {
+                isMounted = false;
+            }
+        };
+        executeFetch();
+        return () => {
+            isMounted = false;
+            abortController.abort();
+        };
+    }, [url, JSON.stringify(options)]);
+
+    return [data, loading];
 };
 
 export default useFetch;

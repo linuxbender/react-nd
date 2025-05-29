@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import {createContext, useContext, useState} from "react";
 
 const DataContext = createContext(null);
 
@@ -8,7 +8,7 @@ export const DataProvider = ({ children }) => {
 
   const logFun = (msg) => {
     setDemo(msg);
-    console.log(msg);
+    console.info(msg);
   };
 
   const contex = { demo, setDemo, list, setList, logFun };
