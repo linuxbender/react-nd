@@ -1,21 +1,26 @@
 import '@testing-library/jest-dom'
 import {describe, expect, it} from "vitest"
-import {fireEvent, render, screen} from '@testing-library/react'
+import {render, screen} from '@testing-library/react'
 import App from './App'
 
 describe('TEST: App', () => {
-    it('zeigt das Vite-Logo an', () => {
+    it('zeigt den Titel "Vite + React" an', () => {
         render(<App/>)
-        const viteLogo = screen.getByAltText('Vite logo')
-        expect(viteLogo).toBeInTheDocument()
+        expect(screen.getByText('Vite + React')).toBeInTheDocument()
     })
 
-    it("erhöht den Zähler mehrfach beim Klicken", () => {
-        render(<App/>);
-        const button = screen.getByTestId("btn");
-        fireEvent.click(button);
-        fireEvent.click(button);
-        expect(button).toHaveTextContent("count is 2");
-    });
+    it('zeigt alle Listeneinträge korrekt an', () => {
+        render(<App/>)
+        expect(screen.getByText('Item 1')).toBeInTheDocument()
+        expect(screen.getByText('Item 2')).toBeInTheDocument()
+        expect(screen.getByText('Item 3')).toBeInTheDocument()
+    })
+
+    it('zeigt die Buttons mit korrektem Text an', () => {
+        render(<App/>)
+        expect(screen.getByText('Button 1')).toBeInTheDocument()
+        expect(screen.getByText('Button 2')).toBeInTheDocument()
+        expect(screen.getByText('Button 3')).toBeInTheDocument()
+    })
 
 })

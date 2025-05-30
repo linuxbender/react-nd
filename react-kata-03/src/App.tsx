@@ -1,32 +1,23 @@
-import {useState} from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import List, {type Info, type ListProps} from "./components/list/List.tsx";
 
 const App = () => {
-    const [count, setCount] = useState(0)
+
+    const data: Info[] = [
+        {id: 1, text: 'Item 1', btnText: 'Button 1'},
+        {id: 2, text: 'Item 2', btnText: 'Button 2'},
+        {id: 3, text: 'Item 3', btnText: 'Button 3'}
+    ];
+
+    const listProps: ListProps<Info> = {data};
+
     return (
         <>
-            <div>
-                <a href="https://vite.dev" target="_blank">
-                    <img src={viteLogo} className="logo" alt="Vite logo"/>
-                </a>
-                <a href="https://react.dev" target="_blank">
-                    <img src={reactLogo} className="logo react" alt="React logo"/>
-                </a>
-            </div>
             <h1>Vite + React</h1>
             <div className="card">
-                <button id="btn" data-testid="btn" onClick={() => setCount((count) => count + 1)}>
-                    count is {count}
-                </button>
-                <p>
-                    Edit <code>src/App.tsx</code> and save to test HMR
-                </p>
+                <List data={listProps.data}/>
             </div>
-            <p className="read-the-docs">
-                Click on the Vite and React logos to learn more
-            </p>
+
         </>
     )
 }
