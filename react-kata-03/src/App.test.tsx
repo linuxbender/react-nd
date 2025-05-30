@@ -12,9 +12,9 @@ describe('TEST: App', () => {
 
     it('zeigt alle Listeneinträge korrekt an', () => {
         render(<App/>)
-        expect(screen.getByText('Item 1')).toBeInTheDocument()
-        expect(screen.getByText('Item 2')).toBeInTheDocument()
-        expect(screen.getByText('Item 3')).toBeInTheDocument()
+        expect(screen.getByText('List Item 1')).toBeInTheDocument()
+        expect(screen.getByText('List Item 2')).toBeInTheDocument()
+        expect(screen.getByText('List Item 3')).toBeInTheDocument()
     })
 
     it('zeigt die Buttons mit korrektem Text an', () => {
