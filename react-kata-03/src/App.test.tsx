@@ -1,10 +1,7 @@
-import {afterEach, describe, expect, test} from "vitest";
-import {cleanup, fireEvent, render, screen} from '@testing-library/react'
+import '@testing-library/jest-dom'
+import {describe, expect, test} from "vitest"
+import {fireEvent, render, screen} from '@testing-library/react'
 import App from './App'
-
-afterEach(() => {
-    cleanup();
-});
 
 describe('TEST: App', () => {
     test('zeigt das Vite-Logo an', () => {
