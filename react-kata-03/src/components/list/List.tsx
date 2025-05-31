@@ -9,12 +9,12 @@ const List = ({data}: ListProps<Info>) => {
     }
 
     return (
-        <ul className="space-y-2">
+        <ul className="list-ul">
             {data && data.map((item: Info) => (
-                <li key={item.id} className="flex items-center justify-between bg-white rounded shadow p-3">
-                    <span className="text-gray-800">{item.text}</span>
+                <li key={item.id} className="list-item">
+                    <span className="list-text">{item.text}</span>
                     <button
-                        className="list-btn bg-blue-500 hover:bg-blue-600 rounded px-3 py-1 text-white transition cursor-pointer"
+                        className="list-btn"
                         data-testid="btn-1"
                     >
                         {item.btnText}
