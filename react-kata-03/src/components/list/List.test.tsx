@@ -1,7 +1,8 @@
 import '@testing-library/jest-dom'
 import {describe, expect, it} from "vitest"
 import {render, screen} from '@testing-library/react';
-import List, {type Info} from './List';
+import type {Info} from "../../types/appTypes.ts";
+import List from "./List.tsx";
 
 describe('List Komponente', () => {
     const data: Info[] = [
