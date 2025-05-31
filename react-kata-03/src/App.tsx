@@ -1,4 +1,6 @@
-import List, {type Info, type ListProps} from "./components/list/List.tsx";
+import List from "./components/list/List.tsx";
+import type {Info} from "./types/appTypes.ts";
+import type {ListProps} from "./types/props.ts";
 
 const App = () => {
 
