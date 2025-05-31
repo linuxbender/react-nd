@@ -1,6 +1,5 @@
 import List from "./components/list/List.tsx";
 import type {Info} from "./types/appTypes.ts";
-import type {ListProps} from "./types/props.ts";
 
 const App = () => {
 
@@ -10,13 +9,11 @@ const App = () => {
         {id: 3, text: 'List Item 3', btnText: 'Button 3'}
     ];
 
-    const listProps: ListProps<Info> = {data};
-
     return (
         <>
             <h1>Vite + React</h1>
             <div className="card">
-                <List data={listProps.data}/>
+                <List data={data}/>
             </div>
 
         </>
