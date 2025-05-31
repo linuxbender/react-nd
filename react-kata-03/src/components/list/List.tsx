@@ -1,14 +1,6 @@
 import "./list.css";
-
-export type Info = {
-    id: number;
-    text: string;
-    btnText: string;
-}
-
-export type ListProps<T> = {
-    data: T[];
-};
+import type {ListProps} from "../../types/props";
+import type {Info} from "../../types/appTypes.ts";
 
 const List = ({data}: ListProps<Info>) => {
 
