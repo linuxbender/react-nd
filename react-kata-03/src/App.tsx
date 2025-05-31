@@ -10,13 +10,13 @@ const App = () => {
     ];
 
     return (
-        <>
+        <div className="p-2 space-y-2">
             <h1>Vite + React</h1>
-            <div className="card">
+            <div>
                 <List data={data}/>
             </div>
 
-        </>
+        </div>
     )
 }
 
