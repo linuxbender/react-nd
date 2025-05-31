@@ -1,4 +1,3 @@
-import './App.css'
 import List, {type Info, type ListProps} from "./components/list/List.tsx";
 
 const App = () => {

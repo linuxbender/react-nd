@@ -17,12 +17,13 @@ const List = ({data}: ListProps<Info>) => {
     }
 
     return (
-        <ul className="list">
-            <li className="list__item">
+        <ul className="">
+            <li className="">
                 {data && data.map((item: Info) => (
                     <span key={item.id}>
-                        <span className="list__item__text">{item.text}</span>
-                        <button className="list__item__btn" data-testid="btn-1">{item.btnText}</button>
+                        <span className="">{item.text}</span>
+                        <button className="bg-blue-500 rounded-[4px] px-2 py-2 text-white"
+                                data-testid="btn-1">{item.btnText}</button>
                     </span>
                 ))}
             </li>
