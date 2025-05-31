@@ -17,16 +17,18 @@ const List = ({data}: ListProps<Info>) => {
     }
 
     return (
-        <ul className="">
-            <li className="">
-                {data && data.map((item: Info) => (
-                    <span key={item.id}>
-                        <span className="">{item.text}</span>
-                        <button className="bg-blue-500 rounded-[4px] px-2 py-2 text-white"
-                                data-testid="btn-1">{item.btnText}</button>
-                    </span>
-                ))}
-            </li>
+        <ul className="space-y-2">
+            {data && data.map((item: Info) => (
+                <li key={item.id} className="flex items-center justify-between bg-white rounded shadow p-3">
+                    <span className="text-gray-800">{item.text}</span>
+                    <button
+                        className="list-btn bg-blue-500 hover:bg-blue-600 rounded px-3 py-1 text-white transition cursor-pointer"
+                        data-testid="btn-1"
+                    >
+                        {item.btnText}
+                    </button>
+                </li>
+            ))}
         </ul>
     );
 }
