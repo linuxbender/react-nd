@@ -2,26 +2,13 @@ import '@testing-library/jest-dom'
 import {describe, expect, it} from "vitest"
 import {render, screen} from '@testing-library/react'
 import App from './App'
+import {MemoryRouter} from "react-router";
 
-describe('TEST: App', () => {
+describe('App', () => {
+    it('renders the navigation links', () => {
+        render(<MemoryRouter><App/></MemoryRouter>)
 
-    it('zeigt den Titel "Vite + React" an', () => {
-        render(<App/>)
-        expect(screen.getByText('Vite + React')).toBeInTheDocument()
+        expect(screen.getByText('Home')).toBeInTheDocument()
+        expect(screen.getByText('Liste')).toBeInTheDocument()
     })
-
-    it('zeigt alle Listeneinträge korrekt an', () => {
-        render(<App/>)
-        expect(screen.getByText('List Item 1')).toBeInTheDocument()
-        expect(screen.getByText('List Item 2')).toBeInTheDocument()
-        expect(screen.getByText('List Item 3')).toBeInTheDocument()
-    })
-
-    it('zeigt die Buttons mit korrektem Text an', () => {
-        render(<App/>)
-        expect(screen.getByText('Button 1')).toBeInTheDocument()
-        expect(screen.getByText('Button 2')).toBeInTheDocument()
-        expect(screen.getByText('Button 3')).toBeInTheDocument()
-    })
-
 })

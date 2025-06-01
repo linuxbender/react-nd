@@ -1,21 +1,21 @@
-import List from "./components/list/List.tsx";
-import type {Info} from "./types/appTypes.ts";
+import {NavLink, Outlet} from "react-router";
 
 const App = () => {
-
-    const data: Info[] = [
-        {id: 1, text: 'List Item 1', btnText: 'Button 1'},
-        {id: 2, text: 'List Item 2', btnText: 'Button 2'},
-        {id: 3, text: 'List Item 3', btnText: 'Button 3'}
-    ];
-
     return (
-        <div className="p-2 space-y-2">
-            <h1>Vite + React</h1>
-            <div>
-                <List data={data}/>
-            </div>
-
+        <div className="flex h-screen">
+            <nav className="w-48 bg-gray-100 p-4">
+                <ul className="space-y-4">
+                    <li>
+                        <NavLink to={"/home"} className="text-blue-600 hover:underline">Home</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/list" className="text-blue-600 hover:underline">Liste</NavLink>
+                    </li>
+                </ul>
+            </nav>
+            <main className="flex-1 p-4">
+                <Outlet/>
+            </main>
         </div>
     )
 }
