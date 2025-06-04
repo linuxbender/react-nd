@@ -1,33 +1,42 @@
-name: Run Tests (react-kata-03)
+name: Run Tests (react-kata-03 & react-kata-04)
 
 on:
   push:
-    paths:
-      - 'react-kata-03/**'
     branches: [ master ]
   pull_request:
-    paths:
-      - 'react-kata-03/**'
     branches: [ master ]
 
 jobs:
-  test:
+  test-react-kata-03:
+    if: github.event_name == 'push' && contains(github.event.head_commit.modified, 'react-kata-03/')
     runs-on: ubuntu-latest
-
     defaults:
       run:
         working-directory: react-kata-03
-
     steps:
       - uses: actions/checkout@v4
-
       - name: Use Node.js 20.x
         uses: actions/setup-node@v4
         with:
           node-version: 20
-
       - name: Install dependencies
         run: yarn install --frozen-lockfile
-
       - name: Run tests
-        run: yarn test --coverage
+        run: yarn test
+
+  test-react-kata-04:
+    if: github.event_name == 'push' && contains(github.event.head_commit.modified, 'react-kata-04/')
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: react-kata-04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: Run tests
+        run: yarn test
