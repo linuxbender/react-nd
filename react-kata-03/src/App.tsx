@@ -1,5 +1,9 @@
 import {NavLink, Outlet} from "react-router";
 
+/**
+ * App component that serves as the main layout for the application.
+ * @constructor
+ */
 const App = () => {
     return (
         <div className="flex h-screen">
