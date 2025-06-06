@@ -3,16 +3,21 @@ name: Run Tests (react-kata-03 & react-kata-04)
 on:
   push:
     branches: [ master ]
+    paths:
+      - 'react-kata-03/**'
+      - 'react-kata-04/**'
   pull_request:
     branches: [ master ]
-
+    paths:
+      - 'react-kata-03/**'
+      - 'react-kata-04/**'
 jobs:
   test-react-kata-03:
-    if: github.event_name == 'push' && contains(github.event.head_commit.modified, 'react-kata-03/')
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: react-kata-03
+    if: ${{ github.event_name == 'push' || github.event_name == 'pull_request' }}
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js 20.x
@@ -25,11 +30,11 @@ jobs:
         run: yarn test
 
   test-react-kata-04:
-    if: github.event_name == 'push' && contains(github.event.head_commit.modified, 'react-kata-04/')
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: react-kata-04
+    if: ${{ github.event_name == 'push' || github.event_name == 'pull_request' }}
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js 20.x
