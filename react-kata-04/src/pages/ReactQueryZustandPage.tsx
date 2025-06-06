@@ -1,9 +1,28 @@
+import {useQuery} from "@tanstack/react-query";
+import {getUsers} from "../api/User.ts";
+import {useUserStore} from "../state/userStore.ts";
+import type {User} from "../types/User.ts";
+import {useEffect} from "react";
+
 export const ReactQueryZustandPage = () => {
+
+    const {users, setUsers} = useUserStore();
+
+    const {data} = useQuery({
+        queryKey: ['users'],
+        queryFn: () => getUsers(),
+    })
+
+    useEffect(() => {
+        if (data) {
+            setUsers(data as User[]);
+        }
+    }, [data, setUsers]);
+
     return (
         <div>
             <h1>React Query + Zustand</h1>
-            <p>This page will demonstrate how to use React Query with Zustand for state management.</p>
-            <p>Check the console for logs and network requests.</p>
+            {users.map(user => <div key={user.id}>{user.name}</div>)}
         </div>
     );
 }

@@ -11,6 +11,7 @@ import {HomePage} from "./pages/HomePage.tsx";
 import {createBrowserRouter, RouterProvider} from "react-router";
 import {RolePage} from "./pages/RolePage.tsx";
 import {ReactQueryZustandPage} from "./pages/ReactQueryZustandPage.tsx";
+import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 
 const routes = createBrowserRouter([
     {
@@ -21,33 +22,37 @@ const routes = createBrowserRouter([
             {
                 index: true,
                 element: <HomePage/>,
-                errorElement: <ErrorPage />,
+                errorElement: <ErrorPage/>,
             },
             {
                 path: 'home',
                 element: <HomePage/>,
-                errorElement: <ErrorPage />,
+                errorElement: <ErrorPage/>,
             },
             {
                 path: 'role',
                 element: <RolePage/>,
-                errorElement: <ErrorPage />,
+                errorElement: <ErrorPage/>,
             },
             {
                 path: 'react-query',
                 element: <ReactQueryZustandPage/>,
-                errorElement: <ErrorPage />,
+                errorElement: <ErrorPage/>,
             },
             {
                 path: '*',
-                element: <ErrorPage />,
+                element: <ErrorPage/>,
             }
         ]
     },
 ])
 
+const queryClient = new QueryClient();
+
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
-        <RouterProvider router={routes}/>
+        <QueryClientProvider client={queryClient}>
+            <RouterProvider router={routes}/>
+        </QueryClientProvider>
     </StrictMode>,
 )
