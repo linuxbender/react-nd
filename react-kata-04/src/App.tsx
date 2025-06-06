@@ -25,24 +25,30 @@ function App() {
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
+
+    const handleLinkClick = () => {
+        if (isMobile) {
+            handleDrawerToggle();
+        }
+    }
     const drawer = (
         <Box sx={{textAlign: 'center'}}>
             <Toolbar/>
             <List>
                 <ListItem disablePadding>
-                    <ListItemButton component={NavLink} to="/" end>
+                    <ListItemButton component={NavLink} to="/" onClick={handleLinkClick}>
                         <ListItemIcon><Home/></ListItemIcon>
                         <ListItemText primary="Home"/>
                     </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
-                    <ListItemButton component={NavLink} to="/role">
+                    <ListItemButton component={NavLink} to="/role" onClick={handleLinkClick}>
                         <ListItemIcon><Group/></ListItemIcon>
                         <ListItemText primary="Role"/>
                     </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
-                    <ListItemButton component={NavLink} to="/react-query">
+                    <ListItemButton component={NavLink} to="/react-query" onClick={handleLinkClick}>
                         <ListItemIcon><Extension/></ListItemIcon>
                         <ListItemText primary="react-query + Zustand"/>
                     </ListItemButton>
