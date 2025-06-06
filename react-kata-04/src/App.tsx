@@ -1,70 +1,58 @@
+import {AppBar, Box, Drawer, List, ListItem, ListItemButton, ListItemText, Toolbar, Typography} from '@mui/material';
 import './App.css'
-import type {Role} from "./types/Role.ts";
-import {Roles} from "./data/dataRole.ts";
-import Box from '@mui/material/Box';
-import Tab from '@mui/material/Tab';
-import TabContext from '@mui/lab/TabContext';
-import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
-import {useState} from "react";
-import {DataGrid} from "@mui/x-data-grid";
-
-// import {DataGrid} from '@mui/x-data-grid'
+import {NavLink, Outlet} from 'react-router';
 
 function App() {
 
-    const [currentTab, setCurrentTab] = useState<string>('META')
-    const roles: Role[] = Roles
-
-    const dataTab: string[] = Array.from(new Set(roles.map(role => role.application)))
-
-    const flattenRoles = Roles.flatMap(role =>
-        role.assets.flatMap(asset =>
-            asset.action.map(action => ({
-                id: `${role.id}-${asset.name.replace(" ", "-")}-${action}`,
-                roleId: role.id,
-                application: role.application,
-                assetName: asset.name,
-                action: action,
-            }))
-        )
-    );
-
-    const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
-        setCurrentTab(newValue)
-    }
+    const drawerWidth = 240;
 
     return (
-        <>
-            <Box>
-                <h1>Roles</h1>
-                <TabContext value={currentTab}>
-                    <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
-                        <TabList onChange={handleChange}>
-                            {dataTab.map((tab: string) => (
-                                <Tab key={tab} label={tab} value={tab}/>
-                            ))}
-                        </TabList>
-                    </Box>
-                    {dataTab.map((tab: string) => (
-                        <TabPanel value={tab} key={tab}>
-                            <Box sx={{height: 400, width: '100%'}}>
-                                {<DataGrid
-                                    rows={flattenRoles.filter(role => role.application === tab)}
-                                    columns={[
-                                        {field: 'assetName', headerName: 'Asset Name', width: 200},
-                                        {field: 'action', headerName: 'Action', width: 150},
-                                    ]}>
-                                </DataGrid>}
-                            </Box>
-                        </TabPanel>
-                    ))}
-                </TabContext>
+        <Box sx={{display: 'flex'}}>
+            {/* Header */}
+            <AppBar position="fixed" sx={{zIndex: (theme) => theme.zIndex.drawer + 1}}>
+                <Toolbar>
+                    <Typography variant="h6" noWrap component={NavLink} to="/"
+                                sx={{color: 'white', textDecoration: 'none', flexGrow: 1}}>
+                        Kata 04
+                    </Typography>
+                </Toolbar>
+            </AppBar>
+
+            {/* Sidebar */}
+            <Drawer
+                variant="permanent"
+                sx={{
+                    width: drawerWidth,
+                    flexShrink: 0,
+                    [`& .MuiDrawer-paper`]: {width: drawerWidth, boxSizing: 'border-box'},
+                }}
+            >
+                <Toolbar/>
+                <List>
+                    <ListItem disablePadding>
+                        <ListItemButton component={NavLink} to="/" end>
+                            <ListItemText primary="Home"/>
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding>
+                        <ListItemButton component={NavLink} to="/role">
+                            <ListItemText primary="Role"/>
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding>
+                        <ListItemButton component={NavLink} to="/contact">
+                            <ListItemText primary="Contact"/>
+                        </ListItemButton>
+                    </ListItem>
+                </List>
+            </Drawer>
+
+            {/* Content */}
+            <Box component="main" sx={{flexGrow: 1, p: 3}}>
+                <Toolbar/>
+                <Outlet/>
             </Box>
-            <pre>
-                {JSON.stringify(flattenRoles, null, 4)}
-            </pre>
-        </>
+        </Box>
     )
 }
 
