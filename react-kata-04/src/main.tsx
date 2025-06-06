@@ -10,6 +10,7 @@ import {ErrorPage} from "./pages/ErrorPage.tsx";
 import {HomePage} from "./pages/HomePage.tsx";
 import {createBrowserRouter, RouterProvider} from "react-router";
 import {RolePage} from "./pages/RolePage.tsx";
+import {ReactQueryZustandPage} from "./pages/ReactQueryZustandPage.tsx";
 
 const routes = createBrowserRouter([
     {
@@ -30,6 +31,11 @@ const routes = createBrowserRouter([
             {
                 path: 'role',
                 element: <RolePage/>,
+                errorElement: <ErrorPage />,
+            },
+            {
+                path: 'react-query',
+                element: <ReactQueryZustandPage/>,
                 errorElement: <ErrorPage />,
             },
             {

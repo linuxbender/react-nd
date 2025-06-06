@@ -8,7 +8,6 @@ function App() {
 
     return (
         <Box sx={{display: 'flex'}}>
-            {/* Header */}
             <AppBar position="fixed" sx={{zIndex: (theme) => theme.zIndex.drawer + 1}}>
                 <Toolbar>
                     <Typography variant="h6" noWrap component={NavLink} to="/"
@@ -17,8 +16,6 @@ function App() {
                     </Typography>
                 </Toolbar>
             </AppBar>
-
-            {/* Sidebar */}
             <Drawer
                 variant="permanent"
                 sx={{
@@ -40,14 +37,12 @@ function App() {
                         </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding>
-                        <ListItemButton component={NavLink} to="/contact">
-                            <ListItemText primary="Contact"/>
+                        <ListItemButton component={NavLink} to="/react-query">
+                            <ListItemText primary="react-query + Zustand"/>
                         </ListItemButton>
                     </ListItem>
                 </List>
             </Drawer>
-
-            {/* Content */}
             <Box component="main" sx={{flexGrow: 1, p: 3}}>
                 <Toolbar/>
                 <Outlet/>
