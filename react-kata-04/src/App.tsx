@@ -83,7 +83,7 @@ function App() {
                     variant="temporary"
                     open={mobileOpen}
                     onClose={handleDrawerToggle}
-                    ModalProps={{keepMounted: true}} // Verbessert die Performance auf mobilen Geräten
+                    ModalProps={{keepMounted: true}}
                     sx={{
                         display: {xs: 'block', sm: 'none'},
                         '& .MuiDrawer-paper': {width: drawerWidth},
