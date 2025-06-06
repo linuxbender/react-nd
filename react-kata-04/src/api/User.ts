@@ -1,6 +1,6 @@
-import type {User} from '../types/User';
+import type {User} from "@/types/User.ts";
 
-type GetUserFilters = {
+export type GetUserFilters = {
     limit: number;
     page: number;
 }

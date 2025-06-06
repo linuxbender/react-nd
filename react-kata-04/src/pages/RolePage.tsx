@@ -4,8 +4,8 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import {DataGrid} from "@mui/x-data-grid";
-import type {Role} from "../types/Role.ts";
-import {Roles} from "../data/dataRole.ts";
+import type {Role} from "@/types/Role.ts";
+import {Roles} from "@/data/dataRole.ts";
 import {useState} from "react";
 
 export const RolePage = () => {

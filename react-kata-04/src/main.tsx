@@ -4,13 +4,13 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import './index.css'
-import App from './App.tsx'
-import {ErrorPage} from "./pages/ErrorPage.tsx";
-import {HomePage} from "./pages/HomePage.tsx";
+import '@/index.css'
+import App from '@/App.tsx'
+import {ErrorPage} from "@/pages/ErrorPage.tsx";
+import {HomePage} from "@/pages/HomePage.tsx";
 import {createBrowserRouter, RouterProvider} from "react-router";
-import {RolePage} from "./pages/RolePage.tsx";
-import {ReactQueryZustandPage} from "./pages/ReactQueryZustandPage.tsx";
+import {RolePage} from "@/pages/RolePage.tsx";
+import {ReactQueryZustandPage} from "@/pages/ReactQueryZustandPage.tsx";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 
 const routes = createBrowserRouter([
