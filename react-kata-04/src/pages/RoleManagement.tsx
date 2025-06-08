@@ -1,154 +1,168 @@
-import {useState} from 'react';
+import {useState} from "react";
 import {
     Box,
     Card,
     CardContent,
-    Chip,
-    Divider,
+    FormControl,
     FormControlLabel,
-    Paper,
-    Stack,
+    Grid,
+    InputLabel,
+    MenuItem,
+    Select,
     Switch,
+    TextField,
     Typography,
-    useTheme
-} from '@mui/material';
+} from "@mui/material";
 
 const demoActions = ["READ", "WRITE", "UPDATE", "DELETE", "CREATE", "EXPORT", "FILE"];
 
-const demoRoleData = [
+const applications = ["All Applications", "App1", "App2", "App3"];
+const roles = ["All Roles", "Admin", "Editor", "Viewer"];
+
+const demoData = [
     {
         id: 1,
-        name: "Admin",
         application: "App1",
+        role: "Admin",
         assets: [
-            {asset: "Asset3", action: ["READ", "WRITE"]},
-            {asset: "Asset1", action: ["UPDATE"]},
-            {asset: "Asset4", action: ["DELETE"]},
+            { asset: "Asset1", actions: ["READ", "WRITE"] },
+            { asset: "Asset2", actions: ["DELETE", "CREATE"] },
         ],
     },
     {
         id: 2,
-        name: "Editor",
         application: "App2",
+        role: "Editor",
         assets: [
-            {asset: "Asset3", action: ["CREATE", "EXPORT"]},
-            {asset: "Asset5", action: ["READ"]},
+            { asset: "Asset3", actions: ["UPDATE", "EXPORT"] },
         ],
     },
     {
         id: 3,
-        name: "Viewer",
         application: "App3",
+        role: "Admin",
         assets: [
-            {asset: "Asset3", action: ["READ"]},
-            {asset: "Asset2", action: ["UPDATE", "DELETE"]},
-        ],
-    },
-    {
-        id: 4,
-        name: "Manager",
-        application: "App1",
-        assets: [
-            {asset: "Asset3", action: ["WRITE", "DELETE"]},
-            {asset: "Asset4", action: ["FILE"]},
-        ],
-    },
-    {
-        id: 5,
-        name: "Auditor",
-        application: "App2",
-        assets: [
-            {asset: "Asset3", action: ["READ", "EXPORT"]},
-            {asset: "Asset5", action: ["WRITE"]},
+            { asset: "Asset1", actions: ["READ"] },
+            { asset: "Asset4", actions: ["WRITE"] },
         ],
     },
 ];
 
-const ActionSwitches = ({actions, selectedActions, onToggle}) => {
-    const theme = useTheme();
+const RoleManagementUI = () => {
+    const [selectedApp, setSelectedApp] = useState("All Applications");
+    const [selectedRole, setSelectedRole] = useState("All Roles");
+    const [searchTerm, setSearchTerm] = useState("");
 
-    return (
-        <Paper elevation={2} sx={{p: 1, backgroundColor: theme.palette.background.paper}}>
-            <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
-                {actions.map((action) => (
-                    <FormControlLabel
-                        key={action}
-                        control={
-                            <Switch
-                                checked={selectedActions.includes(action)}
-                                onChange={(e) => onToggle(action, e.target.checked)}
-                                color="primary"
-                            />
-                        }
-                        label={<Typography variant="caption" fontWeight="bold">{action}</Typography>}
-                        sx={{m: 0}}
-                    />
-                ))}
-            </Stack>
-        </Paper>
-    );
-};
-
-const RoleManagement = () => {
-    const [roles, setRoles] = useState(demoRoleData);
-
-    const handleToggleAction = (roleId, assetName, action, enabled) => {
-        setRoles((prevRoles) =>
-            prevRoles.map((role) => {
-                if (role.id !== roleId) return role;
-
-                return {
-                    ...role,
-                    assets: role.assets.map((asset) => {
-                        if (asset.asset !== assetName) return asset;
-
-                        return {
-                            ...asset,
-                            action: enabled
-                                ? [...new Set([...asset.action, action])]
-                                : asset.action.filter((a) => a !== action),
-                        };
-                    }),
-                };
-            })
+    const filteredData = demoData.filter((item) => {
+        const appMatch = selectedApp === "All Applications" || item.application === selectedApp;
+        const roleMatch = selectedRole === "All Roles" || item.role === selectedRole;
+        const searchMatch = item.assets.some((asset) =>
+            asset.asset.toLowerCase().includes(searchTerm.toLowerCase())
         );
-    };
+        return appMatch && roleMatch && searchMatch;
+    });
 
     return (
         <Box p={2}>
-            <Typography variant="h4" gutterBottom textAlign="center">
+            <Typography variant="h4" gutterBottom>
                 Role Management
             </Typography>
-            {roles.map((role) => (
-                <Card key={role.id} sx={{mb: 3, boxShadow: 3}}>
-                    <CardContent>
-                        <Stack direction={{xs: "column", sm: "row"}} spacing={2}
-                               alignItems={{xs: "flex-start", sm: "center"}} justifyContent="space-between" mb={1}>
-                            <Typography variant="h6">
-                                {role.name}
-                                <Chip label={role.application} color="secondary" size="small" sx={{ml: 1}}/>
-                            </Typography>
-                        </Stack>
-                        <Divider sx={{my: 1}}/>
-                        {role.assets.map((asset) => (
-                            <Box key={asset.asset} mb={2}>
-                                <Typography variant="subtitle2" fontWeight="bold" gutterBottom>
-                                    Asset: {asset.asset}
+
+            <Grid container spacing={2}>
+                <Grid item xs={12} sm={4}>
+                    <FormControl fullWidth>
+                        <InputLabel id="app-select-label">Application</InputLabel>
+                        <Select
+                            labelId="app-select-label"
+                            value={selectedApp}
+                            label="Application"
+                            onChange={(e) => setSelectedApp(e.target.value)}
+                            sx={{ minWidth: 200 }}
+                        >
+                            {applications.map((app) => (
+                                <MenuItem key={app} value={app}>
+                                    {app}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                </Grid>
+
+                <Grid item xs={12} sm={4}>
+                    <FormControl fullWidth>
+                        <InputLabel id="role-select-label">Role</InputLabel>
+                        <Select
+                            labelId="role-select-label"
+                            value={selectedRole}
+                            label="Role"
+                            onChange={(e) => setSelectedRole(e.target.value)}
+                            sx={{ minWidth: 200 }}
+                        >
+                            {roles.map((role) => (
+                                <MenuItem key={role} value={role}>
+                                    {role}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                </Grid>
+
+                <Grid item xs={12} sm={4}>
+                    <TextField
+                        label="Search Assets"
+                        variant="outlined"
+                        fullWidth
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                </Grid>
+            </Grid>
+
+            <Box mt={2}>
+                {filteredData.length === 0 ? (
+                    <Typography>No matching data found.</Typography>
+                ) : (
+                    filteredData.map((item) => (
+                        <Card key={item.id} sx={{ mb: 2 }}>
+                            <CardContent>
+                                <Typography variant="h6" gutterBottom>
+                                    {item.role} - {item.application}
                                 </Typography>
-                                <ActionSwitches
-                                    actions={demoActions}
-                                    selectedActions={asset.action}
-                                    onToggle={(action, enabled) =>
-                                        handleToggleAction(role.id, asset.asset, action, enabled)
-                                    }
-                                />
-                            </Box>
-                        ))}
-                    </CardContent>
-                </Card>
-            ))}
+
+                                <Grid container spacing={2}>
+                                    {item.assets.map((assetObj, index) => (
+                                        <Grid key={index} item xs={12} sm={6} md={4}>
+                                            <Box border={1} borderRadius={2} p={2}>
+                                                <Typography variant="subtitle1" gutterBottom>
+                                                    {assetObj.asset}
+                                                </Typography>
+                                                <Box display="flex" flexWrap="wrap" gap={1}>
+                                                    {demoActions.map((action) => (
+                                                        <FormControlLabel
+                                                            key={action}
+                                                            control={
+                                                                <Switch
+                                                                    checked={assetObj.actions.includes(action)}
+                                                                    color="primary"
+                                                                    inputProps={{ "aria-label": `${action} toggle` }}
+                                                                />
+                                                            }
+                                                            label={action}
+                                                            labelPlacement="end"
+                                                        />
+                                                    ))}
+                                                </Box>
+                                            </Box>
+                                        </Grid>
+                                    ))}
+                                </Grid>
+                            </CardContent>
+                        </Card>
+                    ))
+                )}
+            </Box>
         </Box>
     );
 };
 
-export default RoleManagement;
+export default RoleManagementUI;
