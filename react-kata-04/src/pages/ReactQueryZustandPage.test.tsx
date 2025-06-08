@@ -28,16 +28,30 @@ describe('ReactQueryZustandPage', () => {
         (userApi.getUsers as Mock).mockResolvedValue(mockUsers);
     });
 
-    it('show title', () => {
+    it('shows title after loading', async () => {
         renderWithQueryClient(<ReactQueryZustandPage/>);
-        expect(screen.getByText(/React Query \+ Zustand/i)).toBeInTheDocument();
+
+        // Wait for the title to appear after loading state is finished
+        await waitFor(() => expect(screen.getByText(/React Query \+ Zustand/i)).toBeInTheDocument());
     });
 
-    it('show user', async () => {
+    it('shows users after loading', async () => {
         renderWithQueryClient(<ReactQueryZustandPage/>);
+
+        // Wait for the user names to appear after the loading is finished
         await waitFor(() => {
             expect(screen.getByText('Alice')).toBeInTheDocument();
             expect(screen.getByText('Bob')).toBeInTheDocument();
+        });
+    });
+
+    it('shows loading state', async () => {
+        renderWithQueryClient(<ReactQueryZustandPage/>);
+        // Simulate loading state by mocking the getUsers function to return a promise
+        const skeletons = screen.getAllByTestId('skeleton');
+        expect(skeletons.length).toBeGreaterThan(0); // Es sollten mehrere Skeletons im DOM sein
+        skeletons.forEach((skeleton) => {
+            expect(skeleton).toBeInTheDocument();
         });
     });
 });
