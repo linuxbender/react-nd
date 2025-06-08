@@ -47,11 +47,13 @@ describe('ReactQueryZustandPage', () => {
 
     it('shows loading state', async () => {
         renderWithQueryClient(<ReactQueryZustandPage/>);
+
         // Simulate loading state by mocking the getUsers function to return a promise
-        const skeletons = screen.getAllByTestId('skeleton');
+        const skeletons = screen.getAllByTestId(/skeleton-/); // Verwende RegExp, um alle Skeletons zu finden
         expect(skeletons.length).toBeGreaterThan(0); // Es sollten mehrere Skeletons im DOM sein
         skeletons.forEach((skeleton) => {
             expect(skeleton).toBeInTheDocument();
         });
     });
+
 });
