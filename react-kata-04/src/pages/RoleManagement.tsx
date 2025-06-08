@@ -1,4 +1,6 @@
-import React, {useState} from 'react';
+import {type FC, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+// import axios from 'axios';
 import {
     Box,
     Card,
@@ -17,6 +19,8 @@ import {
     Switch,
     Typography,
 } from '@mui/material';
+import type {RootState} from "@/store/Store.ts";
+import {UPDATE_ASSET_ACTION} from "@/store/AssetSlice.ts";
 
 const demoActions = ['READ', 'WRITE', 'UPDATE', 'DELETE', 'CREATE', 'EXPORT', 'FILE'];
 
@@ -25,23 +29,23 @@ const roleData = [
         appName: 'App1',
         roleName: 'Admin',
         assets: [
-            { asset: 'Asset1', actions: ['READ', 'WRITE'] },
-            { asset: 'Asset2', actions: ['DELETE', 'CREATE'] },
+            {asset: 'Asset1', actions: ['READ', 'WRITE']},
+            {asset: 'Asset2', actions: ['DELETE', 'CREATE']},
         ],
     },
     {
         appName: 'App2',
         roleName: 'Editor',
         assets: [
-            { asset: 'Asset3', actions: ['UPDATE', 'EXPORT'] },
+            {asset: 'Asset3', actions: ['UPDATE', 'EXPORT']},
         ],
     },
     {
         appName: 'App3',
         roleName: 'Admin',
         assets: [
-            { asset: 'Asset1', actions: ['READ'] },
-            { asset: 'Asset4', actions: ['WRITE'] },
+            {asset: 'Asset1', actions: ['READ']},
+            {asset: 'Asset4', actions: ['WRITE']},
         ],
     },
 ];
@@ -49,9 +53,43 @@ const roleData = [
 const appOptions = ['All Applications', 'App1', 'App2', 'App3'];
 const roleOptions = ['All Roles', 'Admin', 'Editor', 'Viewer'];
 
-const RoleManagementUI: React.FC = () => {
+const RoleManagementUI: FC = () => {
+    const dispatch = useDispatch();
+    const asset = useSelector((state: RootState) => state.asset)
     const [selectedApp, setSelectedApp] = useState('All Applications');
     const [selectedRole, setSelectedRole] = useState('All Roles');
+
+    const handleSwitchChange = async (
+        appName: string,
+        roleName: string,
+        assetName: string,
+        actionName: string,
+        checked: boolean
+    ) => {
+        try {
+            dispatch(UPDATE_ASSET_ACTION({
+                appName,
+                roleName,
+                asset: assetName,
+                action: actionName,
+                enabled: checked,
+            }));
+
+            /*await axios.post('/api/roles/update-action', {
+                appName,
+                roleName,
+                asset: assetName,
+                action: actionName,
+                enabled: checked,
+            });*/
+            /*
+            console.log(
+                `Updated ${appName} - ${roleName} - ${assetName} - ${actionName} to ${checked}`
+            );*/
+        } catch (error) {
+            console.error('Error updating action:', error);
+        }
+    };
 
     const filteredData = roleData.filter((item) => {
         const appMatch = selectedApp === 'All Applications' || item.appName === selectedApp;
@@ -66,7 +104,7 @@ const RoleManagementUI: React.FC = () => {
                     Role Management
                 </Typography>
 
-                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} mb={2}>
+                <Stack direction={{xs: 'column', sm: 'row'}} spacing={2} mb={2}>
                     <FormControl fullWidth>
                         <InputLabel>Application</InputLabel>
                         <Select
@@ -104,18 +142,21 @@ const RoleManagementUI: React.FC = () => {
                             No matching data found.
                         </Typography>
                     ) : (
-                        filteredData.map((item, index) => (
-                            <Paper key={index} elevation={2} sx={{ p: 2 }}>
+                        filteredData.map((it, index) => (
+                            <Paper key={index} elevation={2} sx={{p: 2}}>
                                 <Stack direction="row" spacing={1} mb={1} alignItems="center">
-                                    <Chip label={item.appName} color="primary" />
-                                    <Typography variant="h6">{item.roleName}</Typography>
+                                    <Chip label={it.appName} color="primary"/>
+                                    {
+                                        // <Typography variant="h6">Role: </Typography> //
+                                    }
+                                    <Chip label={it.roleName} color="secondary"/>
                                 </Stack>
 
-                                <Divider sx={{ mb: 2 }} />
+                                <Divider sx={{mb: 2}}/>
 
                                 <Grid container spacing={2}>
-                                    {item.assets.map((asset, idx) => (
-                                        <Grid key={idx} item xs={12} sm={6} md={4}>
+                                    {it.assets.map((asset, idx) => (
+                                        <Grid key={idx} >
                                             <Card>
                                                 <CardContent>
                                                     <Typography variant="subtitle1" gutterBottom>
@@ -128,6 +169,15 @@ const RoleManagementUI: React.FC = () => {
                                                                 control={
                                                                     <Switch
                                                                         checked={asset.actions.includes(action)}
+                                                                        onChange={(e) =>
+                                                                            handleSwitchChange(
+                                                                                it.appName,
+                                                                                it.roleName,
+                                                                                asset.asset,
+                                                                                action,
+                                                                                e.target.checked
+                                                                            )
+                                                                        }
                                                                         color="primary"
                                                                     />
                                                                 }
