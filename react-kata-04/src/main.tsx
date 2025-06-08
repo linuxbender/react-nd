@@ -12,6 +12,7 @@ import {createBrowserRouter, RouterProvider} from "react-router";
 import {RolePage} from "@/pages/RolePage.tsx";
 import {ReactQueryZustandPage} from "@/pages/ReactQueryZustandPage.tsx";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+import RoleManagement from "@/pages/RoleManagement.tsx";
 
 const routes = createBrowserRouter([
     {
@@ -37,6 +38,11 @@ const routes = createBrowserRouter([
             {
                 path: 'react-query',
                 element: <ReactQueryZustandPage/>,
+                errorElement: <ErrorPage/>,
+            },
+            {
+                path: 'role-management',
+                element: <RoleManagement/>,
                 errorElement: <ErrorPage/>,
             },
             {

@@ -53,6 +53,12 @@ function App() {
                         <ListItemText primary="react-query + Zustand"/>
                     </ListItemButton>
                 </ListItem>
+                <ListItem disablePadding>
+                    <ListItemButton component={NavLink} to="/role-management" onClick={handleLinkClick}>
+                        <ListItemIcon><Extension/></ListItemIcon>
+                        <ListItemText primary="role management"/>
+                    </ListItemButton>
+                </ListItem>
             </List>
         </Box>
     );
