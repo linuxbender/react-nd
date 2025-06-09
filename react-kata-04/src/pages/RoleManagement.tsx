@@ -1,5 +1,4 @@
 import {type FC, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
 // import axios from 'axios';
 import {
     Box,
@@ -19,8 +18,8 @@ import {
     Switch,
     Typography,
 } from '@mui/material';
-import type {RootState} from "@/store/Store.ts";
 import {UPDATE_ASSET_ACTION} from "@/store/AssetSlice.ts";
+import {useAppDispatch, useAppSelector} from "@/hooks/Redux.ts";
 
 const demoActions = ['READ', 'WRITE', 'UPDATE', 'DELETE', 'CREATE', 'EXPORT', 'FILE'];
 
@@ -54,8 +53,9 @@ const appOptions = ['All Applications', 'App1', 'App2', 'App3'];
 const roleOptions = ['All Roles', 'Admin', 'Editor', 'Viewer'];
 
 const RoleManagementUI: FC = () => {
-    const dispatch = useDispatch();
-    const asset = useSelector((state: RootState) => state.asset)
+    const dispatch = useAppDispatch();
+    const asset = useAppSelector((state => state.asset));
+    console.log('Asset from store:', JSON.stringify(asset, null, 2));
     const [selectedApp, setSelectedApp] = useState('All Applications');
     const [selectedRole, setSelectedRole] = useState('All Roles');
 
@@ -142,21 +142,21 @@ const RoleManagementUI: FC = () => {
                             No matching data found.
                         </Typography>
                     ) : (
-                        filteredData.map((it, index) => (
+                        filteredData.map((item, index) => (
                             <Paper key={index} elevation={2} sx={{p: 2}}>
                                 <Stack direction="row" spacing={1} mb={1} alignItems="center">
-                                    <Chip label={it.appName} color="primary"/>
+                                    <Chip label={item.appName} color="primary"/>
                                     {
                                         // <Typography variant="h6">Role: </Typography> //
                                     }
-                                    <Chip label={it.roleName} color="secondary"/>
+                                    <Chip label={item.roleName} color="secondary"/>
                                 </Stack>
 
                                 <Divider sx={{mb: 2}}/>
 
                                 <Grid container spacing={2}>
-                                    {it.assets.map((asset, idx) => (
-                                        <Grid key={idx} >
+                                    {item.assets.map((asset, idx) => (
+                                        <Grid key={idx}>
                                             <Card>
                                                 <CardContent>
                                                     <Typography variant="subtitle1" gutterBottom>
@@ -171,8 +171,8 @@ const RoleManagementUI: FC = () => {
                                                                         checked={asset.actions.includes(action)}
                                                                         onChange={(e) =>
                                                                             handleSwitchChange(
-                                                                                it.appName,
-                                                                                it.roleName,
+                                                                                item.appName,
+                                                                                item.roleName,
                                                                                 asset.asset,
                                                                                 action,
                                                                                 e.target.checked

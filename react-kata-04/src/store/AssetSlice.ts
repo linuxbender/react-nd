@@ -1,11 +1,11 @@
 import {createSlice, type PayloadAction} from "@reduxjs/toolkit";
 
 type Asset = {
-    appName: string | "";
-    roleName: string | "";
-    asset: string | "";
-    action: string | "";
-    enabled: boolean | false;
+    appName: string;
+    roleName: string;
+    asset: string;
+    action: string;
+    enabled: boolean;
 };
 
 const createInitAsset = (): Asset => ({
