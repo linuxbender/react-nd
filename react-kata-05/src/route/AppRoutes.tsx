@@ -22,7 +22,8 @@ const AppRoutes = createBrowserRouter([
                 path: '*',
                 element: <ErrorPage/>
             }
-        ]
+        ],
+        errorElement: <ErrorPage/>
     }
 ]);
 
