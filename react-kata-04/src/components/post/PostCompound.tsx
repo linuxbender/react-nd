@@ -47,6 +47,7 @@ PostCardCompound.Content = function PostCardContent() {
 }
 
 PostCardCompound.User = () => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const {post} = usePostCardContext();
     return (<div key={post.user.id}>
         <p>Author: {post.user.name}</p>
