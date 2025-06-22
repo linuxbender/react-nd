@@ -59,6 +59,12 @@ function App() {
                         <ListItemText primary="role management"/>
                     </ListItemButton>
                 </ListItem>
+                <ListItem disablePadding>
+                    <ListItemButton component={NavLink} to="/post-card" onClick={handleLinkClick}>
+                        <ListItemIcon><Extension/></ListItemIcon>
+                        <ListItemText primary="post card"/>
+                    </ListItemButton>
+                </ListItem>
             </List>
         </Box>
     );

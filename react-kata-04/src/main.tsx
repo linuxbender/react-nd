@@ -15,6 +15,7 @@ import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import RoleManagement from "@/pages/RoleManagement.tsx";
 import {Provider} from 'react-redux'
 import {Store} from "@/store/Store.ts";
+import PostCardPage from "@/pages/PostCardPage.tsx";
 
 const container = document.getElementById('root')
 const routes = createBrowserRouter([
@@ -46,6 +47,11 @@ const routes = createBrowserRouter([
             {
                 path: 'role-management',
                 element: <RoleManagement/>,
+                errorElement: <ErrorPage/>,
+            },
+            {
+                path: 'post-card',
+                element: <PostCardPage/>,
                 errorElement: <ErrorPage/>,
             },
             {
