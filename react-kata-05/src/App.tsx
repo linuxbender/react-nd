@@ -1,5 +1,6 @@
 import {useState} from 'react'
 import {Link, Outlet} from "react-router";
+import '@/app.css'
 
 function App() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -19,7 +20,7 @@ function App() {
                 <nav className="p-4">
                     <ul>
                         <li className="py-2 hover:bg-gray-200 rounded cursor-pointer">
-                            <Link to={'home'} onClick={() =>setSidebarOpen(false)}>Home</Link>
+                            <Link to={'home'} onClick={() => setSidebarOpen(false)}>Home</Link>
                         </li>
                         <li className="py-2 hover:bg-gray-200 rounded cursor-pointer">Menu 2</li>
                         <li className="py-2 hover:bg-gray-200 rounded cursor-pointer">Menu 3</li>
