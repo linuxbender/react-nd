@@ -1,5 +1,5 @@
 import {type FC, type MouseEvent, useRef, useState} from "react";
-import type {AnchorPoint, ShapeData} from "@/types/CanvasTypes.ts";
+import type {AnchorPoint, ShapeData, ShapeType} from "@/types/CanvasTypes.ts";
 import Connector from "@/components/canvas/Connector.tsx";
 import Shape from "@/components/canvas/Shape.tsx";
 import Anchor from "@/components/canvas/Anchor.tsx";
@@ -14,6 +14,7 @@ const CanvasPage: FC = () => {
 
     const svgRef = useRef<SVGSVGElement | null>(null);
     const offset = useRef<{ x: number; y: number }>({x: 0, y: 0});
+    const idCounter = useRef(1);
 
     const handleMouseDown = (e: MouseEvent, id: string) => {
         e.stopPropagation();
@@ -50,6 +51,19 @@ const CanvasPage: FC = () => {
         setDraggingId(null);
     };
 
+    const addShape = (type: ShapeType) => {
+        const id = `shape-${idCounter.current++}`;
+        const label = type === 'rectangle' ? `Box ${idCounter.current - 1}` : `Circle ${idCounter.current - 1}`;
+        const newShape: ShapeData = {
+            id,
+            type,
+            x: 100 + (shapes.length * 30),
+            y: 100 + (shapes.length * 30),
+            label,
+        };
+        setShapes(prev => [...prev, newShape]);
+    };
+
     const getAnchor = (shape: ShapeData): AnchorPoint => {
         if (shape.type === 'rectangle') {
             return {x: shape.x + 120, y: shape.y + 40}; // rechte Mitte
@@ -58,38 +72,42 @@ const CanvasPage: FC = () => {
         }
     };
 
-    const rect = shapes.find(s => s.type === 'rectangle')!;
-    const circle = shapes.find(s => s.type === 'circle')!;
+    const [rect, circle] = shapes;
     const from = getAnchor(rect);
     const to = getAnchor(circle);
 
     return (
-        <svg
-            ref={svgRef}
-            width="100%"
-            height="100vh"
-            style={{border: '1px solid #ccc', cursor: draggingId ? 'grabbing' : 'default'}}
-            onMouseMove={handleMouseMove}
-            onMouseUp={handleMouseUp}
-        >
+        <>
+            <div style={{padding: 10, background: '#f0f0f0'}}>
+                <button onClick={() => addShape('rectangle')}>➕ Rechteck hinzufügen</button>
+                <button onClick={() => addShape('circle')}>➕ Kreis hinzufügen</button>
+            </div>
+            <svg
+                ref={svgRef}
+                width="100%"
+                height="100vh"
+                style={{border: '1px solid #ccc', cursor: draggingId ? 'grabbing' : 'default'}}
+                onMouseMove={handleMouseMove}
+                onMouseUp={handleMouseUp}
+            >
 
-            <defs>
-                <marker id="arrow" markerWidth="10" markerHeight="10" refX="10" refY="5" orient="auto">
-                    <path d="M0,0 L10,5 L0,10 Z" fill="black"/>
-                </marker>
-            </defs>
+                <defs>
+                    <marker id="arrow" markerWidth="10" markerHeight="10" refX="10" refY="5" orient="auto">
+                        <path d="M0,0 L10,5 L0,10 Z" fill="black"/>
+                    </marker>
+                </defs>
 
-            <Connector from={from} to={to}/>
+                {from && to && <Connector from={from} to={to} />}
+                {from && <Anchor {...from} />}
+                {to && <Anchor {...to} />}
 
-            <Anchor {...from} />
-            <Anchor {...to} />
-
-            {shapes.map(shape => (
-                <g key={shape.id} onMouseDown={e => handleMouseDown(e, shape.id)}>
-                    <Shape shape={shape}/>
-                </g>
-            ))}
-        </svg>
+                {shapes.map(shape => (
+                    <g key={shape.id} onMouseDown={e => handleMouseDown(e, shape.id)}>
+                        <Shape shape={shape}/>
+                    </g>
+                ))}
+            </svg>
+        </>
     );
 }
 export default CanvasPage;
