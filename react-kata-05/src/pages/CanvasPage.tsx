@@ -1,5 +1,5 @@
 import {type FC, type MouseEvent, useRef, useState} from "react";
-import type {AnchorPoint, ShapeData, ShapeType} from "@/types/CanvasTypes.ts";
+import type {AnchorPoint, Connection, ShapeData, ShapeType} from "@/types/CanvasTypes.ts";
 import Connector from "@/components/canvas/Connector.tsx";
 import Shape from "@/components/canvas/Shape.tsx";
 import Anchor from "@/components/canvas/Anchor.tsx";
@@ -7,10 +7,9 @@ import Anchor from "@/components/canvas/Anchor.tsx";
 const CanvasPage: FC = () => {
 
     const [draggingId, setDraggingId] = useState<string | null>(null);
-    const [shapes, setShapes] = useState<ShapeData[]>([
-        {id: 'rect1', type: 'rectangle', x: 100, y: 100, label: 'Box A'},
-        {id: 'circle1', type: 'circle', x: 400, y: 200, label: 'Circle B'},
-    ]);
+    const [shapes, setShapes] = useState<ShapeData[]>([]);
+    const [selectedAnchor, setSelectedAnchor] = useState<AnchorPoint | null>(null);
+    const [connections, setConnections] = useState<Connection[]>([]);
 
     const svgRef = useRef<SVGSVGElement | null>(null);
     const offset = useRef<{ x: number; y: number }>({x: 0, y: 0});
@@ -64,42 +63,61 @@ const CanvasPage: FC = () => {
         setShapes(prev => [...prev, newShape]);
     };
 
-    const getAnchor = (shape: ShapeData): AnchorPoint => {
+    const getAnchorPoints = (shape: ShapeData): AnchorPoint[] => {
         if (shape.type === 'rectangle') {
-            return {x: shape.x + 120, y: shape.y + 40}; // rechte Mitte
+            return [
+                {shapeId: shape.id, x: shape.x + 120, y: shape.y + 40}, // rechte Mitte
+                {shapeId: shape.id, x: shape.x, y: shape.y + 40},       // linke Mitte
+            ];
         } else {
-            return {x: shape.x - 40, y: shape.y}; // linke Seite des Kreises
+            return [
+                {shapeId: shape.id, x: shape.x + 40, y: shape.y},
+                {shapeId: shape.id, x: shape.x - 40, y: shape.y},
+            ];
         }
     };
 
-    const [rect, circle] = shapes;
-    const from = getAnchor(rect);
-    const to = getAnchor(circle);
+    const handleAnchorClick = (anchor: AnchorPoint) => {
+        if (!selectedAnchor) {
+            setSelectedAnchor(anchor); // Startpunkt
+        } else {
+            if (anchor.shapeId !== selectedAnchor.shapeId) {
+                // Verbindung erstellen
+                setConnections(prev => [...prev, {from: selectedAnchor, to: anchor}]);
+            }
+            setSelectedAnchor(null); // Reset
+        }
+    };
 
     return (
         <>
             <div style={{padding: 10, background: '#f0f0f0'}}>
                 <button onClick={() => addShape('rectangle')}>➕ Rechteck hinzufügen</button>
                 <button onClick={() => addShape('circle')}>➕ Kreis hinzufügen</button>
+                {selectedAnchor && <span style={{marginLeft: 20}}>🔗 Verbindung aktiv – wähle Ziel</span>}
             </div>
-            <svg
-                ref={svgRef}
-                width="100%"
-                height="100vh"
-                style={{border: '1px solid #ccc', cursor: draggingId ? 'grabbing' : 'default'}}
-                onMouseMove={handleMouseMove}
-                onMouseUp={handleMouseUp}
-            >
 
+            <svg ref={svgRef} width="100%" height="100vh"
+                 style={{border: '1px solid #ccc', cursor: draggingId ? 'grabbing' : 'default'}}
+                 onMouseMove={handleMouseMove}
+                 onMouseUp={handleMouseUp}
+                 onClick={() => setSelectedAnchor(null)}
+            >
                 <defs>
                     <marker id="arrow" markerWidth="10" markerHeight="10" refX="10" refY="5" orient="auto">
                         <path d="M0,0 L10,5 L0,10 Z" fill="black"/>
                     </marker>
                 </defs>
 
-                {from && to && <Connector from={from} to={to} />}
-                {from && <Anchor {...from} />}
-                {to && <Anchor {...to} />}
+                {connections.map((conn, i) => (
+                    <Connector key={i} from={conn.from} to={conn.to}/>
+                ))}
+
+                {shapes.flatMap(shape =>
+                    getAnchorPoints(shape).map((anchor, i) => (
+                        <Anchor key={`${shape.id}-anchor-${i}`} anchor={anchor} onClick={handleAnchorClick}/>
+                    ))
+                )}
 
                 {shapes.map(shape => (
                     <g key={shape.id} onMouseDown={e => handleMouseDown(e, shape.id)}>

@@ -1,4 +1,5 @@
 export type AnchorPoint = {
+    shapeId: string;
     x: number;
     y: number;
 };
@@ -11,4 +12,9 @@ export type ShapeData = {
     x: number;
     y: number;
     label: string;
+};
+
+export type Connection = {
+    from: AnchorPoint;
+    to: AnchorPoint;
 };
