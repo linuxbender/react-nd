@@ -1,4 +1,4 @@
-import {type FC, useRef, useState} from "react";
+import {type FC, type MouseEvent, useRef, useState} from "react";
 import type {AnchorPoint, ShapeData} from "@/types/CanvasTypes.ts";
 import Connector from "@/components/canvas/Connector.tsx";
 import Shape from "@/components/canvas/Shape.tsx";
@@ -15,7 +15,7 @@ const CanvasPage: FC = () => {
     const svgRef = useRef<SVGSVGElement | null>(null);
     const offset = useRef<{ x: number; y: number }>({x: 0, y: 0});
 
-    const handleMouseDown = (e: React.MouseEvent, id: string) => {
+    const handleMouseDown = (e: MouseEvent, id: string) => {
         e.stopPropagation();
         const svg = svgRef.current!;
         const pt = svg.createSVGPoint();
@@ -29,7 +29,7 @@ const CanvasPage: FC = () => {
         }
     };
 
-    const handleMouseMove = (e: React.MouseEvent) => {
+    const handleMouseMove = (e: MouseEvent) => {
         if (!draggingId) return;
         const svg = svgRef.current!;
         const pt = svg.createSVGPoint();
