@@ -2,6 +2,7 @@ import {createBrowserRouter} from "react-router";
 import App from "@/App.tsx";
 import HomePage from "@/pages/HomePage.tsx";
 import ErrorPage from "@/pages/ErrorPage.tsx";
+import CanvasPage from "@/pages/CanvasPage.tsx";
 
 const AppRoutes = createBrowserRouter([
     {
@@ -16,6 +17,11 @@ const AppRoutes = createBrowserRouter([
             {
                 path: 'home',
                 element: <HomePage/>,
+                errorElement: <ErrorPage/>,
+            },
+            {
+                path: 'canvas',
+                element: <CanvasPage/>,
                 errorElement: <ErrorPage/>,
             },
             {
