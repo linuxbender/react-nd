@@ -1,19 +1,13 @@
-import type {ShapeType} from "@/types/CanvasTypes.ts";
+import type {ShapeData} from "@/types/CanvasTypes.ts";
 import type {FC} from "react";
 
-type ShapeProps = {
-    id: string;
-    type: ShapeType;
-    x: number;
-    y: number;
-    width?: number;
-    height?: number;
-    radius?: number;
-    color?: string;
-    label?: string;
-}
+const Shape: FC<{ shape: ShapeData }> = ({shape}) => {
+    const {type, x, y, label} = shape;
+    const width = 120;
+    const height = 80;
+    const radius = 40;
 
-const Shape: FC<ShapeProps> = ({type, x, y, width = 100, height = 60, radius = 40, label}) => {
+
     const centerX = type === 'rectangle' ? x + width / 2 : x;
     const centerY = type === 'rectangle' ? y + height / 2 : y;
 
