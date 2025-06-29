@@ -1,22 +1,47 @@
-import {type FC, type MouseEvent, useRef, useState} from "react";
-import type {AnchorPoint, Connection, ShapeData, ShapeType} from "@/types/CanvasTypes.ts";
+import {type FC, useRef, useState} from "react";
+import type {AnchorPoint, AnchorRef, Connection, ShapeData, ShapeType} from "@/types/CanvasTypes.ts";
 import Connector from "@/components/canvas/Connector.tsx";
 import Shape from "@/components/canvas/Shape.tsx";
 import Anchor from "@/components/canvas/Anchor.tsx";
 
 const CanvasPage: FC = () => {
 
-    const [draggingId, setDraggingId] = useState<string | null>(null);
-    const [shapes, setShapes] = useState<ShapeData[]>([]);
-    const [selectedAnchor, setSelectedAnchor] = useState<AnchorPoint | null>(null);
-    const [connections, setConnections] = useState<Connection[]>([]);
-
     const svgRef = useRef<SVGSVGElement | null>(null);
+    const [shapes, setShapes] = useState<ShapeData[]>([]);
+    const [connections, setConnections] = useState<Connection[]>([]);
+    const [selectedAnchor, setSelectedAnchor] = useState<AnchorRef | null>(null);
+    const [draggingId, setDraggingId] = useState<string | null>(null);
     const offset = useRef<{ x: number; y: number }>({x: 0, y: 0});
     const idCounter = useRef(1);
 
-    const handleMouseDown = (e: MouseEvent, id: string) => {
-        e.stopPropagation();
+    const getAnchorPoints = (shape: ShapeData): AnchorPoint[] => {
+        if (shape.type === 'rectangle') {
+            return [
+                {x: shape.x + 120, y: shape.y + 40, shapeId: shape.id},
+                {x: shape.x, y: shape.y + 40, shapeId: shape.id},
+            ];
+        } else {
+            return [
+                {x: shape.x + 40, y: shape.y, shapeId: shape.id},
+                {x: shape.x - 40, y: shape.y, shapeId: shape.id},
+            ];
+        }
+    };
+
+    const addShape = (type: ShapeType) => {
+        const id = `shape-${idCounter.current++}`;
+        const label = type === 'rectangle' ? `Box ${idCounter.current - 1}` : `Circle ${idCounter.current - 1}`;
+        const newShape: ShapeData = {
+            id,
+            type,
+            x: 100 + (shapes.length * 30),
+            y: 100 + (shapes.length * 30),
+            label,
+        };
+        setShapes(prev => [...prev, newShape]);
+    };
+
+    const handleMouseDown = (e: React.MouseEvent, id: string) => {
         const svg = svgRef.current!;
         const pt = svg.createSVGPoint();
         pt.x = e.clientX;
@@ -29,7 +54,7 @@ const CanvasPage: FC = () => {
         }
     };
 
-    const handleMouseMove = (e: MouseEvent) => {
+    const handleMouseMove = (e: React.MouseEvent) => {
         if (!draggingId) return;
         const svg = svgRef.current!;
         const pt = svg.createSVGPoint();
@@ -50,58 +75,41 @@ const CanvasPage: FC = () => {
         setDraggingId(null);
     };
 
-    const addShape = (type: ShapeType) => {
-        const id = `shape-${idCounter.current++}`;
-        const label = type === 'rectangle' ? `Box ${idCounter.current - 1}` : `Circle ${idCounter.current - 1}`;
-        const newShape: ShapeData = {
-            id,
-            type,
-            x: 100 + (shapes.length * 30),
-            y: 100 + (shapes.length * 30),
-            label,
-        };
-        setShapes(prev => [...prev, newShape]);
-    };
-
-    const getAnchorPoints = (shape: ShapeData): AnchorPoint[] => {
-        if (shape.type === 'rectangle') {
-            return [
-                {shapeId: shape.id, x: shape.x + 120, y: shape.y + 40}, // rechte Mitte
-                {shapeId: shape.id, x: shape.x, y: shape.y + 40},       // linke Mitte
-            ];
-        } else {
-            return [
-                {shapeId: shape.id, x: shape.x + 40, y: shape.y},
-                {shapeId: shape.id, x: shape.x - 40, y: shape.y},
-            ];
-        }
-    };
-
-    const handleAnchorClick = (anchor: AnchorPoint) => {
+    const handleAnchorClick = (shapeId: string, anchorIndex: number) => {
+        const ref = {shapeId, anchorIndex};
         if (!selectedAnchor) {
-            setSelectedAnchor(anchor); // Startpunkt
+            setSelectedAnchor(ref);
         } else {
-            if (anchor.shapeId !== selectedAnchor.shapeId) {
-                // Verbindung erstellen
-                setConnections(prev => [...prev, {from: selectedAnchor, to: anchor}]);
+            if (selectedAnchor.shapeId !== shapeId || selectedAnchor.anchorIndex !== anchorIndex) {
+                setConnections(prev => [...prev, {from: selectedAnchor, to: ref}]);
             }
-            setSelectedAnchor(null); // Reset
+            setSelectedAnchor(null);
         }
+    };
+
+    const resolveAnchor = (ref: AnchorRef): AnchorPoint => {
+        const shape = shapes.find(s => s.id === ref.shapeId);
+        if (!shape) return {x: 0, y: 0, shapeId: ''};
+        const points = getAnchorPoints(shape);
+        return points[ref.anchorIndex];
     };
 
     return (
         <>
             <div style={{padding: 10, background: '#f0f0f0'}}>
-                <button onClick={() => addShape('rectangle')}>➕ Rechteck hinzufügen</button>
-                <button onClick={() => addShape('circle')}>➕ Kreis hinzufügen</button>
-                {selectedAnchor && <span style={{marginLeft: 20}}>🔗 Verbindung aktiv – wähle Ziel</span>}
+                <button onClick={() => addShape('rectangle')}>➕ Rechteck</button>
+                <button onClick={() => addShape('circle')}>➕ Kreis</button>
+                {selectedAnchor && <span style={{marginLeft: 20}}>🔗 Wähle zweiten Punkt</span>}
             </div>
 
-            <svg ref={svgRef} width="100%" height="100vh"
-                 style={{border: '1px solid #ccc', cursor: draggingId ? 'grabbing' : 'default'}}
-                 onMouseMove={handleMouseMove}
-                 onMouseUp={handleMouseUp}
-                 onClick={() => setSelectedAnchor(null)}
+            <svg
+                ref={svgRef}
+                width="100%"
+                height="100vh"
+                style={{border: '1px solid #ccc', cursor: draggingId ? 'grabbing' : 'default'}}
+                onMouseMove={handleMouseMove}
+                onMouseUp={handleMouseUp}
+                onClick={() => setSelectedAnchor(null)}
             >
                 <defs>
                     <marker id="arrow" markerWidth="10" markerHeight="10" refX="10" refY="5" orient="auto">
@@ -110,12 +118,20 @@ const CanvasPage: FC = () => {
                 </defs>
 
                 {connections.map((conn, i) => (
-                    <Connector key={i} from={conn.from} to={conn.to}/>
+                    <Connector
+                        key={i}
+                        from={resolveAnchor(conn.from)}
+                        to={resolveAnchor(conn.to)}
+                    />
                 ))}
 
-                {shapes.flatMap(shape =>
-                    getAnchorPoints(shape).map((anchor, i) => (
-                        <Anchor key={`${shape.id}-anchor-${i}`} anchor={anchor} onClick={handleAnchorClick}/>
+                {shapes.flatMap((shape) =>
+                    getAnchorPoints(shape).map((anchor, aIdx) => (
+                        <Anchor
+                            key={`${shape.id}-anchor-${aIdx}`}
+                            anchor={anchor}
+                            onClick={() => handleAnchorClick(shape.id, aIdx)}
+                        />
                     ))
                 )}
 

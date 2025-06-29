@@ -14,7 +14,12 @@ export type ShapeData = {
     label: string;
 };
 
+export type AnchorRef = {
+    shapeId: string;
+    anchorIndex: number;
+};
+
 export type Connection = {
-    from: AnchorPoint;
-    to: AnchorPoint;
+    from: AnchorRef;
+    to: AnchorRef;
 };
