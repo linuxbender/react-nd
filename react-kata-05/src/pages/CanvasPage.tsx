@@ -1,4 +1,4 @@
-import {type FC, useRef, useState} from "react";
+import {type FC, type MouseEvent, useRef, useState} from "react";
 import type {AnchorPoint, AnchorRef, Connection, ShapeData, ShapeType} from "@/types/CanvasTypes.ts";
 import Connector from "@/components/canvas/Connector.tsx";
 import Shape from "@/components/canvas/Shape.tsx";
