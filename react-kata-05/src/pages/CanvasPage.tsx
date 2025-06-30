@@ -42,7 +42,8 @@ const CanvasPage: FC = () => {
         setShapes(prev => [...prev, newShape]);
     };
 
-    const handleMouseDown = (e: React.MouseEvent, id: string) => {
+    const handleMouseDown = (e: MouseEvent, id: string) => {
+        e.stopPropagation();
         const svg = svgRef.current!;
         const pt = svg.createSVGPoint();
         pt.x = e.clientX;
@@ -55,7 +56,8 @@ const CanvasPage: FC = () => {
         }
     };
 
-    const handleMouseMove = (e: React.MouseEvent) => {
+    const handleMouseMove = (e: MouseEvent) => {
+        e.stopPropagation();
         if (draggingId) {
             const svg = svgRef.current!;
             const pt = svg.createSVGPoint();
