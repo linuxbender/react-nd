@@ -3,6 +3,7 @@ import App from "@/App.tsx";
 import HomePage from "@/pages/HomePage.tsx";
 import ErrorPage from "@/pages/ErrorPage.tsx";
 import CanvasPage from "@/pages/CanvasPage.tsx";
+import ChessPage from "@/pages/ChessPage.tsx";
 
 const AppRoutes = createBrowserRouter([
     {
@@ -22,6 +23,11 @@ const AppRoutes = createBrowserRouter([
             {
                 path: 'canvas',
                 element: <CanvasPage/>,
+                errorElement: <ErrorPage/>,
+            },
+            {
+                path: 'chess',
+                element: <ChessPage/>,
                 errorElement: <ErrorPage/>,
             },
             {
