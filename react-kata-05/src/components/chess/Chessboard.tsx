@@ -19,7 +19,7 @@ const Chessboard: FC = () => {
     const handleMouseDown = (index: number, event: React.MouseEvent) => {
         const piece = board[index];
         if (piece === C.EMPTY || piece === C.BORDER) return;
-        if (piece < 0) return; // Nur weiße Figuren für diesen Schritt
+        if (piece < 0) return; // Test: nur weiss Figure Springer
 
         let moves: Move[] = [];
         if (piece === C.WN) {
