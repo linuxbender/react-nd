@@ -6,7 +6,7 @@ export default defineConfig({
     build: {
         rollupOptions: {
             input: {
-                panel: 'index.html',
+                index: 'index.html',
                 background: 'src/background.ts',
             },
             output: {
@@ -15,5 +15,12 @@ export default defineConfig({
         },
         outDir: 'dist',
         emptyOutDir: true
-    }
+    },
+    resolve: {
+        alias: {
+            '@': '/src',
+            'react-kata-06': '/src'
+        }
+    },
+    base: './',
 })
