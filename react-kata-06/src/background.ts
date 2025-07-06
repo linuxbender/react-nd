@@ -10,7 +10,7 @@ chrome.runtime.onInstalled.addListener(() => {
     }
 
     sp.setOptions({
-        path: 'panel.html',
+        path: 'index.html',
         enabled: true,
     }).then(r => r);
 
