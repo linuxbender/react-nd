@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "Kata - 06",
+  "version": "1.0",
+  "description": "Sticky-Sidebar for Chrome & Edge",
+  "permissions": [
+    "sidePanel",
+    "storage"
+  ],
+  "action": {
+    "default_title": "SidePanel open"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "side_panel": {
+    "default_path": "index.html"
+  },
+  "icons": {
+    "16": "icon.svg",
+    "48": "icon.svg",
+    "128": "icon.svg"
+  }
+}
