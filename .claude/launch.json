@@ -1,0 +1,40 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "react-kata-04",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--", "--port", "5174"],
+      "cwd": "react-kata-04",
+      "port": 5174
+    },
+    {
+      "name": "react-kata-05 (Schach)",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--", "--port", "5175"],
+      "cwd": "react-kata-05",
+      "port": 5175
+    },
+    {
+      "name": "react-kata-06",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--", "--port", "5176"],
+      "cwd": "react-kata-06",
+      "port": 5176
+    },
+    {
+      "name": "react-kata-07",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--", "--port", "5177"],
+      "cwd": "react-kata-07",
+      "port": 5177
+    },
+    {
+      "name": "readable-api-server",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["start"],
+      "cwd": "react-and-redux/readable/api-server",
+      "port": 3001
+    }
+  ]
+}
