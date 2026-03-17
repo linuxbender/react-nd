@@ -2,9 +2,9 @@ import type {Board, Move} from "@/types/ChessTypes.ts";
 import {knightOffsets} from "@/components/chess/moveOffsets.ts";
 import * as C from "@/types/ChessConstants.ts";
 
-export const generateKnightMoves = (board: Board, index: number): Move[] => {
+export const generateKnightMoves = (board: Board, index: number, isWhite?: boolean): Move[] => {
     const piece = board[index];
-    const isWhite = piece > 0;
+    if (isWhite === undefined) isWhite = piece > 0;
 
     const moves: Move[] = [];
 
